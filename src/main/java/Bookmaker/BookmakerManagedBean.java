@@ -27,8 +27,14 @@ public class BookmakerManagedBean {
 
 
 
-    public void addBookmaker(){
-        this.bookmaker.addBookmaker(this.email, this.mdp, this.nom, this.prenom,  this.birthdate,this.adresse,this.tel );
+    public String createBookmaker(){
+        boolean success = this.bookmaker.addBookmaker(this.email, this.mdp, this.nom, this.prenom,  this.birthdate,this.adresse,this.tel );
+        if(success)
+        {
+            return "index.xhtml" ;
+        }
+        this.etat = "Ce compte existe deja" ;
+        return null ;
     }
     public List<BookmakerBean> getListBookmaker()
     {

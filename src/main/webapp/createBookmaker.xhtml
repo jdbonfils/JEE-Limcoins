@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+<h:outputLabel value="BookMakeur :"/>
+<h:form>
+    Email : <h:inputText value="#{bookmakerManagedBean.email}" id="email" required="true" />
+    mdp : <h:inputText value="#{bookmakerManagedBean.mdp}" id="mdp" required="true" />
+    Nom : <h:inputText value="#{bookmakerManagedBean.nom}" id="nom" required="true" />
+    Prenom : <h:inputText value="#{bookmakerManagedBean.prenom}" id="prenom" required="true" />
+    Date naissance : <h:inputText value="#{bookmakerManagedBean.birthdate}" id="date" required="true" />
+    Telephone : <h:inputText value="#{bookmakerManagedBean.tel}" id="tel" required="true" />
+    Adresse : <h:inputText value="#{bookmakerManagedBean.adresse}" id="addr" required="true" />
+    <h:commandButton value="Ajouter" action="#{bookmakerManagedBean.createBookmaker()}"/>
+    <h:outputText id="myStuff" value="#{bookmakerManagedBean.etat}" />
+</h:form>
+</html>

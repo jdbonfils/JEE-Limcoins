@@ -4,9 +4,7 @@ import Administrateur.AdministrateurBean;
 import Parieur.Parieur;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,9 +16,16 @@ public class BookmakerSessionBean implements Bookmaker, Serializable {
 
 
     @Override
-    public void addBookmaker(String email,String mdp, String nom, String prenom, String date, String addr,String tel) {
-        BookmakerBean p = new BookmakerBean(email,mdp, nom,prenom,date,addr,tel);
-        em.persist(p);
+    public boolean addBookmaker(String email,String mdp, String nom, String prenom, String date, String addr,String tel) {
+        Query q = em.createNativeQuery("select * from BookmakerBean p where p.EMAIL = ? ", BookmakerBean.class);
+        q.setParameter(1, email);
+        if(q.getResultList().isEmpty()) {
+            BookmakerBean p = new BookmakerBean(email, mdp, nom, prenom, date, addr, tel);
+            em.persist(p);
+            return true;
+        }
+            return false ;
+
     }
 
     @Override

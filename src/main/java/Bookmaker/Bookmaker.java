@@ -8,7 +8,7 @@ import java.util.List;
 
 @Remote
 public interface Bookmaker {
-    public void addBookmaker(String email,String mdp  ,  String nom,String prenom, String date, String addr,String tel);
+    public boolean addBookmaker(String email,String mdp  ,  String nom,String prenom, String date, String addr,String tel);
     public void updateBookmaker() ;
     public void deleteBookmaker(String email);
     public List<BookmakerBean> getListBookmaker();
