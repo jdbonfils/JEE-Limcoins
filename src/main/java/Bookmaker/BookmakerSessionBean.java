@@ -18,7 +18,8 @@ public class BookmakerSessionBean implements Bookmaker, Serializable {
 
     @Override
     public void addBookmaker(String nom, String prenom, String date, String addr,String tel) {
-
+        BookmakerBean p = new BookmakerBean(nom,prenom,date,addr,tel);
+        em.persist(p);
     }
 
     @Override
@@ -28,11 +29,14 @@ public class BookmakerSessionBean implements Bookmaker, Serializable {
 
     @Override
     public void deleteBookmaker(int id) {
-
+        Query q = em.createNativeQuery("DELETE FROM BookmakerBean p where p.ID = ?");
+        q.setParameter(1, id);
+        q.executeUpdate();
     }
 
     @Override
     public List<BookmakerBean> getListBookmaker() {
-        return null;
+        Query emQuery = em.createNamedQuery("allBookmaker") ;
+        return (List<BookmakerBean>) emQuery.getResultList() ;
     }
 }

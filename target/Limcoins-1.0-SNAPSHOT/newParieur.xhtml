@@ -7,16 +7,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
 <f:view>
     <h:outputLabel value="Hello, world"/>
-    <c:forEach items="#{parieurManagedBean.parieur.getListParieur()}" var="entry">
+    <c:forEach items="#{bookmakerManagedBean.bookmaker.getListBookmaker()}" var="entry">
         <li>Titre: #{entry.nom}  Auteur: #{entry.prenom}   Nombre Exemplaire : #{entry.adresse}</li>
     </c:forEach>
     <h:form>
-        Titre : <h:inputText value="#{parieurManagedBean.nom}" id="nom" required="true" />
-        Auteur : <h:inputText value="#{parieurManagedBean.prenom}" id="prenom" required="true" />
-        NbExemplaire : <h:inputText value="#{parieurManagedBean.birthdate}" id="birthdate" required="true" />
-        NbExemplaire : <h:inputText value="#{parieurManagedBean.adresse}" id="adresse" required="true" />
+        Titre : <h:inputText value="#{bookmakerManagedBean.nom}" id="nom" required="true" />
+        Auteur : <h:inputText value="#{bookmakerManagedBean.prenom}" id="prenom" required="true" />
+        NbExemplaire : <h:inputText value="#{bookmakerManagedBean.birthdate}" id="birthdate" required="true" />
+        NbExemplaire : <h:inputText value="#{bookmakerManagedBean.adresse}" id="adresse" required="true" />
 
-        <h:commandButton value="Ajouter" action="#{parieurManagedBean.addLivre()}"/>
+        <h:commandButton value="Ajouter" action="#{bookmakerManagedBean.addBookmaker()}"/>
     </h:form>
 </f:view>
 </html>
