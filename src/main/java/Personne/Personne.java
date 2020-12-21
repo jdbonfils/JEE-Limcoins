@@ -2,27 +2,38 @@ package Personne;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 
 @MappedSuperclass
 public abstract class Personne implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id ;
-
+    private String email ;
+    private String mdp ;
     protected String nom ;
     protected String prenom ;
     protected String adresse ;
 
-    public long getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
+    public String getMdp(){
+        return this.mdp;
+    }
+
+    public void setMdp(String mdp) {
+
+        this.mdp = outils.outils.getHashFromPassword(mdp) ;
+    }
 
     public String getNom() {
         return nom;

@@ -13,8 +13,10 @@ public class BookmakerBean extends Personne.Personne implements Serializable {
     protected String tel ;
 
 
-    public BookmakerBean(String nom, String prenom, String date, String addr,String tel)
+    public BookmakerBean(String mail,String mdp, String nom, String prenom, String date, String addr,String tel)
     {
+        this.setEmail(mail) ;
+        this.setMdp(mdp);
         this.setNom(nom);
         this.setPrenom(prenom) ;
         this.setBirthDate(date);

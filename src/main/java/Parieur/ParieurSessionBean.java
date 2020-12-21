@@ -1,5 +1,7 @@
 package Parieur;
 
+import Bookmaker.BookmakerBean;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,8 +16,8 @@ public class ParieurSessionBean implements Parieur, Serializable {
     EntityManager em ;
 
     @Override
-    public void addParieur(String nom,String prenom, String date, String addr) {
-        ParieurBean p = new ParieurBean(nom,prenom,date,addr);
+    public void addParieur(String email,String mdp,  String nom,String prenom, String date, String addr) {
+        ParieurBean p = new ParieurBean(email,mdp,  nom,prenom,date,addr);
         em.persist(p);
     }
 
@@ -25,9 +27,9 @@ public class ParieurSessionBean implements Parieur, Serializable {
     }
 
     @Override
-    public void deleteParieur(int id) {
+    public void deleteParieur(String email) {
         Query q = em.createNativeQuery("DELETE FROM ParieuBean p where p.ID = ?");
-        q.setParameter(1, id);
+        q.setParameter(1, email);
         q.executeUpdate();
     }
 
@@ -35,5 +37,16 @@ public class ParieurSessionBean implements Parieur, Serializable {
     public List<ParieurBean> getListParieur() {
         Query emQuery = em.createNamedQuery("allParieur") ;
         return (List<ParieurBean>) emQuery.getResultList() ;
+    }
+
+    @Override
+    public ParieurBean connect(String email, String mdp) {
+        Query q = em.createNativeQuery("select * from ParieurBean p where p.EMAIL = ? AND p.MDP = ?", ParieurBean.class);
+        q.setParameter(1, email);
+        q.setParameter(2, outils.outils.getHashFromPassword(mdp));
+        if(q.getResultList().isEmpty()){
+            return null ;
+        }
+        return (ParieurBean) q.getResultList().get(0)  ;
     }
 }

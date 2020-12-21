@@ -1,10 +1,13 @@
 package Bookmaker;
 
+import Administrateur.AdministrateurBean;
 import Parieur.Parieur;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import java.util.List;
 
 @ManagedBean
 @ApplicationScoped
@@ -18,7 +21,46 @@ public class BookmakerManagedBean {
     private String birthdate ;
     private String adresse ;
     private String tel ;
+    private String email;
+    private String mdp ;
+    private String etat ;
 
+
+
+    public void addBookmaker(){
+        this.bookmaker.addBookmaker(this.email, this.mdp, this.nom, this.prenom,  this.birthdate,this.adresse,this.tel );
+    }
+    public List<BookmakerBean> getListBookmaker()
+    {
+        return this.bookmaker.getListBookmaker() ;
+    }
+
+    public String connection()
+    {
+        BookmakerBean a = this.bookmaker.connect(this.email,this.mdp) ;
+
+        if(a != null )
+        {
+            return "profilBookmaker.xhtml";
+        }
+        else
+        {
+            this.etat = "Email ou mot de passe incorrecte" ;
+        }
+        return null ;
+    }
+    public String getTel() {
+        return tel;
+    }
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public Bookmaker getBookmaker() {
         return bookmaker;
     }
@@ -27,9 +69,7 @@ public class BookmakerManagedBean {
         this.bookmaker = bookmaker;
     }
 
-    public void addBookmaker(){
-        this.bookmaker.addBookmaker(this.nom, this.prenom,  this.birthdate,this.adresse,this.tel );
-    }
+
 
     public void setNom(String nom) {
         this.nom = nom;
@@ -61,5 +101,21 @@ public class BookmakerManagedBean {
 
     public String getAdresse() {
         return adresse;
+    }
+
+    public String getMdp() {
+        return mdp;
+    }
+
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
     }
 }

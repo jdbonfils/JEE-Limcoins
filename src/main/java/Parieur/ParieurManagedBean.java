@@ -1,9 +1,13 @@
 package Parieur;
 
+import Bookmaker.BookmakerBean;
+
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import java.io.Serializable;
+import java.util.List;
 
 @ManagedBean
 @ApplicationScoped
@@ -15,13 +19,60 @@ public class ParieurManagedBean implements Serializable {
     private String prenom ;
     private String birthdate ;
     private String adresse ;
+    private String email ;
+    private String mdp ;
+    private String etat ;
+
 
     public void addParieur(){
-        this.parieur.addParieur(this.nom, this.prenom,  this.birthdate,this.adresse);
+        this.parieur.addParieur(this.email,this.mdp, this.nom, this.prenom,  this.birthdate,this.adresse);
+    }
+    public List<ParieurBean> getListParieur()
+    {
+        return this.parieur.getListParieur() ;
+    }
+
+    public String connection()
+    {
+        ParieurBean a = this.parieur.connect(this.email,this.mdp) ;
+
+        if(a != null )
+        {
+            return "profilBookmaker.xhtml";
+        }
+        else
+        {
+            this.etat = "Email ou mot de passe incorrecte" ;
+        }
+        return null ;
+    }
+
+    public String getMdp() {
+        return mdp;
+    }
+
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
     }
 
     public Parieur getParieur() {
         return parieur;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setParieur(Parieur parieur) {

@@ -10,8 +10,10 @@ public class ParieurBean extends Personne.Personne implements Serializable {
     protected float limcoinsPossede ;
     protected String birthDate ;
 
-    public ParieurBean(String nom,String prenom, String date, String addr)
+    public ParieurBean(String email,String mdp, String nom,String prenom, String date, String addr)
     {
+        this.setEmail(email) ;
+        this.setMdp(mdp);
         this.setNom(nom);
         this.setPrenom(prenom) ;
         this.setBirthDate(date);

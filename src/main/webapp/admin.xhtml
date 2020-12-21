@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view>
+    <h:outputLabel value="CONNECTION :"/>
+    <c:forEach items="#{administrateurManagedBean.admin.getListAdministrateur()}" var="entry">
+        <li>Email: #{entry.email} mdp: #{entry.mdp} Titre: #{entry.nom}  Auteur: #{entry.prenom}   Nombre Exemplaire : #{entry.adresse}  Nombre Exemplaire : #{entry.tel}</li>
+    </c:forEach>
+    <h:form>
+        Email : <h:inputText value="#{administrateurManagedBean.email}" id="email" required="true" />
+        MDP : <h:inputText value="#{administrateurManagedBean.mdp}" id="mdp" required="true" />
+        <h:commandButton value="Ajouter" action="#{administrateurManagedBean.connection()}"/>
+        <h:outputText id="myStuff" value="#{administrateurManagedBean.etat}" />
+    </h:form>
+</f:view>
+</html>
