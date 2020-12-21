@@ -11,11 +11,8 @@ public abstract class Personne implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id ;
 
-
     protected String nom ;
     protected String prenom ;
-    protected float limcoinsPossede ;
-    protected String birthDate ;
     protected String adresse ;
 
     public long getId() {
@@ -35,14 +32,6 @@ public abstract class Personne implements Serializable {
         return prenom;
     }
 
-    public float getLimcoinsPossede() {
-        return limcoinsPossede;
-    }
-
-    public String getBirthDate() {
-        return birthDate;
-    }
-
     public String getAdresse() {
         return adresse;
     }
@@ -53,14 +42,6 @@ public abstract class Personne implements Serializable {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
-    }
-
-    public void setLimcoinsPossede(float limcoinsPossede) {
-        this.limcoinsPossede = limcoinsPossede;
-    }
-
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
     }
 
     public void setAdresse(String adresse) {

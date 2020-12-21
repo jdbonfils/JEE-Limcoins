@@ -1,31 +1,34 @@
-package Parieur;
+package Bookmaker;
+
+import Parieur.Parieur;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import java.io.Serializable;
 
 @ManagedBean
 @ApplicationScoped
-public class ParieurManagedBean implements Serializable {
+public class BookmakerManagedBean {
+
     @EJB
-    private Parieur parieur ;
+    private Bookmaker bookmaker ;
 
     private String nom ;
     private String prenom ;
     private String birthdate ;
     private String adresse ;
+    private String tel ;
 
-    public void addParieur(){
-        this.parieur.addParieur(this.nom, this.prenom,  this.birthdate,this.adresse);
+    public Bookmaker getBookmaker() {
+        return bookmaker;
     }
 
-    public Parieur getParieur() {
-        return parieur;
+    public void setBookmaker(Bookmaker bookmaker) {
+        this.bookmaker = bookmaker;
     }
 
-    public void setParieur(Parieur parieur) {
-        this.parieur = parieur;
+    public void addBookmaker(){
+        this.bookmaker.addBookmaker(this.nom, this.prenom,  this.birthdate,this.adresse,this.tel );
     }
 
     public void setNom(String nom) {
