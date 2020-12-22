@@ -4,12 +4,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
 <f:view>
-    <h:outputLabel value="Hello, world"/>
+    <c:forEach items="#{equipeManagedBean.getListEquipe()}" var="entry">
+        <li>Email: #{entry.nom} Titre: #{entry.villeAssocie}  Auteur: #{entry.reputation}   </li>
+        <h:form>
+            <h:commandButton value="issou" action="#{equipeManagedBean.details(0)}"/>
+        </h:form>
+    </c:forEach>
+
     <h:form>
         Nom : <h:inputText value="#{equipeManagedBean.nom}" id="email" required="true" />
-        Lieu : <h:inputText value="#{equipeManagedBean.lieu}" id="nom" required="true" />
+        Lieu : <h:inputText value="#{equipeManagedBean.villeAssocie}" id="nom" required="true" />
         Reputation : <h:inputText value="#{equipeManagedBean.rep}" id="prenom" required="true" />
         NbJoueur : <h:inputText value="#{equipeManagedBean.nbJoueur}" id="birthdate" required="true" />
         <h:commandButton value="Ajouter" action="#{equipeManagedBean.addEquipe()}"/>

@@ -1,32 +1,31 @@
 package Equipe;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Random;
 
 @Entity
-public class Joueur {
+public class JoueurBean implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
-    public String nom ;
-    public String prenom ;
-    public int age ;
+    private String nom ;
+    private String prenom ;
+    private int age ;
 
-    public Joueur(String nom, String prenom, int age) {
+
+    public JoueurBean(String nom, String prenom, int age) {
         this.nom = nom;
         this.prenom = prenom;
         this.age = age;
     }
 
-    public Joueur() {
+    public JoueurBean() {
 
     }
-    public Joueur(boolean random){
+    public JoueurBean(boolean random){
         if(random)
         {
             Random r = new Random() ;
@@ -35,6 +34,14 @@ public class Joueur {
             this.prenom = outils.outils.generateString(r.nextInt(9 ) + 3) ;
         }
 
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNom() {

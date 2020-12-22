@@ -1,7 +1,5 @@
 package Equipe;
 
-import Confrontation.ConfrontationBean;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,9 +13,12 @@ public class EquipeSessionBean implements Serializable, Equipe {
     EntityManager em ;
 
     @Override
-    public void addEquipe(String nom, String ville, int rep, List<Joueur> membres) {
+    public void addEquipe(String nom, String ville, int rep, List<JoueurBean> membres) {
+
         EquipeBean p = new EquipeBean(nom, ville, rep, membres);
+
         em.persist(p);
+
     }
 
     @Override

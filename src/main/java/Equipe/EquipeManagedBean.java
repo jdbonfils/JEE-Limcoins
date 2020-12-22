@@ -1,7 +1,5 @@
 package Equipe;
 
-import Confrontation.Confrontation;
-
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -16,33 +14,60 @@ public class EquipeManagedBean {
     private Equipe equipe ;
 
     private String nom ;
-    private String lieu ;
+    private String villeAssocie ;
     private int rep ;
     private int nbJoueur ;
-
+    private List<EquipeBean> listEquipe ;
+    private List<JoueurBean> listJoueur ;
     public void addEquipe()
     {
-        List<Joueur> listeJoueur = new ArrayList() ;
+        List<JoueurBean> listeJoueur = new ArrayList() ;
         for(int i = 0 ; i != this.nbJoueur ; i++)
         {
-            listeJoueur.add(new Joueur(true)) ;
+            listeJoueur.add(new JoueurBean(true)) ;
         }
-        this.equipe.addEquipe(this.nom,this.lieu,this.rep,listeJoueur);
+        this.equipe.addEquipe(this.nom,this.villeAssocie,this.rep,listeJoueur);
+    }
+
+    public String details(int id)
+    {
+        this.nom = listEquipe.get(0).getNom() ;
+        this.listJoueur = listEquipe.get(0).getMembres() ;
+        return "equipeDetails.xhtml" ;
+    }
+    public List<EquipeBean> getListEquipe()
+    {
+        this.listEquipe = this.equipe.getListEquipe() ;
+        return this.listEquipe ;
     }
     public String getNom() {
         return nom;
+    }
+
+
+
+    public List<JoueurBean> getListJoueur() {
+        return listJoueur;
+    }
+
+    public void setListJoueur(List<JoueurBean> listJoueur) {
+        this.listJoueur = listJoueur;
     }
 
     public void setNom(String nom) {
         this.nom = nom;
     }
 
-    public String getLieu() {
-        return lieu;
+    public String getVilleAssocie() {
+        return villeAssocie;
     }
 
-    public void setLieu(String lieu) {
-        this.lieu = lieu;
+    public void setVilleAssocie(String VilleAssocie) {
+        this.villeAssocie = VilleAssocie;
+    }
+
+    public void setListEquipe(List<EquipeBean> listEquipe) {
+        this.listEquipe = listEquipe;
     }
 
     public int getRep() {
