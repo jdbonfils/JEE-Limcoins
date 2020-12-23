@@ -22,10 +22,10 @@ public class ConfrontationBean implements Serializable {
 
     protected int minutes;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     protected EquipeBean e1;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     protected EquipeBean e2 ;
 
 

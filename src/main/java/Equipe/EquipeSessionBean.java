@@ -12,6 +12,20 @@ public class EquipeSessionBean implements Serializable, Equipe {
     @PersistenceContext
     EntityManager em ;
 
+
+    @Override
+    public EquipeBean getEquipe(long id)
+    {
+        Query emQuery = em.createNativeQuery("SELECT * FROM EquipeBean p where p.ID = ?",EquipeBean.class);
+        emQuery.setParameter(1, id);
+        List<EquipeBean> equipeBean = (List<EquipeBean>) emQuery.getResultList() ;
+        if(! equipeBean.isEmpty())
+        {
+            return equipeBean.get(0) ;
+        }
+
+        return null ;
+    }
     @Override
     public void addEquipe(String nom, String ville, int rep, List<JoueurBean> membres) {
 

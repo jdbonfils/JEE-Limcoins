@@ -8,4 +8,5 @@ public interface Equipe {
     public void updateEquipe() ;
     public void deleteEquipe(int id);
     public List<EquipeBean> getListEquipe();
+    public EquipeBean getEquipe(long id);
 }

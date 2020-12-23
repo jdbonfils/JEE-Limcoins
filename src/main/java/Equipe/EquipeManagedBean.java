@@ -3,12 +3,13 @@ package Equipe;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
 @ApplicationScoped
-public class EquipeManagedBean {
+public class EquipeManagedBean implements Serializable {
 
     @EJB
     private Equipe equipe ;
@@ -31,8 +32,8 @@ public class EquipeManagedBean {
 
     public String details(int id)
     {
-        this.nom = listEquipe.get(0).getNom() ;
-        this.listJoueur = listEquipe.get(0).getMembres() ;
+        this.nom = listEquipe.get(3).getNom() ;
+        this.listJoueur = listEquipe.get(3).getMembres() ;
         return "equipeDetails.xhtml" ;
     }
     public List<EquipeBean> getListEquipe()

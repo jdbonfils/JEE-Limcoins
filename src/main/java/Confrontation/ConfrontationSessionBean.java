@@ -19,6 +19,7 @@ public class ConfrontationSessionBean implements Confrontation, Serializable {
     @Override
     public void addConfrontation(String nom, String lieu, Date date, int minutes, EquipeBean e1, EquipeBean e2) {
         ConfrontationBean p = new ConfrontationBean(nom, lieu, date, minutes, e1, e2);
+
         em.persist(p);
     }
 

@@ -15,7 +15,7 @@ public class EquipeBean implements Serializable {
     public String villeAssocie ;
     public int reputation ;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
     public List<JoueurBean> membres ;
 
     public EquipeBean(String nom, String villeAssocie, int reputation, List<JoueurBean> membres) {

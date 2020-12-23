@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<f:view>
+    <c:forEach items="#{confrontationManagedBean.getListMatch()}" var="entry">
+        <li>Email: #{entry.nom} Titre: #{entry.lieu}  Auteur: #{entry.e1.nom}   </li>
+        <h:form>
+            <h:commandButton value="issou" action="#{equipeManagedBean.details(0)}"/>
+        </h:form>
+    </c:forEach>
+    <h:form>
+    Nom : <h:inputText value="#{confrontationManagedBean.nom}" id="email" required="true" />
+    Lieu : <h:inputText value="#{confrontationManagedBean.lieu}" id="nom" required="true" />
+    Date : <h:inputText value="#{confrontationManagedBean.date}" id="prenom" required="true" />
+    Minute :<h:inputText value="#{confrontationManagedBean.minutes}" id="birthdate" required="true" />
+        Equipe1 : <h:selectOneMenu value="#{confrontationManagedBean.e1id}">
+        <f:selectItems value="#{equipeManagedBean.getListEquipe()}" var="c"  itemLabel="#{c.nom}" itemValue="#{c.id}" />
+    </h:selectOneMenu>
+        Equipe2 :   <h:selectOneMenu value="#{confrontationManagedBean.e2id}">
+        <f:selectItems value="#{equipeManagedBean.getListEquipe()}" var="c"  itemLabel="#{c.nom}" itemValue="#{c.id}" />
+    </h:selectOneMenu>
+
+
+        <h:commandButton value="Ajouter" action="#{confrontationManagedBean.addMatch()}"/>
+    </h:form>
+</f:view>
+</html>
