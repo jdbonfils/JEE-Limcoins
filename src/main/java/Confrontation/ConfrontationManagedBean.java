@@ -1,12 +1,16 @@
 package Confrontation;
 
 
+import Cote.CoteManagedBean;
 import Equipe.Equipe;
 import Equipe.EquipeBean;
 
 import javax.ejb.EJB;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.inject.Inject;
 import java.sql.Date;
 import java.util.List;
 
@@ -20,12 +24,17 @@ public class ConfrontationManagedBean {
     @EJB
     private Equipe equipe ;
 
+    @ManagedProperty("#{coteManagedBean}")
+    private CoteManagedBean coteBean;
+
     protected String nom;
     protected String lieu;
     protected String date;
     protected int minutes;
     protected long e1id;
     protected long e2id ;
+    protected List<ConfrontationBean> listMatch ;
+
     public void addMatch()
     {
 
@@ -37,10 +46,29 @@ public class ConfrontationManagedBean {
         this.confrontation.addConfrontation(this.nom,this.lieu,d,this.minutes,e1,e2);
 
     }
+    public String newCote(long id )
+    {
+        for(ConfrontationBean c : this.listMatch)
+        {
+            if(c.getId() == id)
+            {
+                coteBean.setMatch(c);
+            }
+        }
+        return "newCote.xhtml" ;
+    }
     public List<ConfrontationBean> getListMatch()
     {
-        return this.confrontation.getListConfrontation() ;
+        this.listMatch = this.confrontation.getListConfrontation() ;
+        return this.listMatch ;
     }
+
+    //Getters et Setters
+
+    public void setListMatch(List<ConfrontationBean> listMatch) {
+        this.listMatch = listMatch;
+    }
+
 
     public String getNom() {
         return nom;
@@ -88,5 +116,13 @@ public class ConfrontationManagedBean {
 
     public void setE2id(long e2id) {
         this.e2id = e2id;
+    }
+
+    public CoteManagedBean getCoteBean() {
+        return coteBean;
+    }
+
+    public void setCoteBean(CoteManagedBean coteBean) {
+        this.coteBean = coteBean;
     }
 }

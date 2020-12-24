@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:form id="form">
+    <p:repeat value="#{confrontationManagedBean.getListMatch()}" var="entry">
+        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+            <p:outputPanel>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Id:" />
+                    <h:outputText value="#{entry.nom}" style="font-weight: bold"/>
+                    <h:outputText value="Year:" />
+                    <h:outputText value="#{entry.lieu}" style="font-weight: bold"/>
+                    <h:outputText value="Color:" />
+                    <h:outputText value="#{entry.date}" style="font-weight: bold"/>
+                    <p:commandButton value="Details" id="Details" action="#{confrontationManagedBean.newCote(entry.id)}" style="margin-right:20px;" ajax="false" />
+                </h:panelGrid>
+            </p:outputPanel>
+        </h:panelGrid>
+        <hr />
+    </p:repeat>
+</h:form>
+</html>

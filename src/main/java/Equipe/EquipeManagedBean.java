@@ -1,7 +1,8 @@
 package Equipe;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.ApplicationScoped;
+
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import java.io.Serializable;
 import java.util.ArrayList;

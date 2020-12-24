@@ -1,11 +1,14 @@
 package Confrontation;
 
 
+import Cote.CoteBean;
 import Equipe.EquipeBean;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NamedQuery(name="allMatch", query="select b from ConfrontationBean b")
@@ -28,6 +31,9 @@ public class ConfrontationBean implements Serializable {
     @ManyToOne(fetch=FetchType.EAGER)
     protected EquipeBean e2 ;
 
+    @OneToMany(fetch=FetchType.EAGER)
+    protected List<CoteBean> listeCote ;
+
 
     public ConfrontationBean(String nom, String lieu, Date date, int minutes, EquipeBean e1, EquipeBean e2)
     {
@@ -40,6 +46,7 @@ public class ConfrontationBean implements Serializable {
        this.minutes = minutes ;
        this.e1 = e1 ;
        this.e2 = e2 ;
+       this.listeCote = new ArrayList<>() ;
     }
     public ConfrontationBean() {
     }
@@ -90,5 +97,21 @@ public class ConfrontationBean implements Serializable {
 
     public void setE2(EquipeBean e2) {
         this.e2 = e2;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<CoteBean> getListeCote() {
+        return listeCote;
+    }
+
+    public void setListeCote(List<CoteBean> listeCote) {
+        this.listeCote = listeCote;
     }
 }
