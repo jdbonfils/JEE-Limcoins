@@ -5,57 +5,112 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
-
+<h:head>
+    <style type="text/css">
+        .jolitext{
+            margin: auto 5%; color: #2c3b30; font-family: 'Trocchi', serif; font-size: 35px; font-weight: bold; line-height: 48px; white-space:nowrap;
+        }
+        .jolitext2{
+            color: #2c3b30; font-family: 'Trocchi', serif; font-size: 25px; font-weight: bold; line-height: 48px; white-space:nowrap;
+        }
+        .marge5{
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+        .jolibouton {
+            border:none;
+            padding:6px 0 6px 0;
+            border-radius:8px;
+            background:#d34836;
+            font:bold 13px Arial;
+            color:#fff;
+        }
+        .ui-toggleswitch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 28px;
+        }
+        .ui-toggleswitch-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: grey;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+        .ui-toggleswitch-slider:before {
+            position: absolute;
+            content: "";
+            height: 23px;
+            width: 26px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+        .ui-toggleswitch-checked
+        {
+            background-color: aquamarine;
+        }
+        .ui-radiobutton-box{
+            background-color: aliceblue;
+        }
+    </style>
+</h:head>
 <h:body style="width: 100%; height: 100%;background-color:lightgrey;">
-<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
-<f:view class="jolitext" >
-    <h:outputLabel value="Nom :     " class="jolitext" /><h:outputLabel value="#{coteManagedBean.match.nom}" class="jolitext" /><br />
-    <h:outputLabel value="Lieux :   " class="jolitext" /><h:outputLabel value="#{coteManagedBean.match.lieu}" class="jolitext"/><br />
-    <h:outputLabel value="Date :    " class="jolitext" /><h:outputLabel value="#{coteManagedBean.match.date}" class="jolitext" /><br />
-</f:view>
-<h:form id="form">
-<p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-<p:accordionPanel>
-    <p:tab title="#{coteManagedBean.match.e1.nom}">
-        <h:panelGrid columns="2" cellpadding="10">
-            Nom : <h:outputLabel value="#{coteManagedBean.match.e1.nom}"/>
-            Ville : <h:outputLabel value="#{coteManagedBean.match.e1.villeAssocie}"/>
-            Reputation : <h:outputLabel value="#{coteManagedBean.match.e1.reputation}"/>
-            <p:dataGrid var="membre" value="#{coteManagedBean.match.e1.membres}" columns="3" layout="grid"
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+    <f:view class="jolitext" >
+        <h:outputLabel value="Nom :     " class="jolitext" /><h:outputLabel value="#{coteManagedBean.match.nom}" class="jolitext" /><br />
+        <h:outputLabel value="Lieux :   " class="jolitext" /><h:outputLabel value="#{coteManagedBean.match.lieu}" class="jolitext"/><br />
+        <h:outputLabel value="Date :    " class="jolitext" /><h:outputLabel value="#{coteManagedBean.match.date}" class="jolitext" /><br />
+    </f:view>
+    <h:form id="form">
+        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+        <p:accordionPanel>
+            <p:tab title="#{coteManagedBean.match.e1.nom}">
+                <h:panelGrid columns="2" cellpadding="10">
+                    Nom : <h:outputLabel value="#{coteManagedBean.match.e1.nom}"/>
+                    Ville : <h:outputLabel value="#{coteManagedBean.match.e1.villeAssocie}"/>
+                    Reputation : <h:outputLabel value="#{coteManagedBean.match.e1.reputation}"/>
+                    <p:dataGrid var="membre" value="#{coteManagedBean.match.e1.membres}" columns="3" layout="grid"
                         rows="12" paginator="true" id="membres">
-                <f:facet name="header">
-                    Liste des joueurs
-                </f:facet>
-                <p:panel header="#{membre.nom}" style="text-align:center">
-                    <h:panelGrid columns="1" style="width:100%">
-                        Prenom : <h:outputText value="#{membre.prenom}" />
-                        Age : <h:outputText value="#{membre.age}" />
-                    </h:panelGrid>
-                </p:panel>
-            </p:dataGrid>
-        </h:panelGrid>
-    </p:tab>
-    <p:tab title="#{coteManagedBean.match.e2.nom}">
-        <h:panelGrid columns="2" cellpadding="10">
-            Nom : <h:outputLabel value="#{coteManagedBean.match.e2.nom}"/>
-            Ville : <h:outputLabel value="#{coteManagedBean.match.e2.villeAssocie}"/>
-            Reputation : <h:outputLabel value="#{coteManagedBean.match.e2.reputation}"/>
-            <p:dataGrid var="membre" value="#{coteManagedBean.match.e2.membres}" columns="3" layout="grid"
-                        rows="12" paginator="true" id="membres2">
-                <f:facet name="header">
-                    Liste des joueurs
-                </f:facet>
-                <p:panel header="#{membre.nom}" style="text-align:center">
-                    <h:panelGrid columns="1" style="width:100%">
-                        Prenom : <h:outputText value="#{membre.prenom}" />
-                        Age : <h:outputText value="#{membre.age}" />
-                    </h:panelGrid>
-                </p:panel>
-            </p:dataGrid>
-        </h:panelGrid>
-    </p:tab>
-</p:accordionPanel>
-</h:form>
+                        <f:facet name="header">
+                        Liste des joueurs
+                        </f:facet>
+                        <p:panel header="#{membre.nom}" style="text-align:center">
+                            <h:panelGrid columns="1" style="width:100%">
+                            Prenom : <h:outputText value="#{membre.prenom}" />
+                            Age : <h:outputText value="#{membre.age}" />
+                            </h:panelGrid>
+                        </p:panel>
+                     </p:dataGrid>
+                </h:panelGrid>
+            </p:tab>
+            <p:tab title="#{coteManagedBean.match.e2.nom}">
+                <h:panelGrid columns="2" cellpadding="10">
+                    Nom : <h:outputLabel value="#{coteManagedBean.match.e2.nom}"/>
+                    Ville : <h:outputLabel value="#{coteManagedBean.match.e2.villeAssocie}"/>
+                    Reputation : <h:outputLabel value="#{coteManagedBean.match.e2.reputation}"/>
+                    <p:dataGrid var="membre" value="#{coteManagedBean.match.e2.membres}" columns="3" layout="grid"  rows="12" paginator="true" id="membres2">
+                        <f:facet name="header">
+                            Liste des joueurs
+                        </f:facet>
+                        <p:panel header="#{membre.nom}" style="text-align:center">
+                            <h:panelGrid columns="1" style="width:100%">
+                                Prenom : <h:outputText value="#{membre.prenom}" />
+                                Age : <h:outputText value="#{membre.age}" />
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:dataGrid>
+                </h:panelGrid>
+            </p:tab>
+        </p:accordionPanel>
+    </h:form>
     <h:outputLabel value="Details de la cote" class="jolitext" />
     <f:view class="jolitext" >
         <h:outputLabel value="Multipli :     " class="jolitext" /><h:outputLabel value="#{coteManagedBean.coteSelected.multiplicateur}" class="jolitext" /><br />

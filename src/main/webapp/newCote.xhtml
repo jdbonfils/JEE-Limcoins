@@ -139,7 +139,7 @@
     <br />
     <p:outputLabel class="jolitext2" value="Liste des cotes :" />
     <br />
-    <h:form>
+
     <p:dataTable class="marge5" var="entry" value="#{coteManagedBean.getCoteByMatch()}" >
         <p:column headerText="Cote">
             <h:outputText value="#{entry.multiplicateur}" />
@@ -157,11 +157,11 @@
             <h:outputText value="#{entry.listPariAssocie.size()}" />
         </p:column>
         <p:column headerText="Details" style="width:48px;text-align: center">
+            <h:form>
             <p:commandButton action="#{coteManagedBean.detailsCote(entry.id)}"   icon="pi pi-search"/>
+            </h:form>
         </p:column>
     </p:dataTable>
-    </h:form>
-
 </h:body>
 
 </html>
