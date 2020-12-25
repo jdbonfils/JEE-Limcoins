@@ -9,7 +9,7 @@ import java.util.Base64;
 
 
 @MappedSuperclass
-public abstract class Personne implements Serializable {
+public class Personne implements Serializable {
 
     @Id
     private String email ;

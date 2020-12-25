@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@NamedQuery(name="allParis", query="select b from CoteBean b")
+@NamedQuery(name="allParis", query="select b from PariBean b")
 public class PariBean implements Serializable {
 
     @Id
@@ -18,10 +18,10 @@ public class PariBean implements Serializable {
     private float limCoinMise ;
     private String etat ;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private ParieurBean parieur ;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private CoteBean coteConcerne ;
 
     public PariBean(float limcoinmise, ParieurBean parieur, CoteBean cote)

@@ -118,7 +118,7 @@
     <br />
     <br />
     <h:panelGroup id="result">
-    <h:form  >
+    <h:form >
         <p:outputLabel class="jolitext2" value="Créer une cote :" />
         <br />
         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
@@ -152,7 +152,7 @@
             <h:outputText value="#{entry.etat}" />
         </p:column>
         <p:column headerText="Créer Par">
-            <h:outputText value="#{entry.createur}" />
+            <h:outputText value="#{entry.createur.nom}" />
         </p:column>
         <p:column headerText="Nombre de paris">
             <h:outputText value="#{entry.listPariAssocie.size()}" />

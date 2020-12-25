@@ -1,12 +1,15 @@
 package Bookmaker;
 
 import Administrateur.AdministrateurBean;
+import Confrontation.ConfrontationManagedBean;
 import Parieur.Parieur;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.ApplicationScoped;
+
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import java.util.List;
 
 @ManagedBean
@@ -15,6 +18,11 @@ public class BookmakerManagedBean {
 
     @EJB
     private Bookmaker bookmaker ;
+
+
+
+    @ManagedProperty("#{confrontationManagedBean}")
+    private ConfrontationManagedBean matchBean ;
 
     private String nom ;
     private String prenom ;
@@ -47,7 +55,8 @@ public class BookmakerManagedBean {
 
         if(a != null )
         {
-            return "profilBookmaker.xhtml";
+            matchBean.setPersonneConnecte(a) ;
+            return "listMatch.xhtml";
         }
         else
         {
@@ -55,6 +64,15 @@ public class BookmakerManagedBean {
         }
         return null ;
     }
+
+    public ConfrontationManagedBean getMatchBean() {
+        return matchBean;
+    }
+
+    public void setMatchBean(ConfrontationManagedBean matchBean) {
+        this.matchBean = matchBean;
+    }
+
     public String getTel() {
         return tel;
     }

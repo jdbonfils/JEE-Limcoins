@@ -37,7 +37,7 @@ public class CoteSessionBean implements Cote, Serializable {
             CoteBean p = new CoteBean(multi,c1.getE1(),s1,s2 ,createur,c1);
             em.persist(p);
         }
-        else if(s2 > s1)
+        else if(s2 < s1)
         {
             CoteBean p = new CoteBean(multi,c1.getE2(),s1,s2 ,createur,c1);
             em.persist(p);

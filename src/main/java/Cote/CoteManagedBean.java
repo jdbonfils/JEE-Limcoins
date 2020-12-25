@@ -1,9 +1,11 @@
 package Cote;
 
+import Bookmaker.Bookmaker;
 import Bookmaker.BookmakerBean;
 import Confrontation.ConfrontationBean;
 import Equipe.*;
 import Pari.PariManagedBean;
+import Personne.Personne;
 
 import javax.ejb.EJB;
 
@@ -31,6 +33,7 @@ public class CoteManagedBean implements Serializable {
     @ManagedProperty("#{pariManagedBean}")
     private PariManagedBean pariBean ;
 
+    protected Personne personneConnecte ;
     private ConfrontationBean match ;
     private BookmakerBean bookmaker ;
     private Integer idGagnant ;
@@ -49,11 +52,12 @@ public class CoteManagedBean implements Serializable {
         }
         else if(this.idGagnant == 1)
         {
-            this.cote.addCote(this.multiplicateur,this.getMatch().getE1() ,this.bookmaker,this.match);
+
+            this.cote.addCote(this.multiplicateur,this.getMatch().getE1() ,(BookmakerBean) this.personneConnecte,this.match);
         }
         else if(this.idGagnant == 2)
         {
-            this.cote.addCote(this.multiplicateur,this.getMatch().getE2() ,this.bookmaker,this.match);
+            this.cote.addCote(this.multiplicateur,this.getMatch().getE2() ,(BookmakerBean) this.personneConnecte,this.match);
         }
     }
 
@@ -77,9 +81,7 @@ public class CoteManagedBean implements Serializable {
     }
     public boolean isBookmaker()
     {
-
-        System.out.println("jE PASSE") ;
-        return !(Math.random() < 0.5);
+        return personneConnecte instanceof Bookmaker;
     }
     //Getters and setters
 
@@ -94,6 +96,13 @@ public class CoteManagedBean implements Serializable {
     }
 
 
+    public Personne getPersonneConnecte() {
+        return personneConnecte;
+    }
+
+    public void setPersonneConnecte(Personne personneConnecte) {
+        this.personneConnecte = personneConnecte;
+    }
 
     public float getMise() {
         return mise;

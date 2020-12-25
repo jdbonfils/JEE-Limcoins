@@ -4,13 +4,16 @@ package Confrontation;
 import Cote.CoteManagedBean;
 import Equipe.Equipe;
 import Equipe.EquipeBean;
+import Personne.Personne;
 
 import javax.ejb.EJB;
 
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.sql.Date;
 import java.util.List;
@@ -28,6 +31,7 @@ public class ConfrontationManagedBean {
     @ManagedProperty("#{coteManagedBean}")
     private CoteManagedBean coteBean;
 
+    protected Personne personneConnecte ;
     protected String nom;
     protected String lieu;
     protected String date;
@@ -54,6 +58,7 @@ public class ConfrontationManagedBean {
             if(c.getId() == id)
             {
                 coteBean.setMatch(c);
+                coteBean.setPersonneConnecte(personneConnecte) ;
             }
         }
         return "newCote.xhtml" ;
@@ -63,8 +68,22 @@ public class ConfrontationManagedBean {
         this.listMatch = this.confrontation.getListConfrontation() ;
         return this.listMatch ;
     }
+    public void growlUser()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Connected",  "Vous êtes connecté en tant que : "+ this.getPersonneConnecte().getPrenom() +" "+this.getPersonneConnecte().getNom())) ;
+    }
 
     //Getters et Setters
+
+
+    public Personne getPersonneConnecte() {
+        return personneConnecte;
+    }
+
+    public void setPersonneConnecte(Personne personneConnecte) {
+        this.personneConnecte = personneConnecte;
+    }
 
     public void setListMatch(List<ConfrontationBean> listMatch) {
         this.listMatch = listMatch;

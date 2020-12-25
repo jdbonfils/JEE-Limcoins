@@ -1,11 +1,13 @@
 package Parieur;
 
 import Bookmaker.BookmakerBean;
+import Confrontation.ConfrontationManagedBean;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import java.util.List;
 public class ParieurManagedBean implements Serializable {
     @EJB
     private Parieur parieur ;
+
 
     private String nom ;
     private String prenom ;
@@ -38,7 +41,7 @@ public class ParieurManagedBean implements Serializable {
 
         if(a != null )
         {
-            return "profilBookmaker.xhtml";
+             return "listMatch.xhtml";
         }
         else
         {
