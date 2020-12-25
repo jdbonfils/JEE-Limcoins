@@ -117,7 +117,8 @@
     </h:form>
     <br />
     <br />
-    <h:form rendered="#{coteManagedBean.isBookmaker()}">
+    <h:panelGroup id="result">
+    <h:form  >
         <p:outputLabel class="jolitext2" value="Créer une cote :" />
         <br />
         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
@@ -134,12 +135,12 @@
             <p:outputLabel  for="@previous" value="Multiplicateur" />
         </span>
         <br />
-        <p:commandButton class="marge5" value="Créer côte" id="nonAjax" action="#{coteManagedBean.creerCote}" style="margin-right:20px;" ajax="false" />
+        <p:commandButton class="marge5" value="Créer côte" id="nonAjax" action="#{coteManagedBean.creerCote()}" style="margin-right:20px;" ajax="true" />
     </h:form>
+    </h:panelGroup>
     <br />
     <p:outputLabel class="jolitext2" value="Liste des cotes :" />
     <br />
-
     <p:dataTable class="marge5" var="entry" value="#{coteManagedBean.getCoteByMatch()}" >
         <p:column headerText="Cote">
             <h:outputText value="#{entry.multiplicateur}" />

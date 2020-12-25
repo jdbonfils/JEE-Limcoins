@@ -5,10 +5,11 @@ import Cote.CoteBean;
 import Parieur.ParieurBean;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @NamedQuery(name="allParis", query="select b from CoteBean b")
-public class PariBean {
+public class PariBean implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

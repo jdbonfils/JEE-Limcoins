@@ -3,6 +3,7 @@ package Cote;
 import Bookmaker.BookmakerBean;
 import Confrontation.ConfrontationBean;
 import Equipe.*;
+import Pari.PariManagedBean;
 
 import javax.ejb.EJB;
 
@@ -11,9 +12,11 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,17 +28,21 @@ public class CoteManagedBean implements Serializable {
     @EJB
     private Cote cote ;
 
+    @ManagedProperty("#{pariManagedBean}")
+    private PariManagedBean pariBean ;
+
     private ConfrontationBean match ;
     private BookmakerBean bookmaker ;
     private Integer idGagnant ;
     private float multiplicateur ;
     private int score1 ;
     private int score2 ;
+    private float mise ;
     private CoteBean coteSelected ;
 
     public void creerCote()
     {
-
+        System.out.println("jE PASSE") ;
         if(idGagnant == -0)
         {
             this.cote.addCote(this.multiplicateur,null ,this.bookmaker,this.match);
@@ -48,7 +55,6 @@ public class CoteManagedBean implements Serializable {
         {
             this.cote.addCote(this.multiplicateur,this.getMatch().getE2() ,this.bookmaker,this.match);
         }
-
     }
 
     public List<CoteBean> getCoteByMatch()
@@ -66,16 +72,36 @@ public class CoteManagedBean implements Serializable {
     }
     public String detailsCote(long id)
     {
-
-        this.coteSelected = this.cote.getCoteWithId(id) ;
+        pariBean.setCoteConcerne(this.cote.getCoteWithId(id));
         return "detailsCote.xhtml" ;
     }
     public boolean isBookmaker()
     {
+
+        System.out.println("jE PASSE") ;
         return !(Math.random() < 0.5);
     }
     //Getters and setters
 
+
+
+    public PariManagedBean getPariBean() {
+        return pariBean;
+    }
+
+    public void setPariBean(PariManagedBean pariBean) {
+        this.pariBean = pariBean;
+    }
+
+
+
+    public float getMise() {
+        return mise;
+    }
+
+    public void setMise(float mise) {
+        this.mise = mise;
+    }
 
     public CoteBean getCoteSelected() {
         return coteSelected;

@@ -7,7 +7,8 @@ import Equipe.EquipeBean;
 
 import javax.ejb.EJB;
 
-import javax.enterprise.context.ApplicationScoped;
+
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
