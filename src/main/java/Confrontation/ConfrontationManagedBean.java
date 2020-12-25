@@ -1,9 +1,12 @@
 package Confrontation;
 
 
+import Bookmaker.BookmakerBean;
+import Bookmaker.BookmakerManagedBean;
 import Cote.CoteManagedBean;
 import Equipe.Equipe;
 import Equipe.EquipeBean;
+import Parieur.ParieurBean;
 import Personne.Personne;
 
 import javax.ejb.EJB;
@@ -30,6 +33,7 @@ public class ConfrontationManagedBean {
 
     @ManagedProperty("#{coteManagedBean}")
     private CoteManagedBean coteBean;
+
 
     protected Personne personneConnecte ;
     protected String nom;
@@ -73,9 +77,21 @@ public class ConfrontationManagedBean {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Connected",  "Vous êtes connecté en tant que : "+ this.getPersonneConnecte().getPrenom() +" "+this.getPersonneConnecte().getNom())) ;
     }
+    public String afficherSolde()
+    {
+        return "Solde : "+this.personneConnecte.getLimcoinsPossede()+" Limcoins" ;
+    }
+    public String profil()
+    {
+        if (this.personneConnecte instanceof BookmakerBean)
+        {
+            return "profilBookmaker.xhtml" ;
+        }
+
+            return "profilParieur.xhtml" ;
+    }
 
     //Getters et Setters
-
 
     public Personne getPersonneConnecte() {
         return personneConnecte;

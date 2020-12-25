@@ -32,7 +32,7 @@ public class BookmakerManagedBean {
     private String email;
     private String mdp ;
     private String etat ;
-
+    private BookmakerBean profilBookmaker ;
 
 
     public String createBookmaker(){
@@ -51,7 +51,8 @@ public class BookmakerManagedBean {
 
     public String connection()
     {
-        BookmakerBean a = this.bookmaker.connect(this.email,this.mdp) ;
+        this.profilBookmaker = this.bookmaker.connect(this.email,this.mdp) ;
+        BookmakerBean a = this.profilBookmaker ;
 
         if(a != null )
         {
@@ -63,6 +64,14 @@ public class BookmakerManagedBean {
             this.etat = "Email ou mot de passe incorrecte" ;
         }
         return null ;
+    }
+
+    public BookmakerBean getProfilBookmaker() {
+        return profilBookmaker;
+    }
+
+    public void setProfilBookmaker(BookmakerBean profilBookmaker) {
+        this.profilBookmaker = profilBookmaker;
     }
 
     public ConfrontationManagedBean getMatchBean() {

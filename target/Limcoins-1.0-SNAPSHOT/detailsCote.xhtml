@@ -64,11 +64,13 @@
 </h:head>
 <h:body style="width: 100%; height: 100%;background-color:lightgrey;">
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+    <br />
     <f:view class="jolitext" >
         <h:outputLabel value="Nom :     " class="jolitext" /><h:outputLabel value="#{pariManagedBean.coteConcerne.matchConcerne.nom}" class="jolitext" /><br />
         <h:outputLabel value="Lieux :   " class="jolitext" /><h:outputLabel value="#{pariManagedBean.coteConcerne.matchConcerne.lieu}" class="jolitext"/><br />
         <h:outputLabel value="Date :    " class="jolitext" /><h:outputLabel value="#{pariManagedBean.coteConcerne.matchConcerne.date}" class="jolitext" /><br />
     </f:view>
+    <br />
     <h:form id="form">
         <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
         <p:accordionPanel>
@@ -111,15 +113,19 @@
             </p:tab>
         </p:accordionPanel>
     </h:form>
-    <h:outputLabel value="Details de la cote" class="jolitext" />
+    <br />
+    <br />
+    <h:outputLabel value="Details de la cote : " class="jolitext" />
+    <br />
     <f:view class="jolitext" >
-        <h:outputLabel value="Multipli :     " class="jolitext" /><h:outputLabel value="#{pariManagedBean.coteConcerne.multiplicateur}" class="jolitext" /><br />
-        <h:outputLabel value="Gagnant :   " class="jolitext" /><h:outputLabel value="#{pariManagedBean.coteConcerne.gagnant.nom}" class="jolitext"/><br />
-        <h:outputLabel value="etat :    " class="jolitext" /><h:outputLabel value="#{pariManagedBean.coteConcerne.etat}" class="jolitext" /><br />
+        <h:outputLabel value="Multipli :     " class="jolitext2" /><h:outputLabel value="#{pariManagedBean.coteConcerne.multiplicateur}" class="jolitext2" /><br />
+        <h:outputLabel value="Gagnant :   " class="jolitext2" /><h:outputLabel value="#{pariManagedBean.coteConcerne.gagnant.nom}" class="jolitext2"/><br />
+        <h:outputLabel value="etat :    " class="jolitext2" /><h:outputLabel value="#{pariManagedBean.coteConcerne.etat}" class="jolitext2" /><br />
+        <h:outputLabel value="Cote crée par :    " class="jolitext2" /><h:outputLabel value="#{pariManagedBean.coteConcerne.createur.nom}" class="jolitext2" /><br />
     </f:view>
     <h:form>
     <h:panelGrid columns="2" cellpadding="5" styleClass="ui-grid">
-        <h:outputLabel for="@next" value="Ajax Spinner: " />
+        <h:outputLabel for="@next" value="Parier : " />
         <p:outputPanel>
             <p:spinner stepFactor="0.25"  id="step" value="#{pariManagedBean.mise}">
                 <p:ajax update="ajaxSpinnerValue" process="@this" />
@@ -127,7 +133,7 @@
             <h:outputText id="ajaxSpinnerValue" value="#{pariManagedBean.gain()}" style="padding-left: 10px" />
         </p:outputPanel>
     </h:panelGrid>
-        <p:commandButton value="Submit" action="#{pariManagedBean.creerPari()}"/>
+        <p:commandButton value="Parier" action="#{pariManagedBean.creerPari()}"/>
 
     </h:form>
 </h:body>

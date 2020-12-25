@@ -11,9 +11,8 @@ import java.util.List;
 @NamedQuery(name="allParieur", query="select p from ParieurBean p")
 public class ParieurBean extends Personne.Personne implements Serializable {
 
-    protected float limcoinsPossede ;
-    protected String birthDate ;
 
+    protected String birthDate ;
     @OneToMany
     private List<PariBean> listPariEffectue ;
 
@@ -27,7 +26,7 @@ public class ParieurBean extends Personne.Personne implements Serializable {
         this.setBirthDate(date);
         this.setAdresse(addr);
         this.listPariEffectue = new ArrayList<>() ;
-        this.limcoinsPossede = 1000 ;
+        this.setLimcoinsPossede(1000);
     }
     public ParieurBean() {
     }
@@ -40,17 +39,11 @@ public class ParieurBean extends Personne.Personne implements Serializable {
         this.listPariEffectue = listPariEffectue;
     }
 
-    public void setLimcoinsPossede(float limcoinsPossede) {
-        this.limcoinsPossede = limcoinsPossede;
-    }
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
-    public float getLimcoinsPossede() {
-        return limcoinsPossede;
-    }
 
     public String getBirthDate() {
         return birthDate;

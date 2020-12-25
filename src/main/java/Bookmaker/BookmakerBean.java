@@ -1,11 +1,9 @@
 package Bookmaker;
 
+import Cote.CoteBean;
 import Pari.PariBean;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +12,12 @@ import java.util.List;
 @NamedQuery(name="allBookmaker", query="select b from BookmakerBean b")
 public class BookmakerBean extends Personne.Personne implements Serializable {
 
-    protected float limcoinsPossede ;
+
     protected String birthDate ;
     protected String tel ;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<PariBean> listPariEffectue ;
+    @OneToMany(fetch= FetchType.EAGER)
+    private List<CoteBean> listCoteEffectue ;
 
     public BookmakerBean(String mail,String mdp, String nom, String prenom, String date, String addr,String tel)
     {
@@ -30,19 +28,19 @@ public class BookmakerBean extends Personne.Personne implements Serializable {
         this.setBirthDate(date);
         this.setAdresse(addr);
         this.setTel(tel);
-        this.limcoinsPossede = 1000 ;
-        this.listPariEffectue = new ArrayList<>();
+        this.setLimcoinsPossede(1000);
+        this.listCoteEffectue = new ArrayList<>();
 
     }
     public BookmakerBean() {
     }
 
-    public List<PariBean> getListPariEffectue() {
-        return listPariEffectue;
+    public List<CoteBean> getListCoteEffectue() {
+        return listCoteEffectue;
     }
 
-    public void setListPariEffectue(List<PariBean> listPariEffectue) {
-        this.listPariEffectue = listPariEffectue;
+    public void setListCoteEffectue(List<CoteBean> listCoteEffectue) {
+        this.listCoteEffectue = listCoteEffectue;
     }
 
     public String getTel() {
@@ -52,17 +50,12 @@ public class BookmakerBean extends Personne.Personne implements Serializable {
     public void setTel(String tel) {
         this.tel = tel;
     }
-    public void setLimcoinsPossede(float limcoinsPossede) {
-        this.limcoinsPossede = limcoinsPossede;
-    }
+
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
-    public float getLimcoinsPossede() {
-        return limcoinsPossede;
-    }
 
     public String getBirthDate() {
         return birthDate;

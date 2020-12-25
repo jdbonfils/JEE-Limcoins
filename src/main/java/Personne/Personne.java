@@ -14,6 +14,7 @@ public class Personne implements Serializable {
     @Id
     private String email ;
     private String mdp ;
+    private float limcoinsPossede ;
     protected String nom ;
     protected String prenom ;
     protected String adresse ;
@@ -33,6 +34,14 @@ public class Personne implements Serializable {
     public void setMdp(String mdp) {
 
         this.mdp = outils.outils.getHashFromPassword(mdp) ;
+    }
+
+    public float getLimcoinsPossede() {
+        return limcoinsPossede;
+    }
+
+    public void setLimcoinsPossede(float limcoinsPossede) {
+        this.limcoinsPossede = limcoinsPossede;
     }
 
     public String getNom() {

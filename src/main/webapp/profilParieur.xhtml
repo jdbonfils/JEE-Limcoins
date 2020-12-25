@@ -4,8 +4,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+<h:body>
 <f:view>
     <h:outputLabel value="Hello, world"/>
 </f:view>
+    <p:dataTable class="marge5" var="entry" value="#{bookmakerManagedBean.}" >
+        <p:column headerText="Cote">
+            <h:outputText value="#{entry.multiplicateur}" />
+        </p:column>
+        <p:column headerText="Equipe Gagnante">
+            <h:outputText value="#{entry.gagnant.nom}" />
+        </p:column>
+        <p:column headerText="Etat">
+            <h:outputText value="#{entry.etat}" />
+        </p:column>
+        <p:column headerText="Créer Par">
+            <h:outputText value="#{entry.createur.nom}" />
+        </p:column>
+        <p:column headerText="Nombre de paris">
+            <h:outputText value="#{entry.listPariAssocie.size()}" />
+        </p:column>
+        <p:column headerText="Details" style="width:48px;text-align: center">
+            <h:form>
+                <p:commandButton action="#{coteManagedBean.detailsCote(entry.id)}"   icon="pi pi-search"/>
+            </h:form>
+        </p:column>
+    </p:dataTable>
+</h:body>
 </html>
