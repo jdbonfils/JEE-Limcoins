@@ -67,4 +67,6 @@ public class Personne implements Serializable {
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
+
+
 }

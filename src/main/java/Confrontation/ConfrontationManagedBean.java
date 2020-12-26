@@ -9,6 +9,8 @@ import Equipe.EquipeBean;
 import Parieur.ParieurBean;
 import Personne.Personne;
 
+
+
 import javax.ejb.EJB;
 
 
@@ -18,6 +20,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Date;
 import java.util.List;
 
@@ -33,7 +38,6 @@ public class ConfrontationManagedBean {
 
     @ManagedProperty("#{coteManagedBean}")
     private CoteManagedBean coteBean;
-
 
     protected Personne personneConnecte ;
     protected String nom;
@@ -81,6 +85,7 @@ public class ConfrontationManagedBean {
     {
         return "Solde : "+this.personneConnecte.getLimcoinsPossede()+" Limcoins" ;
     }
+
     public String profil()
     {
         if (this.personneConnecte instanceof BookmakerBean)
@@ -89,6 +94,14 @@ public class ConfrontationManagedBean {
         }
 
             return "profilParieur.xhtml" ;
+    }
+    public String classementBookmaker()
+    {
+        return "classementBookmaker.xhtml" ;
+    }
+    public String classementParieur()
+    {
+        return "classementParieur.xhtml" ;
     }
 
     //Getters et Setters

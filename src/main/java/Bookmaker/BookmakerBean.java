@@ -16,7 +16,7 @@ public class BookmakerBean extends Personne.Personne implements Serializable {
     protected String birthDate ;
     protected String tel ;
 
-    @OneToMany(fetch= FetchType.EAGER)
+    @OneToMany(fetch= FetchType.EAGER, mappedBy = "createur")
     private List<CoteBean> listCoteEffectue ;
 
     public BookmakerBean(String mail,String mdp, String nom, String prenom, String date, String addr,String tel)
@@ -35,6 +35,8 @@ public class BookmakerBean extends Personne.Personne implements Serializable {
     public BookmakerBean() {
     }
 
+
+
     public List<CoteBean> getListCoteEffectue() {
         return listCoteEffectue;
     }
@@ -42,6 +44,8 @@ public class BookmakerBean extends Personne.Personne implements Serializable {
     public void setListCoteEffectue(List<CoteBean> listCoteEffectue) {
         this.listCoteEffectue = listCoteEffectue;
     }
+
+
 
     public String getTel() {
         return tel;
@@ -60,4 +64,6 @@ public class BookmakerBean extends Personne.Personne implements Serializable {
     public String getBirthDate() {
         return birthDate;
     }
+
+
 }

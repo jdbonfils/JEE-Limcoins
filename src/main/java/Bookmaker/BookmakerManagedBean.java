@@ -2,6 +2,8 @@ package Bookmaker;
 
 import Administrateur.AdministrateurBean;
 import Confrontation.ConfrontationManagedBean;
+import Cote.CoteBean;
+import Pari.PariBean;
 import Parieur.Parieur;
 
 import javax.annotation.PostConstruct;
@@ -10,6 +12,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import java.io.IOException;
 import java.util.List;
 
 @ManagedBean
@@ -23,6 +26,8 @@ public class BookmakerManagedBean {
 
     @ManagedProperty("#{confrontationManagedBean}")
     private ConfrontationManagedBean matchBean ;
+    @ManagedProperty("#{classementBookmakerBean}")
+    private ClassementBookmakerBean classementBookmaker ;
 
     private String nom ;
     private String prenom ;
@@ -33,6 +38,7 @@ public class BookmakerManagedBean {
     private String mdp ;
     private String etat ;
     private BookmakerBean profilBookmaker ;
+    private List<CoteBean> cotesList ;
 
 
     public String createBookmaker(){
@@ -56,6 +62,7 @@ public class BookmakerManagedBean {
 
         if(a != null )
         {
+            classementBookmaker.setPersonneConnecte(a) ;
             matchBean.setPersonneConnecte(a) ;
             return "listMatch.xhtml";
         }
@@ -64,6 +71,40 @@ public class BookmakerManagedBean {
             this.etat = "Email ou mot de passe incorrecte" ;
         }
         return null ;
+    }
+    public String LimToDollar(float val) throws IOException {
+        return ClientRest.currency.getLimcoinCurrency("DOL",val)+""  ;
+    }
+    public String LimToEuro(float val) throws IOException {
+        return ClientRest.currency.getLimcoinCurrency("EUR",val)+""  ;
+    }
+    public void onLoad()
+    {
+        this.cotesList = this.bookmaker.getCote(this.profilBookmaker.getEmail()) ;
+    }
+    public float calcGain(CoteBean cote)
+    {
+        if(cote.getEtat().equals("TERMINE"))
+            return cote.calcGain() ;
+        return 0 ;
+
+    }
+
+    public ClassementBookmakerBean getClassementBookmaker() {
+        return classementBookmaker;
+    }
+
+    public void setClassementBookmaker(ClassementBookmakerBean classementBookmaker) {
+        this.classementBookmaker = classementBookmaker;
+    }
+
+
+    public List<CoteBean> getCotesList() {
+        return cotesList;
+    }
+
+    public void setCotesList(List<CoteBean> cotesList) {
+        this.cotesList = cotesList;
     }
 
     public BookmakerBean getProfilBookmaker() {

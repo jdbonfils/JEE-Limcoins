@@ -62,7 +62,9 @@
         }
     </style>
 </h:head>
-
+<f:metadata>
+    <f:event type="preRenderView" listener="#{bookmakerManagedBean.onLoad()}" />
+</f:metadata>
 <h:body style="width: 100%; height: 100%;background-color:lightgrey;">
 <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
     <f:view class="jolitext" >
@@ -72,7 +74,18 @@
         <h:outputLabel value="Tel :    " class="jolitext" /><h:outputLabel value="#{bookmakerManagedBean.profilBookmaker.tel}" class="jolitext" /><br />
         <h:outputLabel value="Adresse :    " class="jolitext" /><h:outputLabel value="#{bookmakerManagedBean.profilBookmaker.adresse}" class="jolitext" /><br />
     </f:view>
-    <p:dataTable class="marge5" var="entry" value="#{bookmakerManagedBean.profilBookmaker.listCoteEffectue}" >
+    <p:dataTable class="marge5" var="entry" value="#{bookmakerManagedBean.profilBookmaker.limcoinsPossede}" >
+        <p:column headerText="Limcoins">
+            <h:outputText value="#{entry}" />
+        </p:column>
+        <p:column headerText="Euros">
+            <h:outputText value="#{bookmakerManagedBean.profilBookmaker.limcoinsPossede}" />
+        </p:column>
+        <p:column headerText="Dollars">
+            <h:outputText value="#{bookmakerManagedBean.profilBookmaker.limcoinsPossede}" />
+        </p:column>
+    </p:dataTable>
+    <p:dataTable class="marge5" var="entry" value="#{bookmakerManagedBean.cotesList}" >
         <p:column headerText="Cote">
             <h:outputText value="#{entry.multiplicateur}" />
         </p:column>
@@ -84,6 +97,14 @@
         </p:column>
         <p:column headerText="Nombre de paris">
             <h:outputText value="#{entry.listPariAssocie.size()}" />
+        </p:column>
+        <p:column headerText="Gain rapporté">
+            <h:outputText value="#{bookmakerManagedBean.calcGain(entry)}" />
+        </p:column>
+        <p:column headerText="Details" style="width:48px;text-align: center">
+            <h:form>
+                <p:commandButton action="#{coteManagedBean.detailsCote(entry.id)}"   icon="pi pi-search"/>
+            </h:form>
         </p:column>
     </p:dataTable>
 </h:body>

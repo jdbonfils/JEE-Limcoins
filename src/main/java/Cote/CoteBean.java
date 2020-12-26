@@ -27,6 +27,7 @@ public class CoteBean implements Serializable {
     @OneToMany(fetch=FetchType.EAGER)
     private List<PariBean> listPariAssocie ;
     @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name = "bookmakerbean_mail")
     private BookmakerBean createur ;
     @ManyToOne(fetch=FetchType.EAGER)
     private ConfrontationBean matchConcerne ;
@@ -57,6 +58,18 @@ public class CoteBean implements Serializable {
     {
     }
 
+    public float calcGain()
+    {
+        float gain = 0 ;
+        for(PariBean p : this.getListPariAssocie())
+        {
+            if(this.matchConcerne.getGagnant().getId().equals(this.getGagnant().getId()))
+                gain += p.getLimCoinMise() * this.multiplicateur ;
+            else
+                gain -= p.getLimCoinMise() * this.multiplicateur ;
+        }
+        return gain ;
+    }
     //Getters and setters
 
 

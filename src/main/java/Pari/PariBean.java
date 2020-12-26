@@ -35,4 +35,44 @@ public class PariBean implements Serializable {
     {
 
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public float getLimCoinMise() {
+        return limCoinMise;
+    }
+
+    public void setLimCoinMise(float limCoinMise) {
+        this.limCoinMise = limCoinMise;
+    }
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
+
+    public ParieurBean getParieur() {
+        return parieur;
+    }
+
+    public void setParieur(ParieurBean parieur) {
+        this.parieur = parieur;
+    }
+
+    public CoteBean getCoteConcerne() {
+        return coteConcerne;
+    }
+
+    public void setCoteConcerne(CoteBean coteConcerne) {
+        this.coteConcerne = coteConcerne;
+    }
 }

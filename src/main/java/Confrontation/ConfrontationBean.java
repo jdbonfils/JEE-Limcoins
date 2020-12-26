@@ -31,6 +31,9 @@ public class ConfrontationBean implements Serializable {
     @ManyToOne(fetch=FetchType.EAGER)
     protected EquipeBean e2 ;
 
+    @ManyToOne(fetch=FetchType.EAGER)
+    protected EquipeBean gagnant ;
+
     @OneToMany(fetch=FetchType.EAGER)
     protected List<CoteBean> listeCote ;
 
@@ -47,8 +50,17 @@ public class ConfrontationBean implements Serializable {
        this.e1 = e1 ;
        this.e2 = e2 ;
        this.listeCote = new ArrayList<>() ;
+       this.gagnant = null ;
     }
     public ConfrontationBean() {
+    }
+
+    public EquipeBean getGagnant() {
+        return gagnant;
+    }
+
+    public void setGagnant(EquipeBean gagnant) {
+        this.gagnant = gagnant;
     }
 
     public String getNom() {

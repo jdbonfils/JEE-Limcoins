@@ -26,6 +26,8 @@
 <h:form id="form">
     <p:growl id="growl" showDetail="true" sticky="true" />
     <p:commandButton value="Profil" id="Profil" action="#{confrontationManagedBean.profil}" style="margin-right:20px;" ajax="false" />
+    <p:commandButton value="Classement Bookmaker" id="classmentB" action="#{confrontationManagedBean.classementBookmaker}" style="margin-right:20px;" ajax="false" />
+    <p:commandButton value="Classement Parieur" id="classmentP" action="#{confrontationManagedBean.classementParieur}" style="margin-right:20px;" ajax="false" />
 
     <p:repeat value="#{confrontationManagedBean.getListMatch()}" var="entry">
         <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">

@@ -1,6 +1,7 @@
 package Bookmaker;
 
 import Administrateur.AdministrateurBean;
+import Cote.CoteBean;
 import Parieur.ParieurBean;
 
 import javax.ejb.Remote;
@@ -13,5 +14,6 @@ public interface Bookmaker {
     public void deleteBookmaker(String email);
     public List<BookmakerBean> getListBookmaker();
     public BookmakerBean connect(String email, String mdp) ;
+    public List<CoteBean> getCote(String email) ;
 
 }

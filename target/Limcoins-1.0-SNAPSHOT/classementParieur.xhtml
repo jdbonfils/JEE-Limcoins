@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+    <f:event type="preRenderView" listener="#{classementBookmakerBean.onLoad()}" />
+</f:metadata>
+<h:head><style type="text/css">
+    .me {
+        background-color: #fdac49 !important;
+        background-image: none !important;
+        color: #000000 !important;
+    }
+</style></h:head><h:body>
+<f:view>
+    <h:outputLabel value="Hello, world"/>
+</f:view>
+<p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementParieurBean.getClassement(1)}" rowStyleClass="#{entry.email le classementBookmakerBean.personneConnecte.email ? 'me' : null}" >
+    <p:column headerText="Rang">
+        <h:outputText value="#{index+1}" />
+    </p:column>
+    <p:column headerText="Nom">
+        <h:outputText value="#{entry.nom}" />
+    </p:column>
+    <p:column headerText="Limcoin Possede">
+        <h:outputText value="#{entry.limcoinsPossede}" />
+    </p:column>
+    <p:column headerText="Nombre de cote crée">
+        <h:outputText value="#{entry.listCoteEffectue.size()}" />
+    </p:column>
+</p:dataTable>
+</h:body>
+</html>
