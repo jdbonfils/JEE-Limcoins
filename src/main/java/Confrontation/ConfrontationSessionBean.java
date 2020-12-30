@@ -1,6 +1,7 @@
 package Confrontation;
 
 
+import Bookmaker.BookmakerBean;
 import Equipe.EquipeBean;
 
 import javax.ejb.Stateless;

@@ -1,10 +1,11 @@
 package Equipe;
 
+import javax.ejb.Remote;
 import java.util.List;
-
+@Remote
 public interface Equipe {
 
-    public void addEquipe(String nom, String ville, int reo, List<JoueurBean> membres);
+    public void addEquipe(String nom, String ville, int rep, List<JoueurBean> membres);
 
     public void updateEquipe() ;
     public void deleteEquipe(int id);

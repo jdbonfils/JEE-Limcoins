@@ -13,7 +13,7 @@ public class ParieurBean extends Personne.Personne implements Serializable {
 
 
     protected String birthDate ;
-    @OneToMany
+    @OneToMany(fetch= FetchType.EAGER,cascade = CascadeType.MERGE)
     private List<PariBean> listPariEffectue ;
 
 

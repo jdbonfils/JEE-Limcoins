@@ -6,6 +6,8 @@ import Confrontation.ConfrontationBean;
 import Equipe.*;
 import Pari.PariManagedBean;
 import Personne.Personne;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import javax.ejb.EJB;
 
@@ -16,6 +18,8 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.PhaseId;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -42,12 +46,23 @@ public class CoteManagedBean implements Serializable {
     private int score2 ;
     private float mise ;
     private CoteBean coteSelected ;
+    private StreamedContent image;
+
+    public void onLoad()
+    {
+        this.image = DefaultStreamedContent.builder()
+            .contentType("image/jpeg")
+            .stream(() -> this.getClass().getResourceAsStream("../images/joueur1.jpeg"))
+            .build();
+        System.out.println(image.getContentType()) ;
+    }
 
     public void creerCote()
     {
         System.out.println("jE PASSE") ;
-        if(idGagnant == -0)
+        if(idGagnant == 0)
         {
+
             this.cote.addCote(this.multiplicateur,null ,this.bookmaker,this.match);
         }
         else if(this.idGagnant == 1)
@@ -60,23 +75,34 @@ public class CoteManagedBean implements Serializable {
             this.cote.addCote(this.multiplicateur,this.getMatch().getE2() ,(BookmakerBean) this.personneConnecte,this.match);
         }
     }
+    public StreamedContent getImage()
+    {
+            return this.image;
+    }
+
+    public void setImage(StreamedContent image) {
+        this.image = image;
+    }
 
     public List<CoteBean> getCoteByMatch()
     {
         List<CoteBean> listeCoteMatch =  new ArrayList<>() ;
         List<CoteBean> listCote = this.cote.getListCote() ;
-        for(CoteBean c : listCote)
-        {
-            if(c.getMatchConcerne().getId().equals(this.getMatch().getId()))
-            {
-                listeCoteMatch.add(c) ;
+
+            for (CoteBean c : listCote) {
+                if(c.getMatchConcerne() != null) {
+                    if (c.getMatchConcerne().getId().equals(this.getMatch().getId())) {
+                        listeCoteMatch.add(c);
+                    }
+                }
             }
-        }
+
        return listeCoteMatch ;
     }
     public String detailsCote(long id)
     {
         pariBean.setCoteConcerne(this.cote.getCoteWithId(id));
+        pariBean.setPersonneConnecte(this.personneConnecte);
         return "detailsCote.xhtml" ;
     }
     public boolean isBookmaker()

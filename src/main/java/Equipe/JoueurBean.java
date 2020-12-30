@@ -9,11 +9,12 @@ public class JoueurBean implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private long id;
 
     private String nom ;
     private String prenom ;
     private int age ;
+    private String imageLink ;
 
 
     public JoueurBean(String nom, String prenom, int age) {
@@ -32,15 +33,25 @@ public class JoueurBean implements Serializable {
             this.age = r.nextInt(65 ) + 10;
             this.nom = outils.outils.generateString(r.nextInt(9 ) + 3) ;
             this.prenom = outils.outils.generateString(r.nextInt(9 ) + 3) ;
+
+           // this.imageLink = "../images/joueur"++"jpeg" ;
         }
 
     }
 
-    public Integer getId() {
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
     }
 

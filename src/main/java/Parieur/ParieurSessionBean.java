@@ -1,12 +1,14 @@
 package Parieur;
 
 import Bookmaker.BookmakerBean;
+import Pari.PariBean;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
@@ -48,5 +50,10 @@ public class ParieurSessionBean implements Parieur, Serializable {
             return null ;
         }
         return (ParieurBean) q.getResultList().get(0)  ;
+    }
+
+    @Override
+    public List<PariBean> getListParis(String email) {
+        return  em.find(ParieurBean.class,email).getListPariEffectue();
     }
 }

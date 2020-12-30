@@ -2,22 +2,15 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-
+<f:metadata>
+    <f:event type="preRenderView" listener="#{coteManagedBean.onLoad()}" />
+</f:metadata>
 <h:head>
-
 </h:head>
 
 <h:body>
-
-    <p:spinner />
-    <h:form id="form">
-    <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-
-    <h:panelGrid columns="2" cellpadding="5">
-    <p:outputLabel for="inline" value="Inline:" />
-    <p:datePicker id="inline" value="#{calendarView.date1}" inline="true" />
-    </h:panelGrid>
+    <h:form id="myImg" >
+    <p:graphicImage  cache="FALSE" value="PF('#{coteManagedBean.image}')" />
     </h:form>
-
 </h:body>
 </html>

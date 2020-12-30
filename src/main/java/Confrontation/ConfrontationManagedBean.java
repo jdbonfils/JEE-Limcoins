@@ -7,6 +7,7 @@ import Cote.CoteManagedBean;
 import Equipe.Equipe;
 import Equipe.EquipeBean;
 import Parieur.ParieurBean;
+import Parieur.ParieurProfilManagedBean;
 import Personne.Personne;
 
 
@@ -18,6 +19,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.io.BufferedReader;
@@ -38,6 +40,9 @@ public class ConfrontationManagedBean {
 
     @ManagedProperty("#{coteManagedBean}")
     private CoteManagedBean coteBean;
+
+    @ManagedProperty("#{parieurProfilManagedBean}")
+    private ParieurProfilManagedBean parieurProfil;
 
     protected Personne personneConnecte ;
     protected String nom;
@@ -92,19 +97,31 @@ public class ConfrontationManagedBean {
         {
             return "profilBookmaker.xhtml" ;
         }
-
+            parieurProfil.setPersonneConnecte(this.personneConnecte);
             return "profilParieur.xhtml" ;
     }
-    public String classementBookmaker()
-    {
-        return "classementBookmaker.xhtml" ;
+    public void classementBookmaker() throws IOException {
+
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/" +"classementBookmaker.xhtml");
+
     }
-    public String classementParieur()
-    {
-        return "classementParieur.xhtml" ;
+    public void classementParieur() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/" +"classementParieur.xhtml");
+
     }
 
     //Getters et Setters
+
+
+    public ParieurProfilManagedBean getParieurProfil() {
+        return parieurProfil;
+    }
+
+    public void setParieurProfil(ParieurProfilManagedBean parieurProfil) {
+        this.parieurProfil = parieurProfil;
+    }
 
     public Personne getPersonneConnecte() {
         return personneConnecte;

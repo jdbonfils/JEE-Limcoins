@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
 <f:metadata>
-    <f:event type="preRenderView" listener="#{classementBookmakerBean.onLoad()}" />
+    <f:event type="preRenderView" listener="#{classementParieurBean.onLoad()}" />
 </f:metadata>
 <h:head><style type="text/css">
     .me {
@@ -18,7 +18,7 @@
 <f:view>
     <h:outputLabel value="Hello, world"/>
 </f:view>
-<p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementParieurBean.getClassement(1)}" rowStyleClass="#{entry.email le classementBookmakerBean.personneConnecte.email ? 'me' : null}" >
+<p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementParieurBean.getClassement(1)}" rowStyleClass="#{entry.email le classementParieurBean.personneConnecte.email ? 'me' : null}" >
     <p:column headerText="Rang">
         <h:outputText value="#{index+1}" />
     </p:column>
@@ -28,8 +28,8 @@
     <p:column headerText="Limcoin Possede">
         <h:outputText value="#{entry.limcoinsPossede}" />
     </p:column>
-    <p:column headerText="Nombre de cote crée">
-        <h:outputText value="#{entry.listCoteEffectue.size()}" />
+    <p:column headerText="Nombre de pari realisé">
+        <h:outputText value="#{entry.listPariEffectue.size()}" />
     </p:column>
 </p:dataTable>
 </h:body>

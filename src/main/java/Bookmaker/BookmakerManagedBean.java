@@ -27,7 +27,7 @@ public class BookmakerManagedBean {
     @ManagedProperty("#{confrontationManagedBean}")
     private ConfrontationManagedBean matchBean ;
     @ManagedProperty("#{classementBookmakerBean}")
-    private ClassementBookmakerBean classementBookmaker ;
+    private ClassementBookmakerBean classementBookmakerBean ;
 
     private String nom ;
     private String prenom ;
@@ -62,7 +62,7 @@ public class BookmakerManagedBean {
 
         if(a != null )
         {
-            classementBookmaker.setPersonneConnecte(a) ;
+            classementBookmakerBean.setPersonneConnecte(a) ;
             matchBean.setPersonneConnecte(a) ;
             return "listMatch.xhtml";
         }
@@ -73,10 +73,10 @@ public class BookmakerManagedBean {
         return null ;
     }
     public String LimToDollar(float val) throws IOException {
-        return ClientRest.currency.getLimcoinCurrency("DOL",val)+""  ;
+        return " " ;
     }
     public String LimToEuro(float val) throws IOException {
-        return ClientRest.currency.getLimcoinCurrency("EUR",val)+""  ;
+        return " " ;
     }
     public void onLoad()
     {
@@ -90,12 +90,12 @@ public class BookmakerManagedBean {
 
     }
 
-    public ClassementBookmakerBean getClassementBookmaker() {
-        return classementBookmaker;
+    public ClassementBookmakerBean getClassementBookmakerBean() {
+        return classementBookmakerBean;
     }
 
-    public void setClassementBookmaker(ClassementBookmakerBean classementBookmaker) {
-        this.classementBookmaker = classementBookmaker;
+    public void setClassementBookmakerBean(ClassementBookmakerBean classementBookmaker) {
+        this.classementBookmakerBean = classementBookmaker;
     }
 
 

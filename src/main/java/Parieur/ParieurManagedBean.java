@@ -1,14 +1,19 @@
 package Parieur;
 
 import Bookmaker.BookmakerBean;
+import Bookmaker.ClassementBookmakerBean;
+import ClientRest.Currency;
 import Confrontation.ConfrontationManagedBean;
+import Pari.PariBean;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
@@ -17,6 +22,10 @@ public class ParieurManagedBean implements Serializable {
     @EJB
     private Parieur parieur ;
 
+    @ManagedProperty("#{confrontationManagedBean}")
+    private ConfrontationManagedBean matchBean ;
+    @ManagedProperty("#{classementParieurBean}")
+    private ClassementParieurBean classementParieurBean ;
 
     private String nom ;
     private String prenom ;
@@ -35,12 +44,15 @@ public class ParieurManagedBean implements Serializable {
         return this.parieur.getListParieur() ;
     }
 
+
     public String connection()
     {
         ParieurBean a = this.parieur.connect(this.email,this.mdp) ;
 
         if(a != null )
         {
+            this.classementParieurBean.setPersonneConnecte(a);
+            matchBean.setPersonneConnecte(a) ;
              return "listMatch.xhtml";
         }
         else
@@ -48,6 +60,26 @@ public class ParieurManagedBean implements Serializable {
             this.etat = "Email ou mot de passe incorrecte" ;
         }
         return null ;
+    }
+    public String test() throws IOException {
+        Currency c = new Currency() ;
+        return "i : "+c.run("EUR") ;
+    }
+
+    public ConfrontationManagedBean getMatchBean() {
+        return matchBean;
+    }
+
+    public void setMatchBean(ConfrontationManagedBean matchBean) {
+        this.matchBean = matchBean;
+    }
+
+    public ClassementParieurBean getClassementParieurBean() {
+        return classementParieurBean;
+    }
+
+    public void setClassementParieurBean(ClassementParieurBean classementParieurBean) {
+        this.classementParieurBean = classementParieurBean;
     }
 
     public String getMdp() {

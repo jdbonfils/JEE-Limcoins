@@ -67,6 +67,7 @@
 
 <h:body style="width: 100%; height: 100%;background-color:lightgrey;">
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+
     <f:view class="jolitext" >
         <h:outputLabel value="Nom :     " class="jolitext" /><h:outputLabel value="#{coteManagedBean.match.nom}" class="jolitext" /><br />
         <h:outputLabel value="Lieux :   " class="jolitext" /><h:outputLabel value="#{coteManagedBean.match.lieu}" class="jolitext"/><br />
@@ -106,8 +107,9 @@
                         </f:facet>
                         <p:panel header="#{membre.nom}" style="text-align:center">
                             <h:panelGrid columns="1" style="width:100%">
-                                Prenom : <h:outputText value="#{membre.prenom}" />
-                                Age : <h:outputText value="#{membre.age}" />
+
+                                <h:outputText class="jolitext2" value="#{'Prenom : '.concat(membre.prenom)}" />
+                                <h:outputText class="jolitext2" value="#{'Age : '.concat(membre.age)}" />
                             </h:panelGrid>
                         </p:panel>
                     </p:dataGrid>
@@ -117,8 +119,9 @@
     </h:form>
     <br />
     <br />
-    <h:panelGroup id="result">
     <h:form >
+    <h:panelGroup id="result">
+
         <p:outputLabel class="jolitext2" value="Créer une cote :" />
         <br />
         <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
@@ -135,13 +138,12 @@
             <p:outputLabel  for="@previous" value="Multiplicateur" />
         </span>
         <br />
-        <p:commandButton class="marge5" value="Créer côte" id="nonAjax" action="#{coteManagedBean.creerCote()}" style="margin-right:20px;" ajax="true" />
-    </h:form>
+        <p:commandButton class="marge5" update="coteTable" value="Créer côte" id="nonAjax" action="#{coteManagedBean.creerCote()}" style="margin-right:20px;" ajax="true" />
     </h:panelGroup>
     <br />
     <p:outputLabel class="jolitext2" value="Liste des cotes :" />
     <br />
-    <p:dataTable class="marge5" var="entry" value="#{coteManagedBean.getCoteByMatch()}" >
+    <p:dataTable id="coteTable" class="marge5" var="entry" value="#{coteManagedBean.getCoteByMatch()}" >
         <p:column headerText="Cote">
             <h:outputText value="#{entry.multiplicateur}" />
         </p:column>
@@ -158,11 +160,11 @@
             <h:outputText value="#{entry.listPariAssocie.size()}" />
         </p:column>
         <p:column headerText="Details" style="width:48px;text-align: center">
-            <h:form>
             <p:commandButton action="#{coteManagedBean.detailsCote(entry.id)}"   icon="pi pi-search"/>
-            </h:form>
+
         </p:column>
     </p:dataTable>
+</h:form>
 </h:body>
 
 </html>

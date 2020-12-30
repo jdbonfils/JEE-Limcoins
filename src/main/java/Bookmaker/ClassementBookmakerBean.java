@@ -26,10 +26,15 @@ public class ClassementBookmakerBean {
     {
         this.bookmakersList = this.bookmaker.getListBookmaker() ;
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Connected",  "Vous êtes connecté en tant que : "+ this.getPersonneConnecte().getPrenom() +" "+this.getPersonneConnecte().getNom())) ;
+        if(personneConnecte != null)
+            context.addMessage(null, new FacesMessage("Connected",  "Vous êtes connecté en tant que : "+ this.getPersonneConnecte().getPrenom() +" "+this.getPersonneConnecte().getNom())) ;
     }
+
     public List<BookmakerBean>getClassement(int mode)
     {
+        System.out.println("issou") ;
+
+        System.out.println(this.bookmakersList.size()) ;
         if(mode == 1) {
             this.bookmakersList.sort(new Comparator<BookmakerBean>() {
                 public int compare(BookmakerBean s1, BookmakerBean s2) {

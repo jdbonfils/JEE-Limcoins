@@ -1,5 +1,6 @@
 package Pari;
 
+import Bookmaker.BookmakerBean;
 import Cote.CoteBean;
 import Parieur.ParieurBean;
 
@@ -17,8 +18,20 @@ public class PariSessionBean implements Serializable,Pari {
 
     @Override
     public void addPari(float limcoinmise, ParieurBean parieur, CoteBean cote) {
-        PariBean p = new PariBean(limcoinmise,parieur,  cote);
-        em.persist(p);
+        String email = parieur.getEmail();
+        Long idCote = cote.getId() ;
+
+        PariBean pari = new PariBean(limcoinmise,parieur,  cote);
+        em.persist(pari);
+
+        ParieurBean b = em.find(ParieurBean.class,email);
+        CoteBean c = em.find(CoteBean.class,idCote);
+
+        b.getListPariEffectue().add(pari) ;
+        c.getListPariAssocie().add(pari);
+
+        em.merge(c) ;
+        em.merge(b) ;
     }
 
     @Override

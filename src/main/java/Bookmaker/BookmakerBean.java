@@ -16,7 +16,7 @@ public class BookmakerBean extends Personne.Personne implements Serializable {
     protected String birthDate ;
     protected String tel ;
 
-    @OneToMany(fetch= FetchType.EAGER, mappedBy = "createur")
+    @OneToMany(fetch= FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<CoteBean> listCoteEffectue ;
 
     public BookmakerBean(String mail,String mdp, String nom, String prenom, String date, String addr,String tel)

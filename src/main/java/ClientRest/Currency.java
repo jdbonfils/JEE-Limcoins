@@ -4,6 +4,8 @@ package ClientRest;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import jdk.nashorn.internal.parser.JSONParser;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.JerseyWebTarget;
 import org.primefaces.shaded.json.JSONObject;
@@ -22,10 +24,30 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Scanner;
 
-public class currency implements Serializable {
+public class Currency implements Serializable {
+
+  OkHttpClient client = new OkHttpClient();
+
+  public String run(String url) throws IOException {
+    Request request = new Request.Builder()
+            .url("https://free.currconv.com/api/v7/convert?q=ZWL_USD&compact=ultra&apiKey=9a24447e9d9caf7e2111")
+            .build();
+
+    try (okhttp3.Response response = client.newCall(request).execute()) {
+      return response.body().string();
+    }
+  }
+
+  public Currency()
+  {
+
+  }
 
 
-  public static float getLimcoinCurrency(String currency, float limcoins) throws IOException {
+/*
+  public float getLimcoinCurrency(String currency, float limcoins) throws IOException {
+
+
     ClientConfig cf = new ClientConfig();
     ClientBuilder.newBuilder();
     Client c = ClientBuilder.newClient(cf);
@@ -34,5 +56,5 @@ public class currency implements Serializable {
     Response response = invocationBuilder.get();
     JsonObject jsonObject = new JsonParser().parse(response.readEntity(String.class)).getAsJsonObject();
     return (limcoins * jsonObject.get("ZWL_" + currency).getAsFloat());
-  }
+  }*/
 }

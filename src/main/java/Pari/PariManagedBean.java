@@ -3,6 +3,8 @@ package Pari;
 
 
 import Cote.CoteBean;
+import Parieur.ParieurBean;
+import Personne.Personne;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
@@ -18,6 +20,7 @@ public class PariManagedBean implements Serializable {
     private Pari pari ;
 
     private CoteBean coteConcerne ;
+    protected Personne personneConnecte ;
     private float mise ;
 
     public String gain()
@@ -27,8 +30,21 @@ public class PariManagedBean implements Serializable {
     }
     public void creerPari()
     {
-        this.pari.addPari(this.mise,null,this.coteConcerne);
+        if(personneConnecte instanceof ParieurBean )
+        {
+            this.pari.addPari(this.mise, (ParieurBean) this.personneConnecte,this.coteConcerne);
+        }
+
     }
+
+    public Personne getPersonneConnecte() {
+        return personneConnecte;
+    }
+
+    public void setPersonneConnecte(Personne personneConnecte) {
+        this.personneConnecte = personneConnecte;
+    }
+
     public float getMise() {
         return mise;
     }

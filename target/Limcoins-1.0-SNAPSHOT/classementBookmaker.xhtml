@@ -15,10 +15,11 @@
         color: #000000 !important;
     }
 </style></h:head><h:body>
+
 <f:view>
     <h:outputLabel value="Hello, world"/>
 </f:view>
-<p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementBookmakerBean.getClassement(1)}" rowStyleClass="#{entry.email le classementBookmakerBean.personneConnecte.email ? 'me' : null}" >
+<p:dataTable update="@this" rowIndexVar="index" class="marge5" var="entry" value="#{classementBookmakerBean.getClassement(1)}" rowStyleClass="#{entry.email le classementBookmakerBean.personneConnecte.email ? 'me' : null}" >
     <p:column headerText="Rang">
         <h:outputText value="#{index+1}" />
     </p:column>
@@ -33,7 +34,7 @@
     </p:column>
 </p:dataTable>
 <br />
-    <p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementBookmakerBean.getClassement(2)}" rowStyleClass="#{entry.email le classementBookmakerBean.personneConnecte.email ? 'me' : null}" >
+    <p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementBookmakerBean.getClassement(0)}" rowStyleClass="#{entry.email le classementBookmakerBean.personneConnecte.email ? 'me' : null}" >
         <p:column headerText="Rang">
             <h:outputText value="#{index+1}" />
         </p:column>
