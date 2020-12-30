@@ -5,11 +5,79 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <style type="text/css">
+        .jolitext{
+            margin: auto 5%; color: #2c3b30; font-family: 'Trocchi', serif; font-size: 35px; font-weight: bold; line-height: 48px; white-space:nowrap;
+        }
+        .jolitext2{
+            color: #2c3b30; font-family: 'Trocchi', serif; font-size: 25px; font-weight: bold; line-height: 48px; white-space:nowrap;
+        }
+        .marge5{
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+        .jolibouton {
+            border:none;
+            padding:6px 0 6px 0;
+            border-radius:8px;
+            background:#d34836;
+            font:bold 13px Arial;
+            color:#fff;
+        }
+        .ui-toggleswitch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 28px;
+        }
+        .ui-toggleswitch-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: grey;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+        .ui-toggleswitch-slider:before {
+            position: absolute;
+            content: "";
+            height: 23px;
+            width: 26px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+        .ui-toggleswitch-checked
+        {
+            background-color: aquamarine;
+        }
+        .ui-radiobutton-box{
+            background-color: aliceblue;
+        }
+    </style>
+</h:head>
 <h:body>
 <f:view>
     <h:outputLabel value="Hello, world"/>
 </f:view>
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+    <p:dataTable class="marge5" var="entry" value="#{parieurProfilManagedBean.parieurCo.limcoinsPossede}" >
+        <p:column headerText="Limcoins">
+            <h:outputText value="#{entry}" />
+        </p:column>
+        <p:column headerText="Euros">
+            <h:outputText value="#{parieurProfilManagedBean.parieurCo.limcoinsPossede}" />
+        </p:column>
+        <p:column headerText="Dollars">
+            <h:outputText value="#{parieurProfilManagedBean.parieurCo.limcoinsPossede}" />
+        </p:column>
+    </p:dataTable>
     <p:dataTable class="marge5" var="entry" value="#{parieurProfilManagedBean.getListeParis()}" >
         <p:column headerText="Limcoin misé">
             <h:outputText value="#{entry.limCoinMise}" />

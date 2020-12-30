@@ -97,8 +97,11 @@ public class ConfrontationManagedBean {
         {
             return "profilBookmaker.xhtml" ;
         }
-            parieurProfil.setPersonneConnecte(this.personneConnecte);
-            return "profilParieur.xhtml" ;
+        else {
+            parieurProfil.setParieurCo((ParieurBean) this.personneConnecte);
+            return "profilParieur.xhtml";
+        }
+
     }
     public void classementBookmaker() throws IOException {
 

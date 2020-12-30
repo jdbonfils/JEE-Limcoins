@@ -1,5 +1,6 @@
 package Parieur;
 
+import Bookmaker.BookmakerBean;
 import Pari.PariBean;
 import Personne.Personne;
 
@@ -19,18 +20,18 @@ public class ParieurProfilManagedBean {
     @EJB
     private Parieur parieur ;
 
-    private Personne personneConnecte ;
+    private ParieurBean parieurCo ;
 
     public List<PariBean> getListeParis()
     {
-        return this.parieur.getListParis(this.personneConnecte.getEmail()) ;
+        return this.parieur.getListParis(this.parieurCo.getEmail()) ;
     }
 
-    public Personne getPersonneConnecte() {
-        return personneConnecte;
+    public ParieurBean getParieurCo() {
+        return parieurCo;
     }
 
-    public void setPersonneConnecte(Personne personneConnecte) {
-        this.personneConnecte = personneConnecte;
+    public void setParieurCo(ParieurBean personneConnecte) {
+        this.parieurCo = personneConnecte;
     }
 }
