@@ -43,14 +43,10 @@ public class BookmakerSessionBean implements Bookmaker, Serializable {
     @Override
     public List<CoteBean> getCote(String email)
     {
-        Query q = em.createNativeQuery("select * from BookmakerBean p where p.EMAIL = ?", BookmakerBean.class);
-        q.setParameter(1, email);
-        if(q.getResultList().isEmpty()){
-            return null ;
-        }
-        BookmakerBean b = (BookmakerBean) q.getResultList().get(0)  ;
-        System.out.print(b.getListCoteEffectue().get(b.getListCoteEffectue().size()-1).getMultiplicateur()) ;
-        return b.getListCoteEffectue() ;
+        BookmakerBean b = em.find(BookmakerBean.class,email) ;
+        if(b != null)
+            return b.getListCoteEffectue() ;
+        return null ;
     }
 
     @Override

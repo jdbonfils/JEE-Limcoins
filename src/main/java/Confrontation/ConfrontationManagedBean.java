@@ -15,6 +15,7 @@ import Personne.Personne;
 import javax.ejb.EJB;
 
 
+import javax.el.MethodExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Date;
 import java.util.List;
+import java.util.Locale;
 
 @ManagedBean
 @ApplicationScoped
@@ -52,6 +54,8 @@ public class ConfrontationManagedBean {
     protected long e1id;
     protected long e2id ;
     protected List<ConfrontationBean> listMatch ;
+    private List<ConfrontationBean> filteredMatch;
+
 
     public void addMatch()
     {
@@ -76,16 +80,17 @@ public class ConfrontationManagedBean {
         }
         return "newCote.xhtml" ;
     }
-    public List<ConfrontationBean> getListMatch()
-    {
-        this.listMatch = this.confrontation.getListConfrontation() ;
-        return this.listMatch ;
-    }
-    public void growlUser()
+    public void onLoad()
     {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Connected",  "Vous êtes connecté en tant que : "+ this.getPersonneConnecte().getPrenom() +" "+this.getPersonneConnecte().getNom())) ;
+        this.listMatch = this.confrontation.getListConfrontation() ;
     }
+    public List<ConfrontationBean> getListMatch()
+    {
+        return this.listMatch ;
+    }
+
     public String afficherSolde()
     {
         return "Solde : "+this.personneConnecte.getLimcoinsPossede()+" Limcoins" ;
@@ -117,6 +122,14 @@ public class ConfrontationManagedBean {
 
     //Getters et Setters
 
+
+    public List<ConfrontationBean> getFilteredMatch() {
+        return filteredMatch;
+    }
+
+    public void setFilteredMatch(List<ConfrontationBean> filteredMatch) {
+        this.filteredMatch = filteredMatch;
+    }
 
     public ParieurProfilManagedBean getParieurProfil() {
         return parieurProfil;
@@ -194,4 +207,21 @@ public class ConfrontationManagedBean {
     public void setCoteBean(CoteManagedBean coteBean) {
         this.coteBean = coteBean;
     }
+
+    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+
+        ConfrontationBean match = (ConfrontationBean) value;
+        return  match.getLieu().toLowerCase().contains(filterText)
+                || match.getDate().toString().toLowerCase().contains(filterText)
+                || match.getE1().getNom().toLowerCase().contains(filterText)
+                || match.getE2().getNom().toLowerCase().contains(filterText)
+                || match.getNom().toLowerCase().contains(filterText)
+                || (match.getListeCote().size()+"").contains(filterText) ;
+
+    }
+
 }

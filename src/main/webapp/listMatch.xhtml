@@ -8,16 +8,66 @@
       xmlns:p="http://primefaces.org/ui">
 
 <f:metadata>
-    <f:event type="preRenderView" listener="#{confrontationManagedBean.growlUser}" />
+    <f:event type="preRenderView" listener="#{confrontationManagedBean.onLoad()}" />
 </f:metadata>
 <h:head><style type="text/css">
     .ui-grid td {
         white-space: nowrap;
     }
+    .ui-datatable {
+        margin-bottom: 25px
+    }
+
+    .ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
+    .ui-growl {
+        top: auto;
+        bottom: 10px;
+    }
+
+
+    .ui-button-text-only .ui-button-text {
+        padding: 0.3em 0.4em;
+    }
+
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        visibility: hidden;
+    }
+
+    .ui-filter-column .ui-column-customfilter .custom-filter {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .year-spinner input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+
 </style></h:head>
-<h:body>
+<h:body style="width: 100%; height: 100%;background-color:lightgrey;">
     <h:form>
-        <p:dialog minWidth="300" position="800,20" visible="true" header="Values" widgetVar="dlg" showEffect="fold" hideEffect="fold">
+    <p:tabMenu style="margin-right: 20px;"  activeIndex="#{param.i}">
+        <p:menuitem value=" Profil" action="#{confrontationManagedBean.profil}" icon="pi pi-user">
+            <f:param name="i" value="0" />
+        </p:menuitem>
+        <p:menuitem value="Classement Bookmaker" action="#{confrontationManagedBean.classementBookmaker}" icon="pi pi-sort-amount-up">
+            <f:param name="i" value="1" />
+        </p:menuitem>
+        <p:menuitem value="Classement Parieur" action="#{confrontationManagedBean.classementParieur}" icon="pi pi-sort-amount-up">
+            <f:param name="i" value="2" />
+        </p:menuitem>
+        <p:menuitem value="Deconnexion" action="#{confrontationManagedBean.classementParieur}" icon="pi pi-power-off">
+            <f:param name="i" value="2" />
+        </p:menuitem>
+
+    </p:tabMenu>
+</h:form>
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+    <h:form>
+        <p:dialog position="right,center" minWidth="250" minHeight="120" visible="true" header="Values" widgetVar="dlg" showEffect="fold" hideEffect="fold">
             <h:panelGrid id="display" columns="2" cellpadding="5">
                 <h:outputText style="white-space: nowrap;" value="#{confrontationManagedBean.afficherSolde()}" />
             </h:panelGrid>
@@ -25,26 +75,45 @@
     </h:form>
 <h:form id="form">
     <p:growl id="growl" showDetail="true" sticky="true" />
-    <p:commandButton value="Profil" id="Profil" action="#{confrontationManagedBean.profil}" style="margin-right:20px;" ajax="false" />
-    <p:commandButton value="Classement Bookmaker" id="classmentB" action="#{confrontationManagedBean.classementBookmaker}" style="margin-right:20px;" ajax="false" />
-    <p:commandButton value="Classement Parieur" id="classmentP" action="#{confrontationManagedBean.classementParieur}" style="margin-right:20px;" ajax="false" />
+    <p:dataTable style="margin-right: 20px;" var="entry" value="#{confrontationManagedBean.listMatch}" widgetVar="matchTable"
+                 emptyMessage="Aucun match trouvé" filteredValue="#{confrontationManagedBean.filteredMatch}"
+                 globalFilterFunction="#{confrontationManagedBean.globalFilterFunction}">
 
-    <p:repeat value="#{confrontationManagedBean.getListMatch()}" var="entry">
-        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-            <p:outputPanel>
-                <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputText value="Id:" />
-                    <h:outputText value="#{entry.nom}" style="font-weight: bold"/>
-                    <h:outputText value="Year:" />
-                    <h:outputText value="#{entry.lieu}" style="font-weight: bold"/>
-                    <h:outputText value="Color:" />
-                    <h:outputText value="#{entry.date}" style="font-weight: bold"/>
-                    <p:commandButton value="Details" id="Details" action="#{confrontationManagedBean.newCote(entry.id)}" style="margin-right:20px;" ajax="false" />
-                </h:panelGrid>
+        <f:facet name="header">
+            <p:outputPanel  >
+                <h:outputText   value="Rechercher un match " />
+                <i class="pi pi-filter" />
+                <p:inputText id="globalFilter" onkeyup="PF('matchTable').filter()" style="width:150px" placeholder="Enter keyword"/>
             </p:outputPanel>
-        </h:panelGrid>
-        <hr />
-    </p:repeat>
+        </f:facet>
+
+        <p:column headerText="Id">
+            <h:outputText value="#{entry.nom}" />
+        </p:column>
+
+        <p:column headerText="Year">
+            <h:outputText value="#{entry.lieu}" />
+        </p:column>
+
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Date" />
+                <i class="pi pi-calendar" />
+            </f:facet>
+            <h:outputText value="#{entry.date}" />
+        </p:column>
+
+        <p:column headerText="Color">
+            <h:outputText value="#{entry.e2.nom.concat((' VS ').concat(entry.e1.nom))}" />
+        </p:column>
+        <p:column headerText="Color">
+            <h:outputText value="#{entry.listeCote.size()}" />
+        </p:column>
+        <p:column headerText="Details" style="width:48px;text-align: center">
+            <p:commandButton action="#{confrontationManagedBean.newCote(entry.id)}"   icon="pi pi-search-plus"/>
+        </p:column>
+    </p:dataTable>
+
 </h:form>
 </h:body>
 </html>

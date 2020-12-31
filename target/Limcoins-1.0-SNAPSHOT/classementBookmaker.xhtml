@@ -14,11 +14,11 @@
         background-image: none !important;
         color: #000000 !important;
     }
-</style></h:head><h:body>
+</style></h:head>
+<h:body style="width: 100%; height: 100%;background-color:lightgrey;">
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
 
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+<h:form>
 <p:dataTable update="@this" rowIndexVar="index" class="marge5" var="entry" value="#{classementBookmakerBean.getClassement(1)}" rowStyleClass="#{entry.email le classementBookmakerBean.personneConnecte.email ? 'me' : null}" >
     <p:column headerText="Rang">
         <h:outputText value="#{index+1}" />
@@ -31,6 +31,9 @@
     </p:column>
     <p:column headerText="Nombre de cote crée">
         <h:outputText value="#{entry.listCoteEffectue.size()}" />
+    </p:column>
+    <p:column headerText="Details" style="width:48px;text-align: center">
+        <p:commandButton action="#{classementBookmakerBean.voirCote(entry.email)}"   icon="pi pi-search-plus"/>
     </p:column>
 </p:dataTable>
 <br />
@@ -47,6 +50,13 @@
         <p:column headerText="Nombre de cote crée">
             <h:outputText value="#{entry.listCoteEffectue.size()}" />
         </p:column>
+        <p:column headerText="Nombre de cote crée">
+            <h:outputText value="#{entry.listCoteEffectue.size()}" />
+        </p:column>
+        <p:column headerText="Details" style="width:48px;text-align: center">
+            <p:commandButton action="#{classementBookmakerBean.voirCote(entry.email)}"   icon="pi pi-search-plus"/>
+        </p:column>
     </p:dataTable>
+</h:form>
 </h:body>
 </html>

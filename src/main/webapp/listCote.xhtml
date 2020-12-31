@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+    <f:event type="preRenderView" listener="#{coteByBookmakerManagedBean.onLoad()}" />
+</f:metadata>
+<h:head></h:head>
+<h:body style="width: 100%; height: 100%;background-color:lightgrey;">
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+<f:view>
+    <h:outputLabel value="Hello, world"/>
+</f:view>
+    <h:form>
+<p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{coteByBookmakerManagedBean.listCote}"  >
+    <p:column headerText="Cote">
+        <h:outputText value="#{entry.multiplicateur}" />
+    </p:column>
+    <p:column headerText="Equipe Gagnante">
+        <h:outputText value="#{entry.gagnant.nom}" />
+    </p:column>
+    <p:column headerText="Etat">
+        <h:outputText value="#{entry.etat}" />
+    </p:column>
+    <p:column headerText="Créer Par">
+        <h:outputText value="#{entry.createur.nom}" />
+    </p:column>
+    <p:column headerText="Nombre de paris">
+        <h:outputText value="#{entry.listPariAssocie.size()}" />
+    </p:column>
+    <p:column headerText="Details" style="width:48px;text-align: center">
+        <p:commandButton action="#{coteManagedBean.detailsCote(entry.id)}"   icon="pi pi-search"/>
+
+    </p:column>
+</p:dataTable>
+    </h:form>
+</h:body>
+</html>

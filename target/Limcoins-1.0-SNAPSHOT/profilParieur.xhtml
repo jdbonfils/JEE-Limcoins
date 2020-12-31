@@ -66,6 +66,7 @@
 <f:view>
     <h:outputLabel value="Hello, world"/>
 </f:view>
+<h:form>
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
     <p:dataTable class="marge5" var="entry" value="#{parieurProfilManagedBean.parieurCo.limcoinsPossede}" >
         <p:column headerText="Limcoins">
@@ -78,6 +79,7 @@
             <h:outputText value="#{parieurProfilManagedBean.parieurCo.limcoinsPossede}" />
         </p:column>
     </p:dataTable>
+    <br />
     <p:dataTable class="marge5" var="entry" value="#{parieurProfilManagedBean.getListeParis()}" >
         <p:column headerText="Limcoin misé">
             <h:outputText value="#{entry.limCoinMise}" />
@@ -94,6 +96,13 @@
         <p:column headerText="Cote creer par ">
             <h:outputText value="#{entry.coteConcerne.createur.nom}" />
         </p:column>
+        <p:column headerText="Cote creer par ">
+            <h:outputText value="#{entry.coteConcerne.matchConcerne.nom}" />
+        </p:column>
+        <p:column headerText="Details" style="width:48px;text-align: center">
+            <p:commandButton action="#{parieurProfilManagedBean.detailsCote(entry.id)}"   icon="pi pi-search"/>
+        </p:column>
     </p:dataTable>
+</h:form>
 </h:body>
 </html>

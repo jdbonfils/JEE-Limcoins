@@ -1,13 +1,17 @@
 package Bookmaker;
 
 import Cote.CoteBean;
+import Cote.CoteByBookmakerManagedBean;
 import Personne.Personne;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -22,12 +26,35 @@ public class ClassementBookmakerBean {
     private List<BookmakerBean> bookmakersList ;
     protected Personne personneConnecte ;
 
+    @ManagedProperty("#{coteByBookmakerManagedBean}")
+    private CoteByBookmakerManagedBean coteByBookmakerManagedBean ;
+
     public void onLoad()
     {
         this.bookmakersList = this.bookmaker.getListBookmaker() ;
         FacesContext context = FacesContext.getCurrentInstance();
         if(personneConnecte != null)
             context.addMessage(null, new FacesMessage("Connected",  "Vous êtes connecté en tant que : "+ this.getPersonneConnecte().getPrenom() +" "+this.getPersonneConnecte().getNom())) ;
+    }
+    public void voirCote(String email) throws IOException {
+        for(BookmakerBean b : this.bookmakersList)
+        {
+
+            if(b.getEmail().equals(email))
+            {
+                coteByBookmakerManagedBean.setCreePar(b);
+                ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+                ec.redirect(ec.getRequestContextPath() + "/" +"listCote.xhtml");
+            }
+        }
+    }
+
+    public CoteByBookmakerManagedBean getCoteByBookmakerManagedBean() {
+        return coteByBookmakerManagedBean;
+    }
+
+    public void setCoteByBookmakerManagedBean(CoteByBookmakerManagedBean coteByBookmakerManagedBean) {
+        this.coteByBookmakerManagedBean = coteByBookmakerManagedBean;
     }
 
     public List<BookmakerBean>getClassement(int mode)
