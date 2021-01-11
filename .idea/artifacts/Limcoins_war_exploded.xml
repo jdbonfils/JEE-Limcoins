@@ -15,11 +15,8 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.primefaces:primefaces:8.0" />
-          <element id="library" level="project" name="Maven: com.squareup.okio:okio:2.8.0" />
-          <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.4.0" />
-          <element id="library" level="project" name="Maven: org.python:jython:2.7.2" />
-          <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:4.10.0-RC1" />
           <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.4.10" />
+          <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.4.10" />
           <element id="library" level="project" name="Maven: org.jetbrains:annotations:13.0" />
           <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.2" />
           <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-server:2.17" />

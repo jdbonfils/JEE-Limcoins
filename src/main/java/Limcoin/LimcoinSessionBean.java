@@ -1,6 +1,6 @@
 package Limcoin;
 
-import org.python.util.PythonInterpreter;
+
 
 import javax.ejb.Schedule;
 import javax.ejb.Startup;
@@ -8,9 +8,12 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.servlet.ServletContext;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.CodeSource;
+import java.security.ProtectionDomain;
 import java.util.List;
 
 @Stateless
@@ -22,7 +25,7 @@ public class LimcoinSessionBean implements Serializable,Limcoin {
 
    @Schedule(hour="*/1", persistent=false)
     public void majLimcoin() throws URISyntaxException, IOException {
-        if(this.getLimcoinOrdered().size() > 12)
+       /* if(this.getLimcoinOrdered().size() > 12)
         {
             System.out.println("Supression de la donnée la plus ancienne") ;
             this.deleteLastLimcoin();
@@ -30,7 +33,8 @@ public class LimcoinSessionBean implements Serializable,Limcoin {
 
 
     try {
-            Process p = Runtime.getRuntime().exec("python3 /home/jean/Limcoins/src/main/java/outils/currency.py");
+
+            Process p = Runtime.getRuntime().exec("python3 /home/jean/Limcoins/src/main/webapp/currency.py");
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
             float euro = 10*Float.parseFloat(stdInput.readLine()) ;
             float dollar = 10*Float.parseFloat(stdInput.readLine()) ;
@@ -41,7 +45,7 @@ public class LimcoinSessionBean implements Serializable,Limcoin {
       }catch(Exception e)
         {
             System.out.println("La MAJ du limcoin a échoué") ;
-        }
+        }*/
 
     }
 

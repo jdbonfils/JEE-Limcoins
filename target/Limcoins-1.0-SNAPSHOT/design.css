@@ -1,0 +1,60 @@
+
+                      .jolitext{
+                          margin: auto 5%; color: #2c3b30; font-family: 'Trocchi', serif; font-size: 35px; font-weight: bold; line-height: 48px; white-space:nowrap;
+                      }
+.jolitext2{
+    color: #2c3b30; font-family: 'Trocchi', serif; font-size: 25px; font-weight: bold; line-height: 48px; white-space:nowrap;
+}
+                      outputLabel{
+                          color: #2c3b30; font-family: 'Trocchi', serif; font-size: 25px; font-weight: bold; line-height: 48px; white-space:nowrap;
+                      }
+                      #formdiv {
+                          margin: 0 auto;
+                      }
+.marge5{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.jolibouton {
+    border:none;
+    padding:6px 0 6px 0;
+    border-radius:8px;
+    background:#d34836;
+    font:bold 13px Arial;
+    color:#fff;
+}
+.ui-toggleswitch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 28px;
+}
+.ui-toggleswitch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: grey;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.ui-toggleswitch-slider:before {
+    position: absolute;
+    content: "";
+    height: 23px;
+    width: 26px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.ui-toggleswitch-checked
+{
+    background-color: aquamarine;
+}
+.ui-radiobutton-box{
+    background-color: aliceblue;
+}

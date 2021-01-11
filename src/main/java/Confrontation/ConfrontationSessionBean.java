@@ -6,7 +6,7 @@ import Cote.CoteBean;
 import Equipe.EquipeBean;
 import Pari.PariBean;
 import Parieur.ParieurBean;
-import org.python.util.PythonInterpreter;
+
 
 import javax.ejb.Schedule;
 import javax.ejb.Startup;
