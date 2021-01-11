@@ -16,7 +16,6 @@ public class PariBean implements Serializable {
     private long id ;
 
     private float limCoinMise ;
-    private String etat ;
 
     @ManyToOne
     private ParieurBean parieur ;
@@ -26,7 +25,6 @@ public class PariBean implements Serializable {
 
     public PariBean(float limcoinmise, ParieurBean parieur, CoteBean cote)
     {
-        this.etat = "EN COURS" ;
         this.limCoinMise = limcoinmise ;
         this.parieur = parieur ;
         this.coteConcerne = cote;
@@ -50,14 +48,6 @@ public class PariBean implements Serializable {
 
     public void setLimCoinMise(float limCoinMise) {
         this.limCoinMise = limCoinMise;
-    }
-
-    public String getEtat() {
-        return etat;
-    }
-
-    public void setEtat(String etat) {
-        this.etat = etat;
     }
 
     public ParieurBean getParieur() {

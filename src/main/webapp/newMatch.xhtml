@@ -6,28 +6,56 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:metadata>
+    <f:event type="preRenderView" listener="#{newConfrontationManagedBean.onLoad()}" />
+</f:metadata>
+<h:head>
+    <script type="text/javascript">
+        //<![CDATA[
+        function dateTemplateFunc(date) {
+            return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">' + date.day + '</span>';
+        }
+        //]]>
+    </script>
 
-<f:view>
-    <c:forEach items="#{confrontationManagedBean.getListMatch()}" var="entry">
+    <style type="text/css">
+        .value {
+            font-weight: bold;
+        }
+    </style>
+</h:head>
+<h:body>
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+    <c:forEach items="#{newConfrontationManagedBean.getListMatch()}" var="entry">
         <li>Email: #{entry.nom} Titre: #{entry.lieu}  Auteur: #{entry.e1.nom}   </li>
-        <h:form>
-            <h:commandButton value="issou" action="#{equipeManagedBean.details(0)}"/>
-        </h:form>
     </c:forEach>
+
     <h:form>
-    Nom : <h:inputText value="#{confrontationManagedBean.nom}" id="email" required="true" />
-    Lieu : <h:inputText value="#{confrontationManagedBean.lieu}" id="nom" required="true" />
-    Date : <h:inputText value="#{confrontationManagedBean.date}" id="prenom" required="true" />
-    Minute :<h:inputText value="#{confrontationManagedBean.minutes}" id="birthdate" required="true" />
-        Equipe1 : <h:selectOneMenu value="#{confrontationManagedBean.e1id}">
-        <f:selectItems value="#{equipeManagedBean.getListEquipe()}" var="c"  itemLabel="#{c.nom}" itemValue="#{c.id}" />
-    </h:selectOneMenu>
-        Equipe2 :   <h:selectOneMenu value="#{confrontationManagedBean.e2id}">
-        <f:selectItems value="#{equipeManagedBean.getListEquipe()}" var="c"  itemLabel="#{c.nom}" itemValue="#{c.id}" />
-    </h:selectOneMenu>
+        Nom : <h:inputText value="#{newConfrontationManagedBean.nom}" id="email" required="true" />
+        Lieu : <h:inputText value="#{newConfrontationManagedBean.lieu}" id="nom" required="true" />
+        Minute :<h:inputText value="#{newConfrontationManagedBean.minutes}" id="birthdate" required="true" />
+        <p:outputLabel for="time" value="Time" />
+        <p:datePicker id="time" value="#{newConfrontationManagedBean.date1}" showTime="true"/>
+        <h:outputText class="jolitext2" value="Equipe 1" />
+        <h:selectOneMenu value="#{newConfrontationManagedBean.e1id}">
+            <f:selectItems value="#{equipeManagedBean.getListEquipe()}" var="c"  itemLabel="#{c.nom}" itemValue="#{c.id}" />
+        </h:selectOneMenu>
+        <h:outputText class="jolitext2" value="Equipe 2" />
+        <h:selectOneMenu value="#{newConfrontationManagedBean.e2id}">
+            <f:selectItems value="#{equipeManagedBean.getListEquipe()}" var="c"  itemLabel="#{c.nom}" itemValue="#{c.id}" />
+        </h:selectOneMenu>
 
 
-        <h:commandButton value="Ajouter" action="#{confrontationManagedBean.addMatch()}"/>
+        <h:commandButton value="Ajouter" action="#{newConfrontationManagedBean.addMatch()}"/>
+
+        <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
+            <p:panelGrid id="display" columns="4" columnClasses="label,value,label,value">
+                <h:outputText value="Time:" />
+                <h:outputText value="#{calendarView.date13}">
+                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                </h:outputText>
+            </p:panelGrid>
+        </p:dialog>
     </h:form>
-</f:view>
+</h:body>
 </html>

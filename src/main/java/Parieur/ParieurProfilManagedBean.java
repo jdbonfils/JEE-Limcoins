@@ -2,6 +2,9 @@ package Parieur;
 
 import Bookmaker.BookmakerBean;
 import Cote.CoteBean;
+
+import Limcoin.Limcoin;
+import Limcoin.LimcoinBean;
 import Pari.PariBean;
 import Pari.PariManagedBean;
 import Personne.Personne;
@@ -23,11 +26,23 @@ public class ParieurProfilManagedBean {
     @EJB
     private Parieur parieur ;
 
+    @EJB
+    private Limcoin limcoin ;
+
     @ManagedProperty("#{pariManagedBean}")
     private PariManagedBean pariBean ;
     private List<PariBean> listParis ;
     private ParieurBean parieurCo ;
 
+    private float euroPossede ;
+    private float dollarPossede ;
+
+    public void onLoad()
+    {
+        LimcoinBean lim = limcoin.getLastLimcoin();
+        this.euroPossede = (lim.getEuro() * this.parieurCo.getLimcoinsPossede());
+        this.dollarPossede = (lim.getDollar() * this.parieurCo.getLimcoinsPossede());
+    }
     public String detailsCote(long id)
     {
         CoteBean c = null ;
@@ -65,5 +80,29 @@ public class ParieurProfilManagedBean {
 
     public void setPariBean(PariManagedBean pariBean) {
         this.pariBean = pariBean;
+    }
+
+    public String getEtat(long idPari) {
+        for(PariBean pari : this.getListeParis())
+            if(pari.getId() == idPari)
+                if(pari.getCoteConcerne().getMatchConcerne().getTermine())
+                    return "TERMINE" ;
+        return "EN COURS" ;
+    }
+
+    public float getEuroPossede() {
+        return euroPossede;
+    }
+
+    public void setEuroPossede(float euroPossede) {
+        this.euroPossede = euroPossede;
+    }
+
+    public float getDollarPossede() {
+        return dollarPossede;
+    }
+
+    public void setDollarPossede(float dollarPossede) {
+        this.dollarPossede = dollarPossede;
     }
 }

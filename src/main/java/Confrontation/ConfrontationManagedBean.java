@@ -47,27 +47,12 @@ public class ConfrontationManagedBean {
     private ParieurProfilManagedBean parieurProfil;
 
     protected Personne personneConnecte ;
-    protected String nom;
-    protected String lieu;
-    protected String date;
-    protected int minutes;
-    protected long e1id;
-    protected long e2id ;
+
     protected List<ConfrontationBean> listMatch ;
     private List<ConfrontationBean> filteredMatch;
 
 
-    public void addMatch()
-    {
 
-        Date d = new Date(1232132) ;
-        EquipeBean e1 = this.equipe.getEquipe(this.e1id) ;
-        EquipeBean e2 = this.equipe.getEquipe(this.e2id) ;
-
-        System.out.print("issoususouosuosuou");
-        this.confrontation.addConfrontation(this.nom,this.lieu,d,this.minutes,e1,e2);
-
-    }
     public String newCote(long id )
     {
         for(ConfrontationBean c : this.listMatch)
@@ -120,7 +105,24 @@ public class ConfrontationManagedBean {
 
     }
 
+    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+
+        ConfrontationBean match = (ConfrontationBean) value;
+        return  match.getLieu().toLowerCase().contains(filterText)
+                || (new Date(match.getDate())).toString().toLowerCase().contains(filterText)
+                || match.getE1().getNom().toLowerCase().contains(filterText)
+                || match.getE2().getNom().toLowerCase().contains(filterText)
+                || match.getNom().toLowerCase().contains(filterText)
+                || (match.getListeCote().size()+"").contains(filterText) ;
+
+    }
+
     //Getters et Setters
+
 
 
     public List<ConfrontationBean> getFilteredMatch() {
@@ -152,54 +154,6 @@ public class ConfrontationManagedBean {
     }
 
 
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getLieu() {
-        return lieu;
-    }
-
-    public void setLieu(String lieu) {
-        this.lieu = lieu;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public int getMinutes() {
-        return minutes;
-    }
-
-    public void setMinutes(int minutes) {
-        this.minutes = minutes;
-    }
-
-    public long getE1id() {
-        return e1id;
-    }
-
-    public void setE1id(long e1id) {
-        this.e1id = e1id;
-    }
-
-    public long getE2id() {
-        return e2id;
-    }
-
-    public void setE2id(long e2id) {
-        this.e2id = e2id;
-    }
-
     public CoteManagedBean getCoteBean() {
         return coteBean;
     }
@@ -208,20 +162,6 @@ public class ConfrontationManagedBean {
         this.coteBean = coteBean;
     }
 
-    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
-        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
-        if (filterText == null || filterText.equals("")) {
-            return true;
-        }
 
-        ConfrontationBean match = (ConfrontationBean) value;
-        return  match.getLieu().toLowerCase().contains(filterText)
-                || match.getDate().toString().toLowerCase().contains(filterText)
-                || match.getE1().getNom().toLowerCase().contains(filterText)
-                || match.getE2().getNom().toLowerCase().contains(filterText)
-                || match.getNom().toLowerCase().contains(filterText)
-                || (match.getListeCote().size()+"").contains(filterText) ;
-
-    }
 
 }

@@ -18,7 +18,6 @@ public class CoteBean implements Serializable {
     private Long id;
 
     private float multiplicateur ;
-    private String etat ;
     private Integer scoreE1 ;
     private Integer scoreE2 ;
     @ManyToOne(fetch=FetchType.EAGER)
@@ -33,7 +32,6 @@ public class CoteBean implements Serializable {
 
     public CoteBean( float multi, EquipeBean gagnant, BookmakerBean createur, ConfrontationBean c1)
     {
-        this.etat = "OUVERT" ;
         this.multiplicateur = multi ;
         this.createur = createur ;
         this.matchConcerne = c1 ;
@@ -44,7 +42,6 @@ public class CoteBean implements Serializable {
     }
     public CoteBean( float multi,EquipeBean gagnant, Integer s1, Integer s2, BookmakerBean createur, ConfrontationBean c1)
     {
-        this.etat = "OUVERT" ;
         this.multiplicateur = multi ;
         this.createur = createur ;
         this.matchConcerne = c1 ;
@@ -88,13 +85,6 @@ public class CoteBean implements Serializable {
         this.multiplicateur = multiplicateur;
     }
 
-    public String getEtat() {
-        return etat;
-    }
-
-    public void setEtat(String etat) {
-        this.etat = etat;
-    }
 
     public EquipeBean getGagnant() {
         return gagnant;

@@ -4,6 +4,8 @@ import Bookmaker.BookmakerBean;
 import Cote.CoteBean;
 import Parieur.ParieurBean;
 
+import javax.ejb.Schedule;
+import javax.ejb.Startup;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,6 +35,8 @@ public class PariSessionBean implements Serializable,Pari {
         em.merge(c) ;
         em.merge(b) ;
     }
+
+
 
     @Override
     public void updatePari() {

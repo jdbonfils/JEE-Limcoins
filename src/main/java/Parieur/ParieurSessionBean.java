@@ -19,7 +19,7 @@ public class ParieurSessionBean implements Parieur, Serializable {
 
     @Override
     public void addParieur(String email,String mdp,  String nom,String prenom, String date, String addr) {
-        ParieurBean p = new ParieurBean(email,mdp,  nom,prenom,date,addr);
+        ParieurBean p = new ParieurBean(email,mdp,  nom,prenom,date,addr,0);
         em.persist(p);
     }
 

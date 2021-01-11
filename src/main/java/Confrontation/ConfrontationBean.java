@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Entity
 @NamedQuery(name="allMatch", query="select b from ConfrontationBean b")
@@ -20,13 +21,16 @@ public class ConfrontationBean implements Serializable {
 
     protected String nom;
     protected String lieu;
-
-    protected Date date;
+    protected Boolean termine ;
+    protected long date;
 
     protected int minutes;
 
     @ManyToOne(fetch=FetchType.EAGER)
     protected EquipeBean e1;
+
+    private int ScoreE1 ;
+    private int ScoreE2 ;
 
     @ManyToOne(fetch=FetchType.EAGER)
     protected EquipeBean e2 ;
@@ -34,14 +38,14 @@ public class ConfrontationBean implements Serializable {
     @ManyToOne(fetch=FetchType.EAGER)
     protected EquipeBean gagnant ;
 
-    @OneToMany(fetch=FetchType.EAGER)
+    @OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.MERGE)
     protected List<CoteBean> listeCote ;
 
 
-    public ConfrontationBean(String nom, String lieu, Date date, int minutes, EquipeBean e1, EquipeBean e2)
+    public ConfrontationBean(String nom, String lieu, long date, int minutes, EquipeBean e1, EquipeBean e2)
     {
         if(nom == null)
-            this.nom = e1.getNom()+e2.getNom() + date.toString() ;
+            this.nom = e1.getNom()+e2.getNom() + (new Date(TimeUnit.SECONDS.toMillis(date)).getDay()) ;
         else
             this.nom = nom ;
        this.lieu = lieu ;
@@ -51,6 +55,7 @@ public class ConfrontationBean implements Serializable {
        this.e2 = e2 ;
        this.listeCote = new ArrayList<>() ;
        this.gagnant = null ;
+       this.termine = false ;
     }
     public ConfrontationBean() {
     }
@@ -79,11 +84,11 @@ public class ConfrontationBean implements Serializable {
         this.lieu = lieu;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
@@ -125,5 +130,29 @@ public class ConfrontationBean implements Serializable {
 
     public void setListeCote(List<CoteBean> listeCote) {
         this.listeCote = listeCote;
+    }
+
+    public Boolean getTermine() {
+        return termine;
+    }
+
+    public void setTermine(Boolean termine) {
+        this.termine = termine;
+    }
+
+    public int getScoreE1() {
+        return ScoreE1;
+    }
+
+    public void setScoreE1(int scoreE1) {
+        ScoreE1 = scoreE1;
+    }
+
+    public int getScoreE2() {
+        return ScoreE2;
+    }
+
+    public void setScoreE2(int scoreE2) {
+        ScoreE2 = scoreE2;
     }
 }

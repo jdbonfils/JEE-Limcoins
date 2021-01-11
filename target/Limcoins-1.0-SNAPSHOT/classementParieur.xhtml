@@ -26,12 +26,33 @@
         <h:outputText value="#{entry.nom}" />
     </p:column>
     <p:column headerText="Limcoin Possede">
-        <h:outputText value="#{entry.limcoinsPossede}" />
+        <h:outputText value="#{entry.limcoinsPossede - 1000}" />
     </p:column>
     <p:column headerText="Nombre de pari realisé">
         <h:outputText value="#{entry.listPariEffectue.size()}" />
     </p:column>
+    <p:column headerText="Nombre de pari gané">
+        <h:outputText value="#{entry.nbParisGagne}" />
+    </p:column>
 
 </p:dataTable>
+    <p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementParieurBean.getClassement(1)}" rowStyleClass="#{entry.email le classementParieurBean.personneConnecte.email ? 'me' : null}" >
+        <p:column headerText="Rang">
+            <h:outputText value="#{index+1}" />
+        </p:column>
+        <p:column headerText="Nom">
+            <h:outputText value="#{entry.nom}" />
+        </p:column>
+        <p:column headerText="Limcoin Possede">
+            <h:outputText value="#{entry.limcoinsPossede - 1000}" />
+        </p:column>
+        <p:column headerText="Nombre de pari realisé">
+            <h:outputText value="#{entry.listPariEffectue.size()}" />
+        </p:column>
+        <p:column headerText="Nombre de pari gané">
+            <h:outputText value="#{entry.nbParisGagne}" />
+        </p:column>
+
+    </p:dataTable>
 </h:body>
 </html>

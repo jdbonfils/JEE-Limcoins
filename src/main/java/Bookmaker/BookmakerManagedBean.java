@@ -82,13 +82,7 @@ public class BookmakerManagedBean {
     {
         this.cotesList = this.bookmaker.getCote(this.profilBookmaker.getEmail()) ;
     }
-    public float calcGain(CoteBean cote)
-    {
-        if(cote.getEtat().equals("TERMINE"))
-            return cote.calcGain() ;
-        return 0 ;
 
-    }
 
     public ClassementBookmakerBean getClassementBookmakerBean() {
         return classementBookmakerBean;

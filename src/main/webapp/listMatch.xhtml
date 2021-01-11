@@ -87,11 +87,11 @@
             </p:outputPanel>
         </f:facet>
 
-        <p:column headerText="Id">
+        <p:column headerText="Match">
             <h:outputText value="#{entry.nom}" />
         </p:column>
 
-        <p:column headerText="Year">
+        <p:column headerText="Lieu">
             <h:outputText value="#{entry.lieu}" />
         </p:column>
 
@@ -103,10 +103,10 @@
             <h:outputText value="#{entry.date}" />
         </p:column>
 
-        <p:column headerText="Color">
+        <p:column headerText="Equipes">
             <h:outputText value="#{entry.e2.nom.concat((' VS ').concat(entry.e1.nom))}" />
         </p:column>
-        <p:column headerText="Color">
+        <p:column headerText="Nombre de cote">
             <h:outputText value="#{entry.listeCote.size()}" />
         </p:column>
         <p:column headerText="Details" style="width:48px;text-align: center">

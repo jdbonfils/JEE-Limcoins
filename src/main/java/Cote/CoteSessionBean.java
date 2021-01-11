@@ -51,10 +51,18 @@ public class CoteSessionBean implements Cote, Serializable {
     @Override
     public void addCote( float multi, EquipeBean gagnant, BookmakerBean createur, ConfrontationBean c1) {
         String email = createur.getEmail() ;
+        Long idMatch = c1.getId() ;
+
         CoteBean p = new CoteBean(multi,gagnant ,createur,c1);
         em.persist(p);
+
         BookmakerBean b = em.find(BookmakerBean.class,email);
+        ConfrontationBean c = em.find(ConfrontationBean.class,idMatch) ;
+
+        c.getListeCote().add(p) ;
         b.getListCoteEffectue().add(p) ;
+
+        em.merge(c) ;
         em.merge(b) ;
     }
 

@@ -2,7 +2,7 @@ package Parieur;
 
 import Bookmaker.BookmakerBean;
 import Bookmaker.ClassementBookmakerBean;
-import ClientRest.Currency;
+
 import Confrontation.ConfrontationManagedBean;
 import Pari.PariBean;
 
@@ -61,10 +61,7 @@ public class ParieurManagedBean implements Serializable {
         }
         return null ;
     }
-    public String test() throws IOException {
-        Currency c = new Currency() ;
-        return "i : "+c.run("EUR") ;
-    }
+
 
     public ConfrontationManagedBean getMatchBean() {
         return matchBean;
