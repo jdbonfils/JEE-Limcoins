@@ -15,5 +15,6 @@ public interface Bookmaker {
     public List<BookmakerBean> getListBookmaker();
     public BookmakerBean connect(String email, String mdp) ;
     public List<CoteBean> getCote(String email) ;
+    public BookmakerBean getBookmaker(String email) ;
 
 }

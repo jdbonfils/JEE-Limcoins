@@ -5,15 +5,20 @@ import Confrontation.ConfrontationManagedBean;
 import Cote.CoteBean;
 import Pari.PariBean;
 import Parieur.Parieur;
+import Personne.PersonneCoManagedBean;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 
-import javax.faces.bean.ApplicationScoped;
+import javax.el.MethodExpression;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 @ManagedBean
 @ApplicationScoped
@@ -24,32 +29,62 @@ public class BookmakerManagedBean {
 
 
 
-    @ManagedProperty("#{confrontationManagedBean}")
-    private ConfrontationManagedBean matchBean ;
-    @ManagedProperty("#{classementBookmakerBean}")
-    private ClassementBookmakerBean classementBookmakerBean ;
+    @ManagedProperty("#{personneCoManagedBean}")
+    private PersonneCoManagedBean personneCo ;
+
 
     private String nom ;
     private String prenom ;
-    private String birthdate ;
+
     private String adresse ;
     private String tel ;
     private String email;
     private String mdp ;
     private String etat ;
-    private BookmakerBean profilBookmaker ;
     private List<CoteBean> cotesList ;
-
+    private Date birthdate ;
 
     public String createBookmaker(){
-        boolean success = this.bookmaker.addBookmaker(this.email, this.mdp, this.nom, this.prenom,  this.birthdate,this.adresse,this.tel );
+
+        if(tel == "" || mdp == "" || nom == ""  || email == "" || prenom == "" || birthdate == null)
+        {
+            FacesContext.getCurrentInstance().addMessage("messagesb", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Saisir les champs obligatoires"));
+            birthdate = null ;
+            return null ;
+        }
+        if(!tel.matches("\\d+"))
+        {
+            FacesContext.getCurrentInstance().addMessage("messagesb", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Telephone invalide"));
+            birthdate = null ;
+            return null ;
+        }
+        if(mdp.length() < 8)
+        {
+            FacesContext.getCurrentInstance().addMessage("messagesb", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Mot de passe trop court"));
+            birthdate = null ;
+            return null ;
+        }
+        boolean success = this.bookmaker.addBookmaker(this.email, this.mdp, this.nom, this.prenom, outils.outils.getDate(this.birthdate),this.adresse,this.tel );
+        email = null ;
+        mdp = null ;
+        nom = null ;
+        birthdate = null ;
+        tel = null ;
+        prenom = null ;
+        adresse = null ;
         if(success)
         {
             return "index.xhtml" ;
         }
-        this.etat = "Ce compte existe deja" ;
+        FacesContext.getCurrentInstance().addMessage("messagesb", new FacesMessage(FacesMessage.SEVERITY_WARN, "Erreur", "Ce compte existe déjà"));
         return null ;
     }
+
+    public String back()
+    {
+        return "index.xhtml" ;
+    }
+
     public List<BookmakerBean> getListBookmaker()
     {
         return this.bookmaker.getListBookmaker() ;
@@ -57,41 +92,39 @@ public class BookmakerManagedBean {
 
     public String connection()
     {
-        this.profilBookmaker = this.bookmaker.connect(this.email,this.mdp) ;
-        BookmakerBean a = this.profilBookmaker ;
-
+        this.bookmaker.connect(this.email,this.mdp) ;
+        BookmakerBean a = this.bookmaker.connect(this.email,this.mdp) ;
+        this.email = "" ;
+        this.mdp = "" ;
         if(a != null )
         {
-            classementBookmakerBean.setPersonneConnecte(a) ;
-            matchBean.setPersonneConnecte(a) ;
+            personneCo.setPersonneCo(a);
             return "listMatch.xhtml";
         }
         else
         {
-            this.etat = "Email ou mot de passe incorrecte" ;
+            FacesContext.getCurrentInstance().addMessage("bookmaker", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Mot de passe ou e-mail incorrect"));
+
         }
         return null ;
     }
-    public String LimToDollar(float val) throws IOException {
-        return " " ;
+
+    public PersonneCoManagedBean getPersonneCo() {
+        return personneCo;
     }
-    public String LimToEuro(float val) throws IOException {
-        return " " ;
+
+    public void setPersonneCo(PersonneCoManagedBean personneCo) {
+        this.personneCo = personneCo;
     }
+
+    public String creerCompte() {
+        return "creerBookmaker.xhtml" ;
+    }
+
     public void onLoad()
     {
-        this.cotesList = this.bookmaker.getCote(this.profilBookmaker.getEmail()) ;
+        this.cotesList = this.bookmaker.getCote(this.personneCo.getPersonneCo().getEmail()) ;
     }
-
-
-    public ClassementBookmakerBean getClassementBookmakerBean() {
-        return classementBookmakerBean;
-    }
-
-    public void setClassementBookmakerBean(ClassementBookmakerBean classementBookmaker) {
-        this.classementBookmakerBean = classementBookmaker;
-    }
-
 
     public List<CoteBean> getCotesList() {
         return cotesList;
@@ -99,22 +132,6 @@ public class BookmakerManagedBean {
 
     public void setCotesList(List<CoteBean> cotesList) {
         this.cotesList = cotesList;
-    }
-
-    public BookmakerBean getProfilBookmaker() {
-        return profilBookmaker;
-    }
-
-    public void setProfilBookmaker(BookmakerBean profilBookmaker) {
-        this.profilBookmaker = profilBookmaker;
-    }
-
-    public ConfrontationManagedBean getMatchBean() {
-        return matchBean;
-    }
-
-    public void setMatchBean(ConfrontationManagedBean matchBean) {
-        this.matchBean = matchBean;
     }
 
     public String getTel() {
@@ -137,8 +154,6 @@ public class BookmakerManagedBean {
         this.bookmaker = bookmaker;
     }
 
-
-
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -147,7 +162,7 @@ public class BookmakerManagedBean {
         this.prenom = prenom;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -163,7 +178,7 @@ public class BookmakerManagedBean {
         return prenom;
     }
 
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
@@ -186,4 +201,6 @@ public class BookmakerManagedBean {
     public void setEtat(String etat) {
         this.etat = etat;
     }
+
+
 }

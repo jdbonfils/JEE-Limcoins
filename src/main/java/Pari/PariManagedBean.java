@@ -4,13 +4,19 @@ package Pari;
 
 import Cote.CoteBean;
 import Parieur.ParieurBean;
-import Personne.Personne;
+import Personne.PersonneCoManagedBean;
+
 
 import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.Date;
 
 @ManagedBean
 @ApplicationScoped
@@ -19,10 +25,21 @@ public class PariManagedBean implements Serializable {
     @EJB
     private Pari pari ;
 
+    @ManagedProperty("#{personneCoManagedBean}")
+    private PersonneCoManagedBean personneCo ;
+
     private CoteBean coteConcerne ;
-    protected Personne personneConnecte ;
     private float mise ;
 
+    public void onLoad() throws IOException {
+        if (!personneCo.isConnecte()) {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/" + "index.xhtml");
+        }
+    }
+    public String getDate(long m) {
+        return outils.outils.getDate(new Date(m)) ;
+    }
     public String gain()
     {
         float gain =  this.mise * this.coteConcerne.getMultiplicateur() ;
@@ -30,19 +47,15 @@ public class PariManagedBean implements Serializable {
     }
     public void creerPari()
     {
-        if(personneConnecte instanceof ParieurBean )
+        if(this.personneCo.isParieur() )
         {
-            this.pari.addPari(this.mise, (ParieurBean) this.personneConnecte,this.coteConcerne);
+            this.pari.addPari(this.mise, (ParieurBean) this.personneCo.getPersonneCo(),this.coteConcerne);
         }
 
     }
-
-    public Personne getPersonneConnecte() {
-        return personneConnecte;
-    }
-
-    public void setPersonneConnecte(Personne personneConnecte) {
-        this.personneConnecte = personneConnecte;
+    public Boolean isParieur()
+    {
+        return this.personneCo.isParieur() ;
     }
 
     public float getMise() {
@@ -59,5 +72,13 @@ public class PariManagedBean implements Serializable {
 
     public void setCoteConcerne(CoteBean coteConcerne) {
         this.coteConcerne = coteConcerne;
+    }
+
+    public PersonneCoManagedBean getPersonneCo() {
+        return personneCo;
+    }
+
+    public void setPersonneCo(PersonneCoManagedBean personneCo) {
+        this.personneCo = personneCo;
     }
 }

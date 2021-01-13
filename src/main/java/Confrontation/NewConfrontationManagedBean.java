@@ -44,7 +44,7 @@ public class NewConfrontationManagedBean {
     protected String nom;
     protected String lieu;
 
-    protected int minutes;
+    protected String minutes;
     protected long e1id;
     protected long e2id ;
     protected List<ConfrontationBean> listMatch ;
@@ -93,13 +93,28 @@ public class NewConfrontationManagedBean {
     }
 
 
-    public void addMatch()
+    public String addMatch()
     {
 
-        long d = this.date1.getTime() ;
+
+
         EquipeBean e1 = this.equipe.getEquipe(this.e1id) ;
         EquipeBean e2 = this.equipe.getEquipe(this.e2id) ;
-        this.confrontation.addConfrontation(this.nom,this.lieu,d,this.minutes,e1,e2);
+        if(nom == "" || lieu == "" || e1 == null || e2 == null || this.date1 == null)
+        {
+            FacesContext.getCurrentInstance().addMessage("messagesb", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Informations incorrectes"));
+            return null ;
+        }
+        if(!minutes.matches("\\d+"))
+        {
+            FacesContext.getCurrentInstance().addMessage("messagesb", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Informations incorrectes"));
+            return null ;
+        }
+        long d = this.date1.getTime() ;
+        this.confrontation.addConfrontation(this.nom,this.lieu,d,Integer.parseInt(this.minutes),e1,e2);
+        this.nom = "" ;
+        this.lieu = "" ;
+        return "admin.xhtml";
 
     }
 
@@ -112,6 +127,10 @@ public class NewConfrontationManagedBean {
     public void click() {
         PrimeFaces.current().ajax().update("form:display");
         PrimeFaces.current().executeScript("PF('dlg').show()");
+    }
+    public String back()
+    {
+        return "admin.xhtml";
     }
 
     public void setListMatch(List<ConfrontationBean> listMatch) {
@@ -257,11 +276,11 @@ public class NewConfrontationManagedBean {
         this.lieu = lieu;
     }
 
-    public int getMinutes() {
+    public String getMinutes() {
         return minutes;
     }
 
-    public void setMinutes(int minutes) {
+    public void setMinutes(String minutes) {
         this.minutes = minutes;
     }
 

@@ -59,7 +59,7 @@
         <p:menuitem value="Classement Parieur" action="#{confrontationManagedBean.classementParieur}" icon="pi pi-sort-amount-up">
             <f:param name="i" value="2" />
         </p:menuitem>
-        <p:menuitem value="Deconnexion" action="#{confrontationManagedBean.classementParieur}" icon="pi pi-power-off">
+        <p:menuitem value="Deconnexion" action="#{confrontationManagedBean.deconnexion}" icon="pi pi-power-off">
             <f:param name="i" value="2" />
         </p:menuitem>
 
@@ -100,7 +100,7 @@
                 <h:outputText value="Date" />
                 <i class="pi pi-calendar" />
             </f:facet>
-            <h:outputText value="#{entry.date}" />
+            <h:outputText value="#{confrontationManagedBean.date(entry.id)}" />
         </p:column>
 
         <p:column headerText="Equipes">
@@ -113,7 +113,6 @@
             <p:commandButton action="#{confrontationManagedBean.newCote(entry.id)}"   icon="pi pi-search-plus"/>
         </p:column>
     </p:dataTable>
-
 </h:form>
 </h:body>
 </html>

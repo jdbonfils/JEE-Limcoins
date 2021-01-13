@@ -3,6 +3,8 @@ package Bookmaker;
 import Cote.CoteBean;
 import Cote.CoteByBookmakerManagedBean;
 import Personne.Personne;
+import Personne.PersonneCoManagedBean;
+
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -24,18 +26,25 @@ public class ClassementBookmakerBean {
     private Bookmaker bookmaker ;
 
     private List<BookmakerBean> bookmakersList ;
-    protected Personne personneConnecte ;
 
     @ManagedProperty("#{coteByBookmakerManagedBean}")
     private CoteByBookmakerManagedBean coteByBookmakerManagedBean ;
 
-    public void onLoad()
-    {
-        this.bookmakersList = this.bookmaker.getListBookmaker() ;
-        FacesContext context = FacesContext.getCurrentInstance();
-        if(personneConnecte != null)
-            context.addMessage(null, new FacesMessage("Connected",  "Vous êtes connecté en tant que : "+ this.getPersonneConnecte().getPrenom() +" "+this.getPersonneConnecte().getNom())) ;
-    }
+    @ManagedProperty("#{personneCoManagedBean}")
+    private PersonneCoManagedBean personneCo ;
+
+    public void onLoad() throws IOException {
+        if(!personneCo.isConnecte())
+        {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/" +"index.xhtml");
+        }
+        else {
+            this.bookmakersList = this.bookmaker.getListBookmaker();
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Connected", "Vous êtes connecté en tant que : " + this.personneCo.getPersonneCo().getPrenom() + " " + this.personneCo.getPersonneCo().getNom()));
+        }
+        }
     public void voirCote(String email) throws IOException {
         for(BookmakerBean b : this.bookmakersList)
         {
@@ -49,6 +58,10 @@ public class ClassementBookmakerBean {
         }
     }
 
+    public void home() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/" +"listMatch.xhtml");
+    }
     public CoteByBookmakerManagedBean getCoteByBookmakerManagedBean() {
         return coteByBookmakerManagedBean;
     }
@@ -86,11 +99,10 @@ public class ClassementBookmakerBean {
         this.bookmakersList = bookmakersList;
     }
 
-    public Personne getPersonneConnecte() {
-        return personneConnecte;
+    public PersonneCoManagedBean getPersonneCo() {
+        return personneCo;
     }
-
-    public void setPersonneConnecte(Personne personneConnecte) {
-        this.personneConnecte = personneConnecte;
+    public void setPersonneCo(PersonneCoManagedBean personneCo) {
+        this.personneCo = personneCo;
     }
 }

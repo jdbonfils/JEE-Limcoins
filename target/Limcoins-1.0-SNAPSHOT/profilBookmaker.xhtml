@@ -61,31 +61,59 @@
             background-color: aliceblue;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="design.css" media="all" />
 </h:head>
 <f:metadata>
-    <f:event type="preRenderView" listener="#{bookmakerManagedBean.onLoad()}" />
+    <f:event type="preRenderView" listener="#{bookmakerProfilManagedBean.onLoad()}" />
 </f:metadata>
 <h:body style="width: 100%; height: 100%;background-color:lightgrey;">
 <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
-    <f:view class="jolitext" >
-        <h:outputLabel value="Nom :     " class="jolitext" /><h:outputLabel value="#{bookmakerManagedBean.profilBookmaker.nom}" class="jolitext" /><br />
-        <h:outputLabel value="Prenom :   " class="jolitext" /><h:outputLabel value="#{bookmakerManagedBean.profilBookmaker.prenom}" class="jolitext"/><br />
-        <h:outputLabel value="E-mail :    " class="jolitext" /><h:outputLabel value="#{bookmakerManagedBean.profilBookmaker.email}" class="jolitext" /><br />
-        <h:outputLabel value="Tel :    " class="jolitext" /><h:outputLabel value="#{bookmakerManagedBean.profilBookmaker.tel}" class="jolitext" /><br />
-        <h:outputLabel value="Adresse :    " class="jolitext" /><h:outputLabel value="#{bookmakerManagedBean.profilBookmaker.adresse}" class="jolitext" /><br />
-    </f:view>
-    <p:dataTable class="marge5" var="entry" value="#{bookmakerManagedBean.profilBookmaker.limcoinsPossede}" >
+    <div class="ui-g">
+            <div class="ui-g-3">
+                <h:form>
+                    <p:commandButton  action="#{bookmakerProfilManagedBean.home}" value="Back" icon="pi pi-home"  />
+                </h:form>
+            </div>
+            <div class="ui-g-6">
+                <h:outputLabel style="display: block; width:100%; text-align:center;" class="jolitext" value="Profil Bookmaker"/><br /><br />
+                <p:separator style="margin-left: 10%;margin-right: 10%"/>
+                <br /><br />
+            </div>
+            <div class="ui-g-3"></div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-4">
+        </div>
+        <div class="ui-g-4">
+            <h:outputLabel  class="jolitext2" value="Nom "/><h:outputLabel style="float:right;" class="jolitext2" value="#{bookmakerProfilManagedBean.profil.nom}"/><br />
+            <h:outputLabel  class="jolitext2" value="Prenom"/><h:outputLabel style="float:right;"  class="jolitext2" value="#{bookmakerProfilManagedBean.profil.prenom}"/><br />
+            <h:outputLabel  class="jolitext2" value="Email"/><h:outputLabel style="float:right;"  class="jolitext2" value="#{bookmakerProfilManagedBean.profil.email}"/><br />
+            <h:outputLabel  class="jolitext2" value="Adresse"/><h:outputLabel style="float:right;"  class="jolitext2" value="#{bookmakerProfilManagedBean.profil.adresse}"/><br />
+            <h:outputLabel  class="jolitext2" value="Telephone"/><h:outputLabel style="float:right;"  class="jolitext2" value="#{bookmakerProfilManagedBean.profil.tel}"/><br />
+            <h:outputLabel  class="jolitext2" value="Date de naissance"/><h:outputLabel style="float:right;"  class="jolitext2" value="#{bookmakerProfilManagedBean.profil.birthDate}"/><br />
+            <br /><br />
+        </div>
+        <div class="ui-g-4"></div>
+    </div>
+    <p:dataTable class="marge5" var="entry" value="#{bookmakerProfilManagedBean.profil.limcoinsPossede}" >
+        <f:facet style="text-align: center;" name="header">
+            Solde
+        </f:facet>
         <p:column headerText="Limcoins">
             <h:outputText value="#{entry}" />
         </p:column>
         <p:column headerText="Euros">
-            <h:outputText value="#{bookmakerManagedBean.profilBookmaker.limcoinsPossede}" />
+            <h:outputText value="#{bookmakerProfilManagedBean.euroPossede}" />
         </p:column>
         <p:column headerText="Dollars">
-            <h:outputText value="#{bookmakerManagedBean.profilBookmaker.limcoinsPossede}" />
+            <h:outputText value="#{bookmakerProfilManagedBean.dollarPossede}" />
         </p:column>
     </p:dataTable>
-    <p:dataTable class="marge5" var="entry" value="#{bookmakerManagedBean.cotesList}" >
+    <br /><br />
+    <p:dataTable class="marge5" var="entry" value="#{bookmakerProfilManagedBean.profil.listCoteEffectue}" >
+        <f:facet style="text-align: center;" name="header">
+            Cotes effectuées
+        </f:facet>
         <p:column headerText="Cote">
             <h:outputText value="#{entry.multiplicateur}" />
         </p:column>
@@ -99,7 +127,7 @@
             <h:outputText value="#{entry.listPariAssocie.size()}" />
         </p:column>
         <p:column headerText="Gain rapporté">
-            <h:outputText value="#{bookmakerManagedBean.calcGain(entry)}" />
+            <h:outputText value="#{bookmakerProfilManagedBean.calcGain(entry.id)}" />
         </p:column>
         <p:column headerText="Details" style="width:48px;text-align: center">
             <h:form>
@@ -107,5 +135,8 @@
             </h:form>
         </p:column>
     </p:dataTable>
+    <br />
+<p:chart type="line" model="#{limcoinManagedBean.lineModel2}" style="height:300px;"/>
+
 </h:body>
 </html>

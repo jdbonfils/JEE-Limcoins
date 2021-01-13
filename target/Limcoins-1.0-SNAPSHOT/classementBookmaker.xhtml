@@ -14,19 +14,41 @@
         background-image: none !important;
         color: #000000 !important;
     }
-</style></h:head>
+</style>
+    <link rel="stylesheet" type="text/css" href="design.css" media="all" />
+</h:head>
 <h:body style="width: 100%; height: 100%;background-color:lightgrey;">
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
 
 <h:form>
-<p:dataTable update="@this" rowIndexVar="index" class="marge5" var="entry" value="#{classementBookmakerBean.getClassement(1)}" rowStyleClass="#{entry.email le classementBookmakerBean.personneConnecte.email ? 'me' : null}" >
+    <div class="ui-g">
+    <div class="ui-g-3">
+        <p:commandButton  action="#{classementBookmakerBean.home}" value="Back" icon="pi pi-home"  />
+    </div>
+    <div class="ui-g-6">
+    <h:outputLabel style="display: block; width:100%; text-align:center;" class="jolitext2" value="Classement des bookmakers"/><br /><br />
+    <p:separator style="margin-left: 10%;margin-right: 10%"/>
+    <br /><br />
+    </div>
+    <div class="ui-g-3"></div>
+    </div>
+    <div class="ui-g">
+    <div class="ui-g-1"></div>
+    <div class="ui-g-10">
+<p:dataTable update="@this" rowIndexVar="index" class="marge5" var="entry" value="#{classementBookmakerBean.getClassement(1)}" rowStyleClass="#{entry.email le classementBookmakerBean.personneCo.personneCo.email ? 'me' : null}" >
+    <f:facet style="text-align: center;" name="header">
+       Classsement par gains
+    </f:facet>
     <p:column headerText="Rang">
         <h:outputText value="#{index+1}" />
     </p:column>
     <p:column headerText="Nom">
         <h:outputText value="#{entry.nom}" />
     </p:column>
-    <p:column headerText="Limcoin Possede">
+    <p:column headerText="Prenom">
+        <h:outputText value="#{entry.prenom}" />
+    </p:column>
+    <p:column headerText="Limcoins Possedes">
         <h:outputText value="#{entry.limcoinsPossede}" />
     </p:column>
     <p:column headerText="Nombre de cote crée">
@@ -36,19 +58,28 @@
         <p:commandButton action="#{classementBookmakerBean.voirCote(entry.email)}"   icon="pi pi-search-plus"/>
     </p:column>
 </p:dataTable>
+    </div>
+        <div class="ui-g-1"></div>
+    </div>
 <br />
-    <p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementBookmakerBean.getClassement(0)}" rowStyleClass="#{entry.email le classementBookmakerBean.personneConnecte.email ? 'me' : null}" >
+    <div class="ui-g">
+    <div class="ui-g-1"></div>
+    <div class="ui-g-10">
+    <p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementBookmakerBean.getClassement(0)}" rowStyleClass="#{entry.email le classementBookmakerBean.personneCo.personneCo.email ? 'me' : null}" >
+        <f:facet style="text-align: center;" name="header">
+            Classsement par nombre de côtes
+        </f:facet>
         <p:column headerText="Rang">
             <h:outputText value="#{index+1}" />
         </p:column>
         <p:column headerText="Nom">
             <h:outputText value="#{entry.nom}" />
         </p:column>
+        <p:column headerText="Prenom">
+            <h:outputText value="#{entry.prenom}" />
+        </p:column>
         <p:column headerText="Limcoin Possede">
             <h:outputText value="#{entry.limcoinsPossede}" />
-        </p:column>
-        <p:column headerText="Nombre de cote crée">
-            <h:outputText value="#{entry.listCoteEffectue.size()}" />
         </p:column>
         <p:column headerText="Nombre de cote crée">
             <h:outputText value="#{entry.listCoteEffectue.size()}" />
@@ -57,6 +88,9 @@
             <p:commandButton action="#{classementBookmakerBean.voirCote(entry.email)}"   icon="pi pi-search-plus"/>
         </p:column>
     </p:dataTable>
+    </div>
+        <div class="ui-g-1"></div>
+    </div>
 </h:form>
 </h:body>
 </html>

@@ -5,6 +5,9 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+    <f:event type="preRenderView" listener="#{pariManagedBean.onLoad()}" />
+</f:metadata>
 <h:head>
     <style type="text/css">
         .jolitext{
@@ -61,70 +64,49 @@
             background-color: aliceblue;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="design.css" media="all" />
 </h:head>
 <h:body style="width: 100%; height: 100%;background-color:lightgrey;">
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+    <div class="ui-g">
+        <div class="ui-g-3">
+            <h:form>
+                <p:commandButton  action="#{coteManagedBean.home}" value="Back" icon="pi pi-home"  />
+            </h:form>
+        </div>
+        <div class="ui-g-6">
+            <h:outputLabel style="display: block; width:100%; text-align:center;" class="jolitext" value="Informations Sur la cote"/><br /><br />
+            <p:separator style="margin-left: 10%;margin-right: 10%"/>
+            <br /><br />
+        </div>
+        <div class="ui-g-3"></div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-3">
+        </div>
+        <div class="ui-g-6">
+            <h:outputLabel value="Nom " class="jolitext" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.matchConcerne.nom}" class="jolitext" /><br />
+            <h:outputLabel value="Lieux " class="jolitext" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.matchConcerne.lieu}" class="jolitext"/><br />
+            <h:outputLabel value="Date " class="jolitext" /><h:outputLabel style="float:right;" value="#{pariManagedBean.getDate(pariManagedBean.coteConcerne.matchConcerne.date)}" class="jolitext" /><br />
+            <br /><br />
+        </div>
+        <div class="ui-g-3"></div>
+    </div>
     <br />
-    <f:view class="jolitext" >
-        <h:outputLabel value="Nom :     " class="jolitext" /><h:outputLabel value="#{pariManagedBean.coteConcerne.matchConcerne.nom}" class="jolitext" /><br />
-        <h:outputLabel value="Lieux :   " class="jolitext" /><h:outputLabel value="#{pariManagedBean.coteConcerne.matchConcerne.lieu}" class="jolitext"/><br />
-        <h:outputLabel value="Date :    " class="jolitext" /><h:outputLabel value="#{pariManagedBean.coteConcerne.matchConcerne.date}" class="jolitext" /><br />
-    </f:view>
+    <p:separator style="margin-left: 10%;margin-right: 10%"/>
     <br />
-    <h:form id="form">
-        <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-        <p:accordionPanel>
-            <p:tab title="#{pariManagedBean.coteConcerne.matchConcerne.e1.nom}">
-                <h:panelGrid columns="2" cellpadding="10">
-                    Nom : <h:outputLabel value="#{pariManagedBean.coteConcerne.matchConcerne.e1.nom}"/>
-                    Ville : <h:outputLabel value="#{pariManagedBean.coteConcerne.matchConcerne.e1.villeAssocie}"/>
-                    Reputation : <h:outputLabel value="#{pariManagedBean.coteConcerne.matchConcerne.e1.reputation}"/>
-                    <p:dataGrid var="membre" value="#{pariManagedBean.coteConcerne.matchConcerne.e1.membres}" columns="3" layout="grid"
-                        rows="12" paginator="true" id="membres">
-                        <f:facet name="header">
-                        Liste des joueurs
-                        </f:facet>
-                        <p:panel header="#{membre.nom}" style="text-align:center">
-                            <h:panelGrid columns="1" style="width:100%">
-                            Prenom : <h:outputText value="#{membre.prenom}" />
-                            Age : <h:outputText value="#{membre.age}" />
-                            </h:panelGrid>
-                        </p:panel>
-                     </p:dataGrid>
-                </h:panelGrid>
-            </p:tab>
-            <p:tab title="#{pariManagedBean.coteConcerne.matchConcerne.e2.nom}">
-                <h:panelGrid columns="2" cellpadding="10">
-                    Nom : <h:outputLabel value="#{pariManagedBean.coteConcerne.matchConcerne.e2.nom}"/>
-                    Ville : <h:outputLabel value="#{pariManagedBean.coteConcerne.matchConcerne.e2.villeAssocie}"/>
-                    Reputation : <h:outputLabel value="#{pariManagedBean.coteConcerne.matchConcerne.e2.reputation}"/>
-                    <p:dataGrid var="membre" value="#{pariManagedBean.coteConcerne.matchConcerne.e2.membres}" columns="3" layout="grid"  rows="12" paginator="true" id="membres2">
-                        <f:facet name="header">
-                            Liste des joueurs
-                        </f:facet>
-                        <p:panel header="#{membre.nom}" style="text-align:center">
-                            <h:panelGrid columns="1" style="width:100%">
-                                Prenom : <h:outputText value="#{membre.prenom}" />
-                                Age : <h:outputText value="#{membre.age}" />
-                            </h:panelGrid>
-                        </p:panel>
-                    </p:dataGrid>
-                </h:panelGrid>
-            </p:tab>
-        </p:accordionPanel>
-    </h:form>
-    <br />
-    <br />
+    <div class="ui-g">
+    <div class="ui-g-1"></div>
+    <div class="ui-g-10">
     <h:outputLabel value="Details de la cote : " class="jolitext" />
-    <br />
+    <br /><br />
     <f:view class="jolitext" >
-        <h:outputLabel value="Multipli :     " class="jolitext2" /><h:outputLabel value="#{pariManagedBean.coteConcerne.multiplicateur}" class="jolitext2" /><br />
-        <h:outputLabel value="Gagnant :   " class="jolitext2" /><h:outputLabel value="#{pariManagedBean.coteConcerne.gagnant.nom}" class="jolitext2"/><br />
-        <h:outputLabel value="etat :    " class="jolitext2" /><h:outputLabel value="#{pariManagedBean.coteConcerne.etat}" class="jolitext2" /><br />
-        <h:outputLabel value="Cote crée par :    " class="jolitext2" /><h:outputLabel value="#{pariManagedBean.coteConcerne.createur.nom}" class="jolitext2" /><br />
-        <h:outputLabel value="Nombre de paris associe :    " class="jolitext2" /><h:outputLabel value="#{pariManagedBean.coteConcerne.listPariAssocie.size()}" class="jolitext2" /><br />
+        <h:outputLabel value="Multipli " class="jolitext2" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.multiplicateur}" class="jolitext2" /><br />
+        <h:outputLabel value="Gagnant " class="jolitext2" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.gagnant.nom}" class="jolitext2"/><br />
+        <h:outputLabel value="Cote crée par " class="jolitext2" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.createur.nom}" class="jolitext2" /><br />
+        <h:outputLabel value="Nombre de paris associe " class="jolitext2" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.listPariAssocie.size()}" class="jolitext2" /><br />
     </f:view>
-    <h:form>
+    <h:form rendered="#{pariManagedBean.gain()}">
     <h:panelGrid columns="2" cellpadding="5" styleClass="ui-grid">
         <h:outputLabel for="@next" value="Parier : " />
         <p:outputPanel>
@@ -135,7 +117,9 @@
         </p:outputPanel>
     </h:panelGrid>
         <p:commandButton value="Parier" action="#{pariManagedBean.creerPari()}"/>
-
     </h:form>
+    </div>
+    <div class="ui-g-1"></div>
+    </div>
 </h:body>
 </html>

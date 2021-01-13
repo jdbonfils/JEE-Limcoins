@@ -53,7 +53,14 @@ public class BookmakerSessionBean implements Bookmaker, Serializable {
     public void updateBookmaker() {
 
     }
-
+    @Override
+    public BookmakerBean getBookmaker(String email)
+    {
+        BookmakerBean b = em.find(BookmakerBean.class,email) ;
+        if(b != null)
+            return b;
+        return null ;
+    }
     @Override
     public void deleteBookmaker(String email) {
         Query q = em.createNativeQuery("DELETE FROM BookmakerBean p where p.EMAIL = ?");

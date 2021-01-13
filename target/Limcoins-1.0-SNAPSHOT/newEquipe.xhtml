@@ -6,36 +6,55 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
-<h:head></h:head>
-<h:body>
-<f:view>
-    <c:forEach items="#{equipeManagedBean.getListEquipe()}" var="entry">
-        <li>Email: #{entry.nom} Titre: #{entry.villeAssocie}  Auteur: #{entry.reputation}   </li>
-        <h:form>
-            <h:commandButton value="issou" action="#{equipeManagedBean.details(0)}"/>
-        </h:form>
-    </c:forEach>
-</f:view>
-<style type="text/css">
-    .ui-grid td {
-        white-space: nowrap;
-    }
-</style>
+<f:metadata>
+    <f:event type="preRenderView" listener="#{administrateurManagedBean.onLoad()}" />
+</f:metadata>
+<h:head>
+    <link rel="stylesheet" type="text/css" href="design.css" media="all" />
+</h:head>
+<h:body style="width: 100%; height: 100%;background-color:lightgrey;">
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
     <h:form>
-        <span style="margin-left: 6%" class="ui-float-label">
-            <p:inputText  id="float-input" value="#{equipeManagedBean.nom}" />
-            <p:outputLabel  for="@previous" value="Nom" />
-        </span>
-        <span style="margin-left: 6%" class="ui-float-label">
-            <p:inputText  id="float-input2" value="#{equipeManagedBean.villeAssocie}" />
-            <p:outputLabel  for="@previous" value="Ville" />
-        </span>
-        <h:panelGrid style="margin-left: 6%" columns="2" cellpadding="5" styleClass="ui-grid">
-            <h:outputLabel  value="Reputation : " /><p:spinner id="basic" value="#{equipeManagedBean.rep}" />
-            <h:outputLabel  value="Nombre de joueur : " /><p:spinner id="basic2" value="#{equipeManagedBean.nbJoueur}" />
-        </h:panelGrid>
-        <h:commandButton value="Ajouter" action="#{equipeManagedBean.addEquipe()}"/>
+        <div class="ui-g">
+            <div class="ui-g-3">
+                <p:commandButton  action="#{administrateurManagedBean.back}" value="Back" icon="pi pi-arrow-left"  />
+            </div>
+            <div class="ui-g-6">
+                <h:outputLabel style="display: block; width:100%; text-align:center;" class="jolitext2" value="Creer une equipe"/><br /><br />
+                <p:separator style="margin-left: 10%;margin-right: 10%"/>
+                <br /><br />
+                <div class="ui-fluid">
+                    <p:panel id="panel" header="Informations">
+                        <p:messages id="messagesp" showDetail="true" closable="true">
+                            <p:autoUpdate />
+                        </p:messages>
+                        <div class="p-field">
+                            <p:outputLabel for="nom" value="Nom" />
+                            <p:inputText id="nom" value="#{administrateurManagedBean.nomEquipe}" />
+                        </div>
+                        <br />
+                        <div class="p-field">
+                            <p:outputLabel for="prenom" value="Prenom" />
+                            <p:inputText id="prenom" value="#{administrateurManagedBean.villeAssocie}"/>
+                        </div>
+                        <br />
+                        <div class="p-field" style="margin-right: 25%;margin-left: 25%;">
+                            <h:outputLabel for="@next" value="Réputation" />
+                            <p:spinner id="rotate"  min="0" value="#{administrateurManagedBean.rep}"  />
+                        </div>
+                        <br />
+                        <div class="p-field" style="margin-right: 25%;margin-left: 25%;" >
+                            <h:outputLabel for="@next" value="Nombre de joueur" />
+                            <p:spinner id="rotate2"  value="#{administrateurManagedBean.nbJoueur}" min="0" max="20" rotate="true" />
+                        </div>
+                        <br/><br/>
+                        <h:commandButton value="Ajouter" action="#{administrateurManagedBean.addEquipe()}"/>
+                    </p:panel>
+                </div>
+            </div>
+            <div class="ui-g-3"></div>
+        </div>
     </h:form>
-
 </h:body>
 </html>
+

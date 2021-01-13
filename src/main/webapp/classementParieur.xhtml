@@ -14,16 +14,38 @@
         background-image: none !important;
         color: #000000 !important;
     }
-</style></h:head><h:body>
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
-<p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementParieurBean.getClassement(1)}" rowStyleClass="#{entry.email le classementParieurBean.personneConnecte.email ? 'me' : null}" >
+</style>
+    <link rel="stylesheet" type="text/css" href="design.css" media="all" />
+</h:head><h:body>
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
+    <div class="ui-g">
+        <h:form>
+        <div class="ui-g-3">
+            <p:commandButton  action="#{classementParieurBean.home}" value="Back" icon="pi pi-home"  />
+        </div>
+        <div class="ui-g-6">
+            <h:outputLabel style="display: block; width:100%; text-align:center;" class="jolitext2" value="Classement des Parieurs"/><br /><br />
+            <p:separator style="margin-left: 10%;margin-right: 10%"/>
+            <br /><br />
+        </div>
+        <div class="ui-g-3"></div>
+        </h:form>
+    </div>
+    <div class="ui-g">
+    <div class="ui-g-1"></div>
+    <div class="ui-g-10">
+<p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementParieurBean.getClassement(0)}" rowStyleClass="#{entry.email le classementParieurBean.personneConnecte.email ? 'me' : null}" >
+    <f:facet style="text-align: center;" name="header">
+        Classsement par gains
+    </f:facet>
     <p:column headerText="Rang">
         <h:outputText value="#{index+1}" />
     </p:column>
     <p:column headerText="Nom">
         <h:outputText value="#{entry.nom}" />
+    </p:column>
+    <p:column headerText="Prenom">
+        <h:outputText value="#{entry.prenom}" />
     </p:column>
     <p:column headerText="Limcoin Possede">
         <h:outputText value="#{entry.limcoinsPossede - 1000}" />
@@ -34,14 +56,26 @@
     <p:column headerText="Nombre de pari gané">
         <h:outputText value="#{entry.nbParisGagne}" />
     </p:column>
-
 </p:dataTable>
+    </div>
+        <div class="ui-g-1"></div>
+    </div>
+<br /><br />
+    <div class="ui-g">
+    <div class="ui-g-1"></div>
+    <div class="ui-g-10">
     <p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementParieurBean.getClassement(1)}" rowStyleClass="#{entry.email le classementParieurBean.personneConnecte.email ? 'me' : null}" >
+        <f:facet style="text-align: center;" name="header">
+            Classsement par nombre de paris gagne
+        </f:facet>
         <p:column headerText="Rang">
             <h:outputText value="#{index+1}" />
         </p:column>
         <p:column headerText="Nom">
             <h:outputText value="#{entry.nom}" />
+        </p:column>
+        <p:column headerText="Prenom">
+            <h:outputText value="#{entry.prenom}" />
         </p:column>
         <p:column headerText="Limcoin Possede">
             <h:outputText value="#{entry.limcoinsPossede - 1000}" />
@@ -52,7 +86,9 @@
         <p:column headerText="Nombre de pari gané">
             <h:outputText value="#{entry.nbParisGagne}" />
         </p:column>
-
     </p:dataTable>
+    </div>
+        <div class="ui-g-1"></div>
+    </div>
 </h:body>
 </html>

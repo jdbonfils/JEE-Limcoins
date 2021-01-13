@@ -31,9 +31,7 @@ public class EquipeSessionBean implements Serializable, Equipe {
     public void addEquipe(String nom, String ville, int rep, List<JoueurBean> membres) {
 
         EquipeBean p = new EquipeBean(nom, ville, rep, membres);
-
         em.persist(p);
-
     }
 
     @Override
@@ -42,7 +40,7 @@ public class EquipeSessionBean implements Serializable, Equipe {
     }
 
     @Override
-    public void deleteEquipe(int id) {
+    public void deleteEquipe(Integer id) {
         Query q = em.createNativeQuery("DELETE FROM EquipeBean p where p.ID = ?");
         q.setParameter(1, id);
         q.executeUpdate();

@@ -22,15 +22,7 @@ public class EquipeManagedBean implements Serializable {
     private int nbJoueur ;
     private List<EquipeBean> listEquipe ;
     private List<JoueurBean> listJoueur ;
-    public void addEquipe()
-    {
-        List<JoueurBean> listeJoueur = new ArrayList() ;
-        for(int i = 0 ; i != this.nbJoueur ; i++)
-        {
-            listeJoueur.add(new JoueurBean(true)) ;
-        }
-        this.equipe.addEquipe(this.nom,this.villeAssocie,this.rep,listeJoueur);
-    }
+
 
     public String details(int id)
     {

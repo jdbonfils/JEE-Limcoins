@@ -1,6 +1,7 @@
 package Confrontation;
 
 
+import Administrateur.AdministrateurBean;
 import Bookmaker.BookmakerBean;
 import Cote.CoteBean;
 import Equipe.EquipeBean;

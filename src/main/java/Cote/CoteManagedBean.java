@@ -5,7 +5,7 @@ import Bookmaker.BookmakerBean;
 import Confrontation.ConfrontationBean;
 import Equipe.*;
 import Pari.PariManagedBean;
-import Personne.Personne;
+import Personne.PersonneCoManagedBean;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -17,13 +17,16 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.PhaseId;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.primefaces.component.datatable.DataTableBase.PropertyKeys.summary;
@@ -37,7 +40,10 @@ public class CoteManagedBean implements Serializable {
     @ManagedProperty("#{pariManagedBean}")
     private PariManagedBean pariBean ;
 
-    protected Personne personneConnecte ;
+    @ManagedProperty("#{personneCoManagedBean}")
+    private PersonneCoManagedBean personneCo ;
+
+
     private ConfrontationBean match ;
     private BookmakerBean bookmaker ;
     private Integer idGagnant ;
@@ -48,31 +54,38 @@ public class CoteManagedBean implements Serializable {
     private CoteBean coteSelected ;
     private StreamedContent image;
 
-    public void onLoad()
-    {
-        this.image = DefaultStreamedContent.builder()
+
+
+    public void onLoad() throws IOException {
+        if(!personneCo.isConnecte())
+        {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/" +"index.xhtml");
+        }
+
+
+        /*this.image = DefaultStreamedContent.builder()
             .contentType("image/jpeg")
             .stream(() -> this.getClass().getResourceAsStream("../images/joueur1.jpeg"))
             .build();
-        System.out.println(image.getContentType()) ;
+        System.out.println(image.getContentType()) ;*/
     }
 
     public void creerCote()
     {
-        System.out.println("jE PASSE") ;
         if(idGagnant == 0)
         {
 
-            this.cote.addCote(this.multiplicateur,null ,this.bookmaker,this.match);
+            this.cote.addCote(this.multiplicateur,null ,(BookmakerBean) this.personneCo.getPersonneCo(),this.match);
         }
         else if(this.idGagnant == 1)
         {
 
-            this.cote.addCote(this.multiplicateur,this.getMatch().getE1() ,(BookmakerBean) this.personneConnecte,this.match);
+            this.cote.addCote(this.multiplicateur,this.getMatch().getE1() ,(BookmakerBean) this.personneCo.getPersonneCo(),this.match);
         }
         else if(this.idGagnant == 2)
         {
-            this.cote.addCote(this.multiplicateur,this.getMatch().getE2() ,(BookmakerBean) this.personneConnecte,this.match);
+            this.cote.addCote(this.multiplicateur,this.getMatch().getE2() ,(BookmakerBean) this.personneCo.getPersonneCo(),this.match);
         }
     }
     public StreamedContent getImage()
@@ -102,16 +115,27 @@ public class CoteManagedBean implements Serializable {
     public String detailsCote(long id)
     {
         pariBean.setCoteConcerne(this.cote.getCoteWithId(id));
-        pariBean.setPersonneConnecte(this.personneConnecte);
         return "detailsCote.xhtml" ;
     }
-    public boolean isBookmaker()
-    {
-        return personneConnecte instanceof Bookmaker;
+    public void home() throws IOException {
+
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/" +"listMatch.xhtml");
     }
     //Getters and setters
 
 
+    public boolean getIsbookmaker() {
+        return personneCo.isBookmaker() ;
+    }
+
+    public PersonneCoManagedBean getPersonneCo() {
+        return personneCo;
+    }
+
+    public void setPersonneCo(PersonneCoManagedBean personneCo) {
+        this.personneCo = personneCo;
+    }
 
     public PariManagedBean getPariBean() {
         return pariBean;
@@ -119,15 +143,6 @@ public class CoteManagedBean implements Serializable {
 
     public void setPariBean(PariManagedBean pariBean) {
         this.pariBean = pariBean;
-    }
-
-
-    public Personne getPersonneConnecte() {
-        return personneConnecte;
-    }
-
-    public void setPersonneConnecte(Personne personneConnecte) {
-        this.personneConnecte = personneConnecte;
     }
 
     public float getMise() {
@@ -192,5 +207,20 @@ public class CoteManagedBean implements Serializable {
 
     public void setScore2(int score2) {
         this.score2 = score2;
+    }
+
+    public String getDate(long m) {
+        return outils.outils.getDate(new Date(m)) ;
+    }
+
+    public Boolean isBookmaker() {
+        if( this.personneCo.isBookmaker())
+        {
+            return true ;
+        }
+        else
+        {
+            return false ;
+        }
     }
 }

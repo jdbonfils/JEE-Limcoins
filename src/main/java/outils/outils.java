@@ -4,6 +4,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class outils {
     public static String getHashFromPassword(String clair)
@@ -30,5 +33,15 @@ public class outils {
         }
         System.out.println(pass);
         return pass;
+    }
+
+    public static String getDate(Date d)
+    {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(d);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        return  day +" / "+month +" / "+ year ;
     }
 }

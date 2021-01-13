@@ -18,9 +18,16 @@ public class ParieurSessionBean implements Parieur, Serializable {
     EntityManager em ;
 
     @Override
-    public void addParieur(String email,String mdp,  String nom,String prenom, String date, String addr) {
-        ParieurBean p = new ParieurBean(email,mdp,  nom,prenom,date,addr,0);
-        em.persist(p);
+    public Boolean addParieur(String email,String mdp,  String nom,String prenom, String date, String addr) {
+        Query q = em.createNativeQuery("select * from Parieurbean p where p.EMAIL = ? ", ParieurBean.class);
+        q.setParameter(1, email);
+        if(q.getResultList().isEmpty()) {
+            ParieurBean p = new ParieurBean(email, mdp, nom, prenom, date, addr,0);
+            em.persist(p);
+            return true;
+        }
+        return false ;
+
     }
 
     @Override
@@ -30,7 +37,7 @@ public class ParieurSessionBean implements Parieur, Serializable {
 
     @Override
     public void deleteParieur(String email) {
-        Query q = em.createNativeQuery("DELETE FROM ParieuBean p where p.ID = ?");
+        Query q = em.createNativeQuery("DELETE FROM ParieurBean p where p.EMAIL = ?");
         q.setParameter(1, email);
         q.executeUpdate();
     }

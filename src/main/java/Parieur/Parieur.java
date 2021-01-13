@@ -10,7 +10,7 @@ import java.util.List;
 @Remote
 public interface Parieur {
 
-    public void addParieur(String email,String mdp,  String nom,String prenom, String date, String addr);
+    public Boolean addParieur(String email,String mdp,  String nom,String prenom, String date, String addr);
     public void updateParieur() ;
     public void deleteParieur(String email);
     public List<ParieurBean> getListParieur();

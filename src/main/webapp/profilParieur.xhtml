@@ -61,17 +61,44 @@
             background-color: aliceblue;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="design.css" media="all" />
     <f:metadata>
         <f:event type="preRenderView" listener="#{parieurProfilManagedBean.onLoad()}" />
     </f:metadata>
 </h:head>
-<h:body>
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
-<h:form>
+<h:body style="width: 100%; height: 100%;background-color:lightgrey;" >
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
-    <p:dataTable class="marge5" var="entry" value="#{parieurProfilManagedBean.parieurCo.limcoinsPossede}" >
+    <div class="ui-g">
+            <div class="ui-g-3">
+                <h:form>
+                    <p:commandButton  action="#{parieurProfilManagedBean.home}" value="Back" icon="pi pi-home"  />
+                </h:form>
+            </div>
+            <div class="ui-g-6">
+                <h:outputLabel style="display: block; width:100%; text-align:center;" class="jolitext2" value="Profil Parieur"/><br /><br />
+                <p:separator style="margin-left: 10%;margin-right: 10%"/>
+                <br /><br />
+            </div>
+            <div class="ui-g-3"></div>
+    </div>
+    <div class="ui-g">
+        <div class="ui-g-4">
+        </div>
+        <div class="ui-g-4">
+            <h:outputLabel  class="jolitext2" value="Nom "/><h:outputLabel style="float:right;" class="jolitext2" value="#{parieurProfilManagedBean.profil.nom}"/><br />
+            <h:outputLabel  class="jolitext2" value="Prenom"/><h:outputLabel style="float:right;"  class="jolitext2" value="#{parieurProfilManagedBean.profil.prenom}"/><br />
+            <h:outputLabel  class="jolitext2" value="Email"/><h:outputLabel style="float:right;"  class="jolitext2" value="#{parieurProfilManagedBean.profil.email}"/><br />
+            <h:outputLabel  class="jolitext2" value="Adresse"/><h:outputLabel style="float:right;"  class="jolitext2" value="#{parieurProfilManagedBean.profil.adresse}"/><br />
+            <h:outputLabel  class="jolitext2" value="Date de naissance"/><h:outputLabel style="float:right;"  class="jolitext2" value="#{parieurProfilManagedBean.profil.birthDate}"/><br />
+            <br /><br />
+        </div>
+        <div class="ui-g-4"></div>
+    </div>
+    <h:form>
+    <p:dataTable class="marge5" var="entry" value="#{parieurProfilManagedBean.profil.limcoinsPossede}" >
+        <f:facet style="text-align: center;" name="header">
+            Solde
+        </f:facet>
         <p:column headerText="Limcoins">
             <h:outputText value="#{entry}" />
         </p:column>
@@ -82,8 +109,11 @@
             <h:outputText value="#{parieurProfilManagedBean.dollarPossede}" />
         </p:column>
     </p:dataTable>
-    <br />
-    <p:dataTable class="marge5" var="entry" value="#{parieurProfilManagedBean.getListeParis()}" >
+    <br /><br />
+    <p:dataTable class="marge5" var="entry" value="#{parieurProfilManagedBean.profil.listPariEffectue}" >
+        <f:facet style="text-align: center;" name="header">
+            Paris
+        </f:facet>
         <p:column headerText="Limcoin misé">
             <h:outputText value="#{entry.limCoinMise}" />
         </p:column>
@@ -106,6 +136,7 @@
             <p:commandButton action="#{parieurProfilManagedBean.detailsCote(entry.id)}"   icon="pi pi-search"/>
         </p:column>
     </p:dataTable>
+    <br />
 </h:form>
     <p:chart type="line" model="#{limcoinManagedBean.lineModel2}" style="height:300px;"/>
 </h:body>

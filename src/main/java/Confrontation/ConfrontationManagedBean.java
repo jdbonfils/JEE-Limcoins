@@ -8,8 +8,7 @@ import Equipe.Equipe;
 import Equipe.EquipeBean;
 import Parieur.ParieurBean;
 import Parieur.ParieurProfilManagedBean;
-import Personne.Personne;
-
+import Personne.PersonneCoManagedBean;
 
 
 import javax.ejb.EJB;
@@ -46,7 +45,8 @@ public class ConfrontationManagedBean {
     @ManagedProperty("#{parieurProfilManagedBean}")
     private ParieurProfilManagedBean parieurProfil;
 
-    protected Personne personneConnecte ;
+    @ManagedProperty("#{personneCoManagedBean}")
+    private PersonneCoManagedBean personneCo ;
 
     protected List<ConfrontationBean> listMatch ;
     private List<ConfrontationBean> filteredMatch;
@@ -60,16 +60,23 @@ public class ConfrontationManagedBean {
             if(c.getId() == id)
             {
                 coteBean.setMatch(c);
-                coteBean.setPersonneConnecte(personneConnecte) ;
             }
         }
         return "newCote.xhtml" ;
     }
-    public void onLoad()
-    {
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Connected",  "Vous êtes connecté en tant que : "+ this.getPersonneConnecte().getPrenom() +" "+this.getPersonneConnecte().getNom())) ;
-        this.listMatch = this.confrontation.getListConfrontation() ;
+
+    public void onLoad() throws IOException {
+        if(!personneCo.isConnecte())
+        {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/" +"index.xhtml");
+        }
+        else
+        {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Connected",  "Vous êtes connecté en tant que : "+ this.personneCo.getPersonneCo().getPrenom() +" "+this.personneCo.getPersonneCo().getNom())) ;
+            this.listMatch = this.confrontation.getListConfrontation() ;
+        }
     }
     public List<ConfrontationBean> getListMatch()
     {
@@ -78,20 +85,36 @@ public class ConfrontationManagedBean {
 
     public String afficherSolde()
     {
-        return "Solde : "+this.personneConnecte.getLimcoinsPossede()+" Limcoins" ;
+        return "Solde : "+this.personneCo.getPersonneCo().getLimcoinsPossede()+" Limcoins" ;
     }
 
-    public String profil()
-    {
-        if (this.personneConnecte instanceof BookmakerBean)
+    public void profil() throws IOException {
+        if (this.personneCo.isBookmaker())
         {
-            return "profilBookmaker.xhtml" ;
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/" +"profilBookmaker.xhtml");
         }
         else {
-            parieurProfil.setParieurCo((ParieurBean) this.personneConnecte);
-            return "profilParieur.xhtml";
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/" +"profilParieur.xhtml");
         }
 
+    }
+    public String date(long id )
+    {
+        for(ConfrontationBean c : this.listMatch)
+        {
+            if(c.getId() == id )
+            {
+                return outils.outils.getDate(new Date(c.date)) ;
+            }
+        }
+        return "PAS DE DATE" ;
+    }
+    public void deconnexion() throws IOException {
+        this.personneCo.setDeconexion();
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/" +"index.xhtml");
     }
     public void classementBookmaker() throws IOException {
 
@@ -124,6 +147,13 @@ public class ConfrontationManagedBean {
     //Getters et Setters
 
 
+    public PersonneCoManagedBean getPersonneCo() {
+        return personneCo;
+    }
+
+    public void setPersonneCo(PersonneCoManagedBean personneCo) {
+        this.personneCo = personneCo;
+    }
 
     public List<ConfrontationBean> getFilteredMatch() {
         return filteredMatch;
@@ -141,13 +171,6 @@ public class ConfrontationManagedBean {
         this.parieurProfil = parieurProfil;
     }
 
-    public Personne getPersonneConnecte() {
-        return personneConnecte;
-    }
-
-    public void setPersonneConnecte(Personne personneConnecte) {
-        this.personneConnecte = personneConnecte;
-    }
 
     public void setListMatch(List<ConfrontationBean> listMatch) {
         this.listMatch = listMatch;

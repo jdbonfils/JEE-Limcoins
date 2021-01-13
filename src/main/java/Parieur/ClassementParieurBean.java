@@ -7,7 +7,9 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 
@@ -40,6 +42,11 @@ public class ClassementParieurBean {
             return this.parieurList;
         }
         return null ;
+    }
+
+    public void home() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(ec.getRequestContextPath() + "/" +"listMatch.xhtml");
     }
 
     public List<ParieurBean> getParieurList() {
