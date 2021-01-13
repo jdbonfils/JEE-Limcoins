@@ -45,17 +45,17 @@ public class PariManagedBean implements Serializable {
         float gain =  this.mise * this.coteConcerne.getMultiplicateur() ;
         return "Gain/ Perte : "+ (new DecimalFormat("#.##")).format(gain) +" Limcoins"  ;
     }
-    public void creerPari()
-    {
+    public void creerPari() throws IOException {
         if(this.personneCo.isParieur() )
         {
             this.pari.addPari(this.mise, (ParieurBean) this.personneCo.getPersonneCo(),this.coteConcerne);
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/" + "listMatch.xhtml");
         }
 
     }
-    public Boolean isParieur()
-    {
-        return this.personneCo.isParieur() ;
+    public boolean getIsParieur() {
+        return personneCo.isParieur() ;
     }
 
     public float getMise() {

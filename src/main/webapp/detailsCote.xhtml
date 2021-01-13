@@ -65,8 +65,9 @@
         }
     </style>
     <link rel="stylesheet" type="text/css" href="design.css" media="all" />
+    <h:outputStylesheet name="css/body.css"/>
 </h:head>
-<h:body style="width: 100%; height: 100%;background-color:lightgrey;">
+<h:body >
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
     <div class="ui-g">
         <div class="ui-g-3">
@@ -106,18 +107,25 @@
         <h:outputLabel value="Cote crée par " class="jolitext2" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.createur.nom}" class="jolitext2" /><br />
         <h:outputLabel value="Nombre de paris associe " class="jolitext2" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.listPariAssocie.size()}" class="jolitext2" /><br />
     </f:view>
-    <h:form rendered="#{pariManagedBean.gain()}">
-    <h:panelGrid columns="2" cellpadding="5" styleClass="ui-grid">
-        <h:outputLabel for="@next" value="Parier : " />
+        <h:panelGrid rendered="#{pariManagedBean.isParieur}" columns="2" cellpadding="5" styleClass="ui-grid">
+            <p:panel id="panel" header="Parier sur la côte">
+    <h:form>
+        <h:outputLabel class="jolitext2" for="@next" value="Parier : " />
+        <br />
         <p:outputPanel>
             <p:spinner stepFactor="0.25"  id="step" value="#{pariManagedBean.mise}">
-                <p:ajax update="ajaxSpinnerValue" process="@this" />
+                <p:ajax  event="keyup" update="ajaxSpinnerValue" process="@this" />
+                <p:ajax  update="ajaxSpinnerValue" process="@this" />
             </p:spinner>
             <h:outputText id="ajaxSpinnerValue" value="#{pariManagedBean.gain()}" style="padding-left: 10px" />
         </p:outputPanel>
-    </h:panelGrid>
+        <br />
         <p:commandButton value="Parier" action="#{pariManagedBean.creerPari()}"/>
+
     </h:form>
+            </p:panel>
+    </h:panelGrid>
+
     </div>
     <div class="ui-g-1"></div>
     </div>

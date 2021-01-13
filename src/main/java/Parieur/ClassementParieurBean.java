@@ -2,11 +2,14 @@ package Parieur;
 
 import Bookmaker.Bookmaker;
 import Personne.Personne;
+import Personne.PersonneCoManagedBean;
+
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -20,14 +23,23 @@ public class ClassementParieurBean {
     @EJB
     private Parieur parieur ;
 
-    private List<ParieurBean> parieurList ;
-    protected Personne personneConnecte ;
+    @ManagedProperty("#{personneCoManagedBean}")
+    private PersonneCoManagedBean personneCo ;
 
-    public void onLoad()
-    {
-        this.parieurList = this.parieur.getListParieur() ;
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Connected",  "Vous êtes connecté en tant que : "+ this.getPersonneConnecte().getPrenom() +" "+this.getPersonneConnecte().getNom())) ;
+    private List<ParieurBean> parieurList ;
+
+
+    public void onLoad() throws IOException {
+        if (!personneCo.isConnecte()) {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/" + "index.xhtml");
+        } else {
+
+
+            this.parieurList = this.parieur.getListParieur();
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Connected", "Vous êtes connecté en tant que : " + this.getPersonneCo().getPersonneCo().getPrenom() + " " + this.getPersonneCo().getPersonneCo().getNom()));
+        }
     }
     public List<ParieurBean>getClassement(int mode)
     {
@@ -57,11 +69,12 @@ public class ClassementParieurBean {
         this.parieurList = parieurList;
     }
 
-    public Personne getPersonneConnecte() {
-        return personneConnecte;
+
+    public PersonneCoManagedBean getPersonneCo() {
+        return personneCo;
     }
 
-    public void setPersonneConnecte(Personne personneConnecte) {
-        this.personneConnecte = personneConnecte;
+    public void setPersonneCo(PersonneCoManagedBean personneCo) {
+        this.personneCo = personneCo;
     }
 }
