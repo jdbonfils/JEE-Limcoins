@@ -1,5 +1,6 @@
 package Bookmaker;
 
+import Cote.CoteBean;
 import Limcoin.Limcoin;
 import Limcoin.LimcoinBean;
 import Pari.PariBean;
@@ -47,6 +48,14 @@ public class BookmakerProfilManagedBean {
     public void home() throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.redirect(ec.getRequestContextPath() + "/" +"listMatch.xhtml");
+    }
+
+    public String getEtat(long idCote) {
+        for(CoteBean cote : profil.getListCoteEffectue())
+            if(cote.getId() == idCote)
+                if(cote.getMatchConcerne().getTermine())
+                    return "TERMINE" ;
+        return "EN COURS" ;
     }
 
     public PersonneCoManagedBean getPersonneCo() {

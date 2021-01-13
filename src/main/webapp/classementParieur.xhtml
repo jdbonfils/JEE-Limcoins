@@ -33,9 +33,11 @@
         <div class="ui-g-3"></div>
 
     </div>
+    <h:form>
     <div class="ui-g">
     <div class="ui-g-1"></div>
     <div class="ui-g-10">
+
 <p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementParieurBean.getClassement(0)}" rowStyleClass="#{entry.email le classementParieurBean.personneCo.personneCo.email ? 'me' : null}" >
     <f:facet style="text-align: center;" name="header">
         Classsement par gains
@@ -92,5 +94,6 @@
     </div>
         <div class="ui-g-1"></div>
     </div>
+    </h:form>
 </h:body>
 </html>

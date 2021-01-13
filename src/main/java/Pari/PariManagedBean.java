@@ -55,7 +55,9 @@ public class PariManagedBean implements Serializable {
 
     }
     public boolean getIsParieur() {
-        return personneCo.isParieur() ;
+        if(coteConcerne.getMatchConcerne().getTermine() || !personneCo.isParieur())
+            return false ;
+        return true ;
     }
 
     public float getMise() {
