@@ -5,6 +5,8 @@ package Limcoin;
 import javax.ejb.Schedule;
 import javax.ejb.Startup;
 import javax.ejb.Stateless;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -23,21 +25,21 @@ public class LimcoinSessionBean implements Serializable,Limcoin {
     @PersistenceContext
     EntityManager em ;
 
-   @Schedule(hour="*/1", persistent=false)
+    @Schedule(hour="*", minute="*/5",persistent=false)
     public void majLimcoin() throws URISyntaxException, IOException {
-       /* if(this.getLimcoinOrdered().size() > 12)
+        String c = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath() ;
+        c.split("/Limcoins/",2);
+        String chemin = c.split("/Limcoins/",2)[0] + "/Limcoins/src/main/webapp/resources/currency.py" ;
+        if(this.getLimcoinOrdered().size() > 10)
         {
             System.out.println("Supression de la donnée la plus ancienne") ;
             this.deleteLastLimcoin();
         }
-
-
     try {
-
-            Process p = Runtime.getRuntime().exec("python3 /home/jean/Limcoins/src/main/webapp/currency.py");
+            Process p = Runtime.getRuntime().exec("python3 "+chemin);
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            float euro = 10*Float.parseFloat(stdInput.readLine()) ;
-            float dollar = 10*Float.parseFloat(stdInput.readLine()) ;
+            float euro = Float.parseFloat(stdInput.readLine()) ;
+            float dollar = Float.parseFloat(stdInput.readLine()) ;
             LimcoinBean l = new LimcoinBean(System.currentTimeMillis(),dollar%1,euro%1) ;
             em.persist(l);
             System.out.println("Limcoin MAJ") ;
@@ -45,7 +47,7 @@ public class LimcoinSessionBean implements Serializable,Limcoin {
       }catch(Exception e)
         {
             System.out.println("La MAJ du limcoin a échoué") ;
-        }*/
+        }
 
     }
 

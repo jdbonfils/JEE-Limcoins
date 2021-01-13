@@ -61,7 +61,7 @@
             background-color: aliceblue;
         }
     </style>
-    <link rel="stylesheet" type="text/css" href="design.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="resources/css/design.css" media="all" />
     <h:outputStylesheet name="css/body.css"/>
     <f:metadata>
         <f:event type="preRenderView" listener="#{parieurProfilManagedBean.onLoad()}" />
@@ -130,7 +130,7 @@
         <p:column headerText="Cote creer par ">
             <h:outputText value="#{entry.coteConcerne.createur.nom}" />
         </p:column>
-        <p:column headerText="Cote creer par ">
+        <p:column headerText="Nom match ">
             <h:outputText value="#{entry.coteConcerne.matchConcerne.nom}" />
         </p:column>
         <p:column headerText="Details" style="width:48px;text-align: center">

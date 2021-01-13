@@ -12,7 +12,8 @@ import org.primefaces.model.StreamedContent;
 import javax.ejb.EJB;
 
 
-
+import javax.ejb.Schedule;
+import javax.ejb.Startup;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -53,8 +54,6 @@ public class CoteManagedBean implements Serializable {
     private float mise ;
     private CoteBean coteSelected ;
     private StreamedContent image;
-
-
 
     public void onLoad() throws IOException {
         if(!personneCo.isConnecte())

@@ -70,7 +70,6 @@ public class ConfrontationSessionBean implements Confrontation, Serializable {
                         multi = (-1*c.getMultiplicateur()) ;
                     }
                     for (PariBean pari : c.getListPariAssocie()) {
-                        System.out.println("La chanklaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") ;
                         ParieurBean parieur = pari.getParieur();
                         parieur.setLimcoinsPossede(parieur.getLimcoinsPossede() + (pari.getLimCoinMise() * multi ));
                         bookMakerAssocie.setLimcoinsPossede(bookMakerAssocie.getLimcoinsPossede() - (pari.getLimCoinMise() * multi ));
@@ -82,12 +81,11 @@ public class ConfrontationSessionBean implements Confrontation, Serializable {
                     }
                     em.merge(bookMakerAssocie) ;
                 }
-
                 System.out.println("Il faut maj se match") ;
             }
         }
     /**/
-        System.out.println("MAJ done") ;
+        System.out.println("MAJ faite") ;
     }
 
 

@@ -15,7 +15,7 @@
         color: #000000 !important;
     }
 </style>
-    <link rel="stylesheet" type="text/css" href="design.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="resources/css/design.css" media="all" />
 </h:head><h:body>
     <h:outputStylesheet name="css/body.css"/>
     <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
@@ -38,7 +38,7 @@
     <div class="ui-g-1"></div>
     <div class="ui-g-10">
 
-<p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementParieurBean.getClassement(0)}" rowStyleClass="#{entry.email le classementParieurBean.personneCo.personneCo.email ? 'me' : null}" >
+<p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementParieurBean.getClassement(1)}" rowStyleClass="#{entry.email le classementParieurBean.personneCo.personneCo.email ? 'me' : null}" >
     <f:facet style="text-align: center;" name="header">
         Classsement par gains
     </f:facet>
@@ -51,7 +51,7 @@
     <p:column headerText="Prenom">
         <h:outputText value="#{entry.prenom}" />
     </p:column>
-    <p:column headerText="Limcoin Possede">
+    <p:column headerText="Limcoin Gagne">
         <h:outputText value="#{entry.limcoinsPossede - 1000}" />
     </p:column>
     <p:column headerText="Nombre de pari realisé">
@@ -68,7 +68,7 @@
     <div class="ui-g">
     <div class="ui-g-1"></div>
     <div class="ui-g-10">
-    <p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementParieurBean.getClassement(1)}" rowStyleClass="#{entry.email le classementParieurBean.personneCo.personneCo.email ? 'me' : null}" >
+    <p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementParieurBean.getClassement(0)}" rowStyleClass="#{entry.email le classementParieurBean.personneCo.personneCo.email ? 'me' : null}" >
         <f:facet style="text-align: center;" name="header">
             Classsement par nombre de paris gagne
         </f:facet>

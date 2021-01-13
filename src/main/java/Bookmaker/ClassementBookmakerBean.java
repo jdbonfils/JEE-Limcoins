@@ -72,9 +72,6 @@ public class ClassementBookmakerBean {
 
     public List<BookmakerBean>getClassement(int mode)
     {
-        System.out.println("issou") ;
-
-        System.out.println(this.bookmakersList.size()) ;
         if(mode == 1) {
             this.bookmakersList.sort(new Comparator<BookmakerBean>() {
                 public int compare(BookmakerBean s1, BookmakerBean s2) {

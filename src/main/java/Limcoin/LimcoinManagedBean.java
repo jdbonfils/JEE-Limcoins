@@ -37,8 +37,8 @@ public class LimcoinManagedBean implements Serializable {
 
         Axis yAxis = lineModel2.getAxis(AxisType.Y);
         yAxis.setLabel("Valeur");
-        yAxis.setMin(0);
-        yAxis.setMax(0.6);
+        yAxis.setMin(0.6);
+        yAxis.setMax(1);
     }
 
     private LineChartModel initCategoryModel() {

@@ -61,7 +61,7 @@
             background-color: aliceblue;
         }
     </style>
-    <link rel="stylesheet" type="text/css" href="design.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="resources/css/design.css" media="all" />
     <h:outputStylesheet name="css/body.css"/>
 </h:head>
 <f:metadata>
@@ -127,8 +127,14 @@
         <p:column headerText="Nombre de paris">
             <h:outputText value="#{entry.listPariAssocie.size()}" />
         </p:column>
-        <p:column headerText="Gain rapporté">
-            <h:outputText value="#{bookmakerProfilManagedBean.calcGain(entry.id)}" />
+        <p:column headerText="Equipes">
+            <h:outputText value="#{entry.matchConcerne.e1.nom.concat(' VS '.concat(entry.matchConcerne.e2.nom))}" />
+        </p:column>
+        <p:column headerText="Nom du match">
+            <h:outputText value="#{entry.matchConcerne.nom}" />
+        </p:column>
+        <p:column headerText="Lieu du match">
+            <h:outputText value="#{entry.matchConcerne.lieu}" />
         </p:column>
         <p:column headerText="Details" style="width:48px;text-align: center">
             <h:form>

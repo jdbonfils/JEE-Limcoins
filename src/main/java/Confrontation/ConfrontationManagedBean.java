@@ -134,15 +134,14 @@ public class ConfrontationManagedBean {
         if (filterText == null || filterText.equals("")) {
             return true;
         }
-
         ConfrontationBean match = (ConfrontationBean) value;
-        return  match.getLieu().toLowerCase().contains(filterText)
+
+        return match.getLieu().toLowerCase().contains(filterText)
                 || (new Date(match.getDate())).toString().toLowerCase().contains(filterText)
                 || match.getE1().getNom().toLowerCase().contains(filterText)
                 || match.getE2().getNom().toLowerCase().contains(filterText)
                 || match.getNom().toLowerCase().contains(filterText)
-                || (match.getListeCote().size()+"").contains(filterText) ;
-
+                || (match.getListeCote().size() + "").contains(filterText);
     }
 
     //Getters et Setters

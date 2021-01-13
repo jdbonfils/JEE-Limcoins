@@ -74,9 +74,6 @@ public class BookmakerProfilManagedBean {
         this.profil = profil;
     }
 
-    public float calcGain(int idCote) {
-        return 2 ;
-    }
 
     public float getEuroPossede() {
         return euroPossede;

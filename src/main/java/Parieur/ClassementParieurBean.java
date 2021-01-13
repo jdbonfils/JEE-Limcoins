@@ -51,6 +51,14 @@ public class ClassementParieurBean {
                     }
                 });
             }
+            else
+            {
+                this.parieurList.sort(new Comparator<ParieurBean>() {
+                    public int compare(ParieurBean s1, ParieurBean s2) {
+                        return Float.compare(s1.getNbParisGagne(), s2.getNbParisGagne());
+                    }
+                });
+            }
             return this.parieurList;
         }
         return null ;

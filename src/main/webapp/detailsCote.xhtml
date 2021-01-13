@@ -64,7 +64,7 @@
             background-color: aliceblue;
         }
     </style>
-    <link rel="stylesheet" type="text/css" href="design.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="resources/css/design.css" media="all" />
     <h:outputStylesheet name="css/body.css"/>
 </h:head>
 <h:body >
@@ -89,6 +89,9 @@
             <h:outputLabel value="Nom " class="jolitext" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.matchConcerne.nom}" class="jolitext" /><br />
             <h:outputLabel value="Lieux " class="jolitext" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.matchConcerne.lieu}" class="jolitext"/><br />
             <h:outputLabel value="Date " class="jolitext" /><h:outputLabel style="float:right;" value="#{pariManagedBean.getDate(pariManagedBean.coteConcerne.matchConcerne.date)}" class="jolitext" /><br />
+            <h:outputLabel value="Equipe " class="jolitext" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.matchConcerne.e1.nom}" class="jolitext" /><br />
+            <h:outputLabel value="Equipe " class="jolitext" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.matchConcerne.e2.nom}" class="jolitext" /><br />
+
             <br /><br />
         </div>
         <div class="ui-g-3"></div>
@@ -102,10 +105,10 @@
     <h:outputLabel value="Details de la cote : " class="jolitext" />
     <br /><br />
     <f:view class="jolitext" >
-        <h:outputLabel value="Multipli " class="jolitext2" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.multiplicateur}" class="jolitext2" /><br />
+        <h:outputLabel value="Multiplicateur " class="jolitext2" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.multiplicateur}" class="jolitext2" /><br />
         <h:outputLabel value="Gagnant " class="jolitext2" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.gagnant.nom}" class="jolitext2"/><br />
         <h:outputLabel value="Cote crée par " class="jolitext2" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.createur.nom}" class="jolitext2" /><br />
-        <h:outputLabel value="Nombre de paris associe " class="jolitext2" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.listPariAssocie.size()}" class="jolitext2" /><br />
+        <h:outputLabel value="Nombre de paris associés " class="jolitext2" /><h:outputLabel style="float:right;" value="#{pariManagedBean.coteConcerne.listPariAssocie.size()}" class="jolitext2" /><br />
     </f:view>
         <h:panelGrid rendered="#{pariManagedBean.isParieur}" columns="2" cellpadding="5" styleClass="ui-grid">
             <p:panel id="panel" header="Parier sur la côte">

@@ -15,7 +15,7 @@
         color: #000000 !important;
     }
 </style>
-    <link rel="stylesheet" type="text/css" href="design.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="resources/css/design.css" media="all" />
 </h:head>
 <h:body >
     <h:outputStylesheet name="css/body.css"/>
@@ -49,10 +49,10 @@
     <p:column headerText="Prenom">
         <h:outputText value="#{entry.prenom}" />
     </p:column>
-    <p:column headerText="Limcoins Possedes">
-        <h:outputText value="#{entry.limcoinsPossede}" />
+    <p:column headerText="Limcoins Gangne">
+        <h:outputText value="#{entry.limcoinsPossede - 1000}" />
     </p:column>
-    <p:column headerText="Nombre de cote crée">
+    <p:column headerText="Nombre de cote créées">
         <h:outputText value="#{entry.listCoteEffectue.size()}" />
     </p:column>
     <p:column headerText="Details" style="width:48px;text-align: center">
