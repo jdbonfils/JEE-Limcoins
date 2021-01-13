@@ -24,8 +24,10 @@ public class CoteBean implements Serializable {
 
     @OneToMany(fetch=FetchType.EAGER,cascade = CascadeType.MERGE)
     private List<PariBean> listPariAssocie ;
+
     @ManyToOne(fetch=FetchType.EAGER,  cascade = CascadeType.MERGE)
     private BookmakerBean createur ;
+
     @ManyToOne(fetch=FetchType.EAGER)
     private ConfrontationBean matchConcerne ;
 

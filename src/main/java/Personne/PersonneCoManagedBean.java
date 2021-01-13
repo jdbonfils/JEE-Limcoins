@@ -19,7 +19,6 @@ public class PersonneCoManagedBean implements Serializable {
 
     private Personne personneCo ;
 
-
     public boolean isConnecte()
     {
         return personneCo != null;

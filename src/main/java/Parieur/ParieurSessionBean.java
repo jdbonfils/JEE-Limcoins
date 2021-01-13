@@ -29,12 +29,6 @@ public class ParieurSessionBean implements Parieur, Serializable {
         return false ;
 
     }
-
-    @Override
-    public void updateParieur() {
-
-    }
-
     @Override
     public void deleteParieur(String email) {
         Query q = em.createNativeQuery("DELETE FROM ParieurBean p where p.EMAIL = ?");

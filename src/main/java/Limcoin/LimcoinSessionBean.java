@@ -40,13 +40,13 @@ public class LimcoinSessionBean implements Serializable,Limcoin {
     try {
             Process p = Runtime.getRuntime().exec("python3 "+chemin);
             BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            float euro = Float.parseFloat(stdInput.readLine()) ;
+           float euro = Float.parseFloat(stdInput.readLine()) ;
             float dollar = Float.parseFloat(stdInput.readLine()) ;
             LimcoinBean l = new LimcoinBean(System.currentTimeMillis(),dollar%1,euro%1) ;
             em.persist(l);
             System.out.println("Limcoin MAJ") ;
 
-      }catch(Exception e)
+     }catch(Exception e)
         {
             System.out.println("La MAJ du limcoin a échoué") ;
         }
