@@ -10,7 +10,9 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -43,7 +45,7 @@ public class NewConfrontationManagedBean {
 
     protected String nom;
     protected String lieu;
-
+    protected List<EquipeBean> listEquipe;
     protected String minutes;
     protected long e1id;
     protected long e2id ;
@@ -87,17 +89,15 @@ public class NewConfrontationManagedBean {
         dateTimeDe = GregorianCalendar.getInstance().getTime();
     }
 
-    public void onLoad()
-    {
+    public void onLoad() throws IOException {
+
+        this.listEquipe = this.equipe.getListEquipe() ;
         this.listMatch = this.confrontation.getListConfrontation() ;
     }
 
 
     public String addMatch()
     {
-
-
-
         EquipeBean e1 = this.equipe.getEquipe(this.e1id) ;
         EquipeBean e2 = this.equipe.getEquipe(this.e2id) ;
         if(nom == "" || lieu == "" || e1 == null || e2 == null || this.date1 == null)
@@ -115,7 +115,6 @@ public class NewConfrontationManagedBean {
         this.nom = "" ;
         this.lieu = "" ;
         return "admin.xhtml";
-
     }
 
     public void onDateSelect(SelectEvent<Date> event) {
@@ -298,5 +297,13 @@ public class NewConfrontationManagedBean {
 
     public void setE2id(long e2id) {
         this.e2id = e2id;
+    }
+
+    public List<EquipeBean> getListEquipe() {
+        return listEquipe;
+    }
+
+    public void setListEquipe(List<EquipeBean> listEquipe) {
+        this.listEquipe = listEquipe;
     }
 }

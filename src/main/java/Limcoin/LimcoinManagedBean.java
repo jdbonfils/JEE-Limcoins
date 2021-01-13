@@ -37,8 +37,8 @@ public class LimcoinManagedBean implements Serializable {
 
         Axis yAxis = lineModel2.getAxis(AxisType.Y);
         yAxis.setLabel("Valeur");
-        yAxis.setMin(0.6);
-        yAxis.setMax(1);
+        yAxis.setMin(0.65);
+        yAxis.setMax(0.95);
     }
 
     private LineChartModel initCategoryModel() {
@@ -50,17 +50,12 @@ public class LimcoinManagedBean implements Serializable {
         euro.setLabel("Euro");
         dollar.setLabel("Dollar");
         Calendar calendar = Calendar.getInstance();
-        System.out.println(valeurs.size()+"iesjfioejsfijsoeifjios");
         for(LimcoinBean l : valeurs)
         {
-
-            System.out.println(l.getDollar()+"valeur dollar");
             calendar.setTimeInMillis(l.getDate());
-
             euro.set( calendar.get(Calendar.MINUTE) ,l.getEuro()) ;
             dollar.set( calendar.get(Calendar.MINUTE) ,l.getDollar()) ;
         }
-
         model.addSeries(euro);
         model.addSeries(dollar);
 

@@ -2,6 +2,8 @@ package Limcoin;
 
 
 
+import Administrateur.AdministrateurBean;
+
 import javax.ejb.Schedule;
 import javax.ejb.Startup;
 import javax.ejb.Stateless;

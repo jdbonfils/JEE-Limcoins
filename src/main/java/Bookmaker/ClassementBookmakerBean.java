@@ -57,7 +57,10 @@ public class ClassementBookmakerBean {
             }
         }
     }
-
+    public boolean isMe()
+    {
+        return true;
+    }
     public void home() throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         ec.redirect(ec.getRequestContextPath() + "/" +"listMatch.xhtml");

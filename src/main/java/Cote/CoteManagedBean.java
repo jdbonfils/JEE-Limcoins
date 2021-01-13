@@ -61,20 +61,12 @@ public class CoteManagedBean implements Serializable {
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             ec.redirect(ec.getRequestContextPath() + "/" +"index.xhtml");
         }
-
-
-        /*this.image = DefaultStreamedContent.builder()
-            .contentType("image/jpeg")
-            .stream(() -> this.getClass().getResourceAsStream("../images/joueur1.jpeg"))
-            .build();
-        System.out.println(image.getContentType()) ;*/
     }
 
     public void creerCote()
     {
         if(idGagnant == 0)
         {
-
             this.cote.addCote(this.multiplicateur,null ,(BookmakerBean) this.personneCo.getPersonneCo(),this.match);
         }
         else if(this.idGagnant == 1)
@@ -122,7 +114,6 @@ public class CoteManagedBean implements Serializable {
         ec.redirect(ec.getRequestContextPath() + "/" +"listMatch.xhtml");
     }
     //Getters and setters
-
 
     public boolean getIsbookmaker() {
         return personneCo.isBookmaker() ;

@@ -8,6 +8,7 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 <f:metadata>
     <f:event type="preRenderView" listener="#{administrateurManagedBean.onLoad()}" />
+    <f:event type="preRenderView" listener="#{newConfrontationManagedBean.onLoad()}" />
 </f:metadata>
 <h:head>
     <link rel="stylesheet" type="text/css" href="resources/css/design.css" media="all" />
@@ -46,14 +47,14 @@
                         <div class="p-field" style="margin-right: 10%;margin-left: 10%;">
                             <h:outputText  value="Equipe 1 " />
                             <h:selectOneMenu value="#{newConfrontationManagedBean.e1id}">
-                                <f:selectItems value="#{equipeManagedBean.getListEquipe()}" var="c"  itemLabel="#{c.nom}" itemValue="#{c.id}" />
+                                <f:selectItems value="#{newConfrontationManagedBean.listEquipe}" var="c"  itemLabel="#{c.nom}" itemValue="#{c.id}" />
                             </h:selectOneMenu>
                         </div>
                         <br />
                         <div class="p-field" style="margin-right: 10%;margin-left: 10%;">
                             <h:outputText  value="Equipe 2 " />
                             <h:selectOneMenu value="#{newConfrontationManagedBean.e2id}">
-                                <f:selectItems value="#{equipeManagedBean.getListEquipe()}" var="c"  itemLabel="#{c.nom}" itemValue="#{c.id}" />
+                                <f:selectItems value="#{newConfrontationManagedBean.listEquipe}" var="c"  itemLabel="#{c.nom}" itemValue="#{c.id}" />
                             </h:selectOneMenu>
                         </div>
                         <br />

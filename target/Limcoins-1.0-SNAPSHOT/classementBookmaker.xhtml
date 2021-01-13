@@ -36,7 +36,7 @@
     <div class="ui-g">
     <div class="ui-g-1"></div>
     <div class="ui-g-10">
-<p:dataTable update="@this" rowIndexVar="index" class="marge5" var="entry" value="#{classementBookmakerBean.getClassement(1)}" rowStyleClass="#{entry.email le classementBookmakerBean.personneCo.personneCo.email ? 'me' : null}" >
+<p:dataTable update="@this" rowIndexVar="index" class="marge5" var="entry" value="#{classementBookmakerBean.getClassement(1)}" rowStyleClass="#{entry.email == classementBookmakerBean.personneCo.personneCo.email ? 'me' : null}" >
     <f:facet style="text-align: center;" name="header">
        Classsement par gains
     </f:facet>
@@ -66,7 +66,7 @@
     <div class="ui-g">
     <div class="ui-g-1"></div>
     <div class="ui-g-10">
-    <p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementBookmakerBean.getClassement(0)}" rowStyleClass="#{entry.email le classementBookmakerBean.personneCo.personneCo.email ? 'me' : null}" >
+    <p:dataTable rowIndexVar="index" class="marge5" var="entry" value="#{classementBookmakerBean.getClassement(0)}" rowStyleClass="#{entry.email == classementBookmakerBean.personneCo.personneCo.email ? 'me' : null}" >
         <f:facet style="text-align: center;" name="header">
             Classsement par nombre de côtes
         </f:facet>

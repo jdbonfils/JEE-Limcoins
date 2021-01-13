@@ -30,24 +30,7 @@ public class CoteSessionBean implements Cote, Serializable {
         }
         return null ;
     }
-    @Override
-    public void addCote( float multi, Integer s1, Integer s2, BookmakerBean createur, ConfrontationBean c1) {
-        if(s1 < s2)
-        {
-            CoteBean p = new CoteBean(multi,c1.getE1(),s1,s2 ,createur,c1);
-            em.persist(p);
-        }
-        else if(s2 < s1)
-        {
-            CoteBean p = new CoteBean(multi,c1.getE2(),s1,s2 ,createur,c1);
-            em.persist(p);
-        }
-        else
-        {
-            CoteBean p = new CoteBean(multi,null,s1,s2 ,createur,c1);
-            em.persist(p);
-        }
-    }
+
     @Override
     public void addCote( float multi, EquipeBean gagnant, BookmakerBean createur, ConfrontationBean c1) {
         String email = createur.getEmail() ;
@@ -64,6 +47,8 @@ public class CoteSessionBean implements Cote, Serializable {
 
         em.merge(c) ;
         em.merge(b) ;
+        createur.getListCoteEffectue().add(p) ;
+        em.merge(createur) ;
     }
 
     @Override
